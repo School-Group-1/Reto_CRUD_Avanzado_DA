@@ -6,29 +6,81 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="SignUpRoot" prefHeight="360.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LogInWindowController">
-   <children>
-      <Button id="Button_LogIn" fx:id="Button_LogIn" layoutX="102.0" layoutY="224.0" mnemonicParsing="false" onAction="#logIn" prefHeight="28.0" prefWidth="61.0" style="-fx-background-color: A7C4E5; -fx-border-color: #000000;" text="Log In " textAlignment="CENTER" />
-      <Button id="Button_SignUp" fx:id="Button_SignUp" layoutX="104.0" layoutY="268.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: A7C4E5; -fx-border-color: #000000;" text="Sign Up" />
-      <PasswordField id="PasswordField_Password" fx:id="PasswordField_Password" layoutX="58.0" layoutY="178.0" promptText="Password" />
-      <TextField id="TextField_Username" fx:id="TextField_Username" layoutX="58.0" layoutY="117.0" promptText="Username" />
-      <ImageView layoutX="95.0" layoutY="25.0">
-         <image>
-            <Image url="@../images/person_celebrate_76dp_5084C1_FILL0_wght400_GRAD0_opsz48.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="25.0" layoutY="117.0">
-         <image>
-            <Image url="@../images/mail_34dp_5084C1_FILL0_wght400_GRAD0_opsz40.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="25.0" layoutY="178.0">
-         <image>
-            <Image url="@../images/lock_40dp_5084C1_FILL0_wght400_GRAD0_opsz40.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="labelIncorrecto" layoutX="11.0" layoutY="315.0" prefHeight="17.0" prefWidth="255.0" textFill="RED" />
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="504.0" style="-fx-background-color: #019040;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LogInWindowController">
+   <right>
+      <Pane prefHeight="250.0" prefWidth="72.0" style="-fx-background-color: #019040;" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <Pane prefHeight="32.0" prefWidth="504.0" style="-fx-background-color: #019040;" BorderPane.alignment="CENTER" />
+   </bottom>
+   <left>
+      <HBox prefHeight="250.0" prefWidth="70.0" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <GridPane prefHeight="240.0" prefWidth="416.0" style="-fx-background-color: #ffffff; -fx-background-radius: 30;" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.20001220703125" minWidth="10.0" prefWidth="67.00003662109376" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.7999755859375" minWidth="10.0" prefWidth="237.39996337890622" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.20001220703125" minWidth="10.0" prefWidth="67.39996337890625" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="47.799993896484374" minHeight="10.0" prefHeight="10.200018310546874" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="96.59998168945313" minHeight="10.0" prefHeight="56.79999999999999" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="85.4" minHeight="10.0" prefHeight="43.19999084472656" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="85.4" minHeight="10.0" prefHeight="43.19999084472656" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="89.40001220703125" minHeight="10.0" prefHeight="89.40001220703125" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="82.80000915527344" minHeight="10.0" prefHeight="58.99998779296874" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <PasswordField id="PasswordField_Password" fx:id="PasswordField_Password1" alignment="CENTER" promptText="Password" style="-fx-background-radius: 15; -fx-border-color: #000000; -fx-border-radius: 15;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/mail_34dp_5084C1_FILL0_wght400_GRAD0_opsz40.png" />
+               </image>
+            </ImageView>
+            <TextField id="TextField_Username" fx:id="TextField_Username1" alignment="CENTER" promptText="Username" style="-fx-background-radius: 15; -fx-border-color: #000000; -fx-border-radius: 15;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/lock_40dp_5084C1_FILL0_wght400_GRAD0_opsz40.png" />
+               </image>
+            </ImageView>
+            <Button id="Button_LogIn" fx:id="Button_LogIn1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logIn" prefHeight="56.0" prefWidth="119.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 3;" text="Log In " textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button id="Button_SignUp" fx:id="Button_SignUp1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signUp" prefHeight="27.0" prefWidth="271.0" style="-fx-background-color: #ffffff;" text="Don't have an account? Sing Up!" textFill="#6ba5f7" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Button>
+            <Label fx:id="labelIncorrecto1" prefHeight="17.0" prefWidth="255.0" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+   </center>
+   <top>
+      <GridPane prefHeight="95.0" prefWidth="504.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="255.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../images/LogoRetoDinAlt.png" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+   </top>
+</BorderPane>
