@@ -1,19 +1,13 @@
-
 package main;
-import controller.Controller;
-import java.time.LocalDate;
-import java.util.Map;
-import java.util.TreeMap;
+
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import utilities.Utilities;
-
-
-
+import model.User;
+import org.hibernate.Session;
 
 public class Main extends Application {
 
@@ -25,6 +19,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
+
         Parent root = FXMLLoader.load(getClass().getResource("/view/LogInWindow.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Login Application");
@@ -38,6 +33,11 @@ public class Main extends Application {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        User u = sesion.get(User.class, "jlopez");
+        System.out.println(u.toString());
+        HibernateUtil.closeSessionFactory();
+
         launch(args);
     }
 
