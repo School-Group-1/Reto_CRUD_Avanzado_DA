@@ -20,8 +20,8 @@ public class User extends Profile {
     @Column(name = "card_number")
     private String cardNumber;
 
-    public User(String gender, String cardNumber, String username, String password, String email, int userCode, String name, String telephone, String surname) {
-        super(username, password, email, userCode, name, telephone, surname);
+    public User(String gender, String cardNumber, String username, String password, String email, String name, String telephone, String surname) {
+        super(username, password, email, name, telephone, surname);
         this.gender = gender;
         this.cardNumber = cardNumber;
     }

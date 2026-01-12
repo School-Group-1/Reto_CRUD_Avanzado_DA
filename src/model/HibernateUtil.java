@@ -1,4 +1,4 @@
-package main;
+package model;
 
 import model.Admin;
 import model.Profile;
@@ -16,11 +16,11 @@ public class HibernateUtil {
     public static SessionFactory buildSessionFactory() {
         Configuration configuration = new Configuration();
         configuration.configure("/resources/hibernate.cfg.xml");
-        
+
         configuration.addAnnotatedClass(Profile.class);
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Admin.class);
-        
+
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).build();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -35,8 +35,6 @@ public class HibernateUtil {
     }
 
     public static void closeSessionFactory() {
-        if ((sessionFactory != null) && (sessionFactory.isClosed() == false)) {
-            sessionFactory.close();
-        }
+        getSessionFactory().close();
     }
 }

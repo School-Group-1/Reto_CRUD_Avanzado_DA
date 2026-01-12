@@ -6,7 +6,7 @@
 
         <!-- JDBC Database Connection Settings -->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/crud</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/crud?useSSL=false</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
 

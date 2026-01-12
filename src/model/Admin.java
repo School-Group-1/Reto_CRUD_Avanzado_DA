@@ -18,8 +18,8 @@ public class Admin extends Profile {
     @Column(name = "current_account")
     private String currentAccount;
 
-    public Admin(String currentAccount, String username, String password, String email, int userCode, String name, String telephone, String surname) {
-        super(username, password, email, userCode, name, telephone, surname);
+    public Admin(String currentAccount, String username, String password, String email, String name, String telephone, String surname) {
+        super(username, password, email, name, telephone, surname);
         this.currentAccount = currentAccount;
     }
 

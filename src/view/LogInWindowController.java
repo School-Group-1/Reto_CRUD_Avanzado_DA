@@ -25,33 +25,24 @@ import model.DBImplementation;
 import model.Profile;
 
 /**
- * Controller for the Login window.
- * Handles user login and navigation to the main menu or signup window.
+ * Controller for the Login window. Handles user login and navigation to the
+ * main menu or signup window.
  */
 public class LogInWindowController implements Initializable {
 
+    @FXML
     private TextField TextField_Username;
-
+    @FXML
     private PasswordField PasswordField_Password;
-
+    @FXML
     private Button Button_LogIn;
-
+    @FXML
     private Button Button_SignUp;
-
+    @FXML
     private Label labelIncorrecto; // Label to show error messages
 
     // Controller handling business logic
     private Controller cont = new Controller(new DBImplementation());
-    @FXML
-    private PasswordField PasswordField_Password1;
-    @FXML
-    private TextField TextField_Username1;
-    @FXML
-    private Button Button_LogIn1;
-    @FXML
-    private Button Button_SignUp1;
-    @FXML
-    private Label labelIncorrecto1;
 
     /**
      * Opens the SignUp window.
@@ -78,8 +69,8 @@ public class LogInWindowController implements Initializable {
     }
 
     /**
-     * Attempts to log in the user.
-     * If successful, opens MenuWindow; otherwise, shows an error.
+     * Attempts to log in the user. If successful, opens MenuWindow; otherwise,
+     * shows an error.
      */
     @FXML
     private void logIn() {

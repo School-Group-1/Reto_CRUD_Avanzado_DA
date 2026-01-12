@@ -40,29 +40,29 @@
             <RowConstraints maxHeight="82.80000915527344" minHeight="10.0" prefHeight="58.99998779296874" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <PasswordField id="PasswordField_Password" fx:id="PasswordField_Password1" alignment="CENTER" promptText="Password" style="-fx-background-radius: 15; -fx-border-color: #000000; -fx-border-radius: 15;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <PasswordField id="PasswordField_Password" fx:id="PasswordField_Password" alignment="CENTER" promptText="Password" style="-fx-background-radius: 15; -fx-border-color: #000000; -fx-border-radius: 15;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
                   <Image url="@../images/mail_34dp_5084C1_FILL0_wght400_GRAD0_opsz40.png" />
                </image>
             </ImageView>
-            <TextField id="TextField_Username" fx:id="TextField_Username1" alignment="CENTER" promptText="Username" style="-fx-background-radius: 15; -fx-border-color: #000000; -fx-border-radius: 15;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField id="TextField_Username" fx:id="TextField_Username" alignment="CENTER" promptText="Username" style="-fx-background-radius: 15; -fx-border-color: #000000; -fx-border-radius: 15;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <image>
                   <Image url="@../images/lock_40dp_5084C1_FILL0_wght400_GRAD0_opsz40.png" />
                </image>
             </ImageView>
-            <Button id="Button_LogIn" fx:id="Button_LogIn1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logIn" prefHeight="56.0" prefWidth="119.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 3;" text="Log In " textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <Button id="Button_LogIn" fx:id="Button_LogIn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logIn" prefHeight="56.0" prefWidth="119.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 3;" text="Log In " textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button id="Button_SignUp" fx:id="Button_SignUp1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signUp" prefHeight="27.0" prefWidth="271.0" style="-fx-background-color: #ffffff;" text="Don't have an account? Sing Up!" textFill="#6ba5f7" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Button id="Button_SignUp" fx:id="Button_SignUp" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signUp" prefHeight="27.0" prefWidth="271.0" style="-fx-background-color: #ffffff;" text="Don't have an account? Sing Up!" textFill="#6ba5f7" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Button>
-            <Label fx:id="labelIncorrecto1" prefHeight="17.0" prefWidth="255.0" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="labelIncorrecto" prefHeight="17.0" prefWidth="255.0" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </center>

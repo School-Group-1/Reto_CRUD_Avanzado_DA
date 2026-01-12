@@ -25,7 +25,8 @@ public abstract class Profile {
     private String password;
     @Column(name = "email")
     private String email;
-    @Column(name = "user_code")
+    @GeneratedValue
+    @Column(name = "user_code", unique=true, updatable=false)
     private int userCode;
     @Column(name = "name_")
     private String name;
@@ -37,11 +38,10 @@ public abstract class Profile {
     /**
      * Constructs a profile with the specified attributes.
      */
-    public Profile(String username, String password, String email, int userCode, String name, String telephone, String surname) {
+    public Profile(String username, String password, String email, String name, String telephone, String surname) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.userCode = userCode;
         this.name = name;
         this.telephone = telephone;
         this.surname = surname;

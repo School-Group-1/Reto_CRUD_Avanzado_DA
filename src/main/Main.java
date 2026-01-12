@@ -1,13 +1,12 @@
 package main;
 
+import model.HibernateUtil;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.User;
-import org.hibernate.Session;
 
 public class Main extends Application {
 
@@ -33,12 +32,12 @@ public class Main extends Application {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        User u = sesion.get(User.class, "jlopez");
-        System.out.println(u.toString());
-        HibernateUtil.closeSessionFactory();
+        try {
+            launch(args);
+        } finally {
+            HibernateUtil.closeSessionFactory();
 
-        launch(args);
+        }
     }
 
 }
