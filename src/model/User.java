@@ -13,7 +13,7 @@ public class User extends Profile {
     private String gender;
     private String cardNumber;
 
-    public User(String gender, String cardNumber, String username, String password, String email, int userCode, String name, String telephone, String surname) {
+    public User(String username, String password, String email, int userCode, String name, String telephone, String surname, String gender, String cardNumber) {
         super(username, password, email, userCode, name, telephone, surname);
         this.gender = gender;
         this.cardNumber = cardNumber;
