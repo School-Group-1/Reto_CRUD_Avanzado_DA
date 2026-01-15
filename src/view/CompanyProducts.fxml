@@ -16,7 +16,7 @@
    <children>
       <BorderPane layoutY="-2.0" prefHeight="408.0" prefWidth="711.0">
          <top>
-            <HBox prefHeight="52.0" prefWidth="676.0" spacing="10.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="730.0" spacing="10.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="33.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -26,7 +26,7 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="47.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="&gt;">
+                  <Button alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="&gt;">
                      <font>
                         <Font size="29.0" />
                      </font>
@@ -36,26 +36,47 @@
          <left>
             <VBox prefHeight="390.0" prefWidth="131.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Store">
+                  <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Store">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="49.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/shop-xxl.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="185.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Profile">
+                  <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="185.0" style="-fx-background-color: #D3D3D3; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/truck-2-xxl.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Profile">
                      <VBox.margin>
                         <Insets top="218.0" />
                      </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/user-xxl.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
             </VBox>
          </left>
          <center>
-            <ScrollPane fitToWidth="true" prefHeight="356.0" prefWidth="323.0" BorderPane.alignment="CENTER">
+            <ScrollPane fitToWidth="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="356.0" prefWidth="289.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox prefHeight="402.0" prefWidth="312.0" style="-fx-background-color: #FFFFFF;">
+                  <VBox minWidth="-Infinity" prefHeight="402.0" prefWidth="287.0" style="-fx-background-color: #FFFFFF;">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="157.0" prefWidth="257.0">
+                        <HBox alignment="CENTER" prefHeight="133.0" prefWidth="312.0">
                            <children>
                               <ImageView fitHeight="95.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -72,15 +93,15 @@
                                           <Insets top="2.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label maxWidth="1.7976931348623157E308" prefHeight="61.0" prefWidth="129.0" text="Esta camiseta sólo se la puede poner el mejor, así que si como eres el mejor, más te vale comprarla!!" wrapText="true">
+                                    <Label maxWidth="1.7976931348623157E308" prefHeight="65.0" prefWidth="163.0" text="Esta camiseta sólo se la puede poner el mejor, así que si como eres el mejor, más te vale comprarla!!" wrapText="true">
                                        <font>
                                           <Font size="9.0" />
                                        </font>
                                     </Label>
                                     <HBox alignment="BOTTOM_CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="129.0" spacing="30.0" VBox.vgrow="NEVER">
                                        <children>
-                                          <Label alignment="CENTER" prefHeight="17.0" prefWidth="71.0" style="-fx-font-weight: bold; -fx-border-color: #0f954a;" text="price" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" style="-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="View" textFill="#0f954a" />
+                                          <Label fx:id="price" alignment="CENTER" prefHeight="17.0" prefWidth="71.0" style="-fx-font-weight: bold; -fx-border-color: #0f954a;" text="price" />
+                                          <Button fx:id="view" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" style="-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="View" textFill="#0f954a" />
                                        </children>
                                        <padding>
                                           <Insets left="5.0" right="5.0" />
@@ -89,10 +110,13 @@
                                  </children>
                               </VBox>
                            </children>
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
                         </HBox>
-                        <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="116.0" prefWidth="243.0">
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="133.0" prefWidth="312.0">
                            <children>
-                              <ImageView fitHeight="92.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="95.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/baldinkent.png" />
                                  </image>
@@ -114,8 +138,8 @@
                                     </Label>
                                     <HBox alignment="BOTTOM_CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="160.0" spacing="30.0" VBox.vgrow="NEVER">
                                        <children>
-                                          <Label alignment="CENTER" prefHeight="17.0" prefWidth="71.0" style="-fx-font-weight: bold; -fx-border-color: #0f954a;" text="price" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" style="-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="View" textFill="#0f954a" />
+                                          <Label fx:id="price2" alignment="CENTER" prefHeight="17.0" prefWidth="71.0" style="-fx-font-weight: bold; -fx-border-color: #0f954a;" text="price" />
+                                          <Button fx:id="view2" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" style="-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="View" textFill="#0f954a" />
                                        </children>
                                        <padding>
                                           <Insets left="5.0" right="5.0" />
@@ -124,17 +148,20 @@
                                  </children>
                               </VBox>
                            </children>
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
                         </HBox>
-                        <HBox alignment="CENTER" layoutX="10.0" layoutY="144.0" prefHeight="138.0" prefWidth="257.0">
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="144.0" prefHeight="133.0" prefWidth="312.0">
                            <children>
-                              <ImageView fitHeight="97.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="89.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/baldinkent.png" />
                                  </image>
                               </ImageView>
-                              <VBox prefHeight="156.0" prefWidth="179.0" spacing="10.0" style="-fx-background-color: #FFFFFF;">
+                              <VBox maxHeight="150.0" maxWidth="184.0" minHeight="100.0" minWidth="100.0" prefHeight="133.0" prefWidth="163.0" spacing="10.0" style="-fx-background-color: #FFFFFF;">
                                  <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="157.0" style="-fx-font-weight: bold;" text="Baldin' Kent Shirt " textAlignment="CENTER">
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="189.0" style="-fx-font-weight: bold;" text="Baldin' Kent Shirt " textAlignment="CENTER">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -142,15 +169,15 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="129.0" text="Esta camiseta sólo se la puede poner el mejor, así que si como eres el mejor, más te vale comprarla!!" wrapText="true">
+                                    <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="168.0" text="Esta camiseta sólo se la puede poner el mejor, así que si como eres el mejor, más te vale comprarla!!" wrapText="true">
                                        <font>
                                           <Font size="9.0" />
                                        </font>
                                     </Label>
-                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="129.0" spacing="30.0" VBox.vgrow="NEVER">
+                                    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="184.0" spacing="30.0" VBox.vgrow="NEVER">
                                        <children>
-                                          <Label alignment="CENTER" prefHeight="17.0" prefWidth="71.0" style="-fx-font-weight: bold; -fx-border-color: #0f954a;" text="price" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" style="-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="View" textFill="#0f954a" />
+                                          <Label fx:id="price3" alignment="CENTER" prefHeight="17.0" prefWidth="71.0" style="-fx-font-weight: bold; -fx-border-color: #0f954a;" text="price" />
+                                          <Button fx:id="view3" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" style="-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="View" textFill="#0f954a" />
                                        </children>
                                        <padding>
                                           <Insets left="5.0" right="5.0" />
@@ -184,11 +211,11 @@
                                           <Insets right="5.0" />
                                        </padding>
                                        <children>
-                                          <Button mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="S" textFill="#0f954a" />
-                                          <Button mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="M" textFill="#0f954a" />
-                                          <Button mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="L" textFill="#0f954a" />
-                                          <Button mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="XL" textFill="#0f954a" />
-                                          <Button mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="XXL" textFill="#0f954a" />
+                                          <Button mnemonicParsing="false" text="S" textFill="#0f954a" />
+                                          <Button mnemonicParsing="false" text="M" textFill="#0f954a" />
+                                          <Button mnemonicParsing="false" text="L" textFill="#0f954a" />
+                                          <Button mnemonicParsing="false" text="XL" textFill="#0f954a" />
+                                          <Button mnemonicParsing="false" text="XXL" textFill="#0f954a" />
                                        </children>
                                     </HBox>
                                  </children>

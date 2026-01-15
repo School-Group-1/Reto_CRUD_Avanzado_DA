@@ -1,19 +1,12 @@
-
 package main;
-import controller.Controller;
-import java.time.LocalDate;
-import java.util.Map;
-import java.util.TreeMap;
+
+import model.HibernateUtil;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import utilities.Utilities;
-
-
-
 
 public class Main extends Application {
 
@@ -38,7 +31,12 @@ public class Main extends Application {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
-        launch(args);
+        try {
+            launch(args);
+        } finally {
+            HibernateUtil.closeSessionFactory();
+
+        }
     }
 
 }

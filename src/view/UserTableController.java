@@ -5,23 +5,29 @@
  */
 package view;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import model.Admin;
+import model.ClassDAO;
+import model.DBImplementation;
 import model.User;
 
 /**
@@ -73,18 +79,23 @@ public class UserTableController implements Initializable {
     @FXML
     private TableColumn<User, Void> deleteCol;
     
+    private Admin loggedAdmin;
+    
     
     private ObservableList<User> userList = FXCollections.observableArrayList();
+    
+    private DBImplementation dao = new DBImplementation();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        userList= add();
         checkbox();
-        tableView.setItems(userList);
         setupColumns();
         setupEditableColumns();
         setupDeleteColumn();
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        userList = dao.findAll();
+        tableView.setItems(userList);
 
     }    
     
@@ -100,12 +111,24 @@ public class UserTableController implements Initializable {
     
     private void setupEditableColumns() {
     // Columnas editables
-    emailCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    surnameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    telephoneCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    genderCol.setCellFactory(TextFieldTableCell.forTableColumn());
-    passwordCol.setCellFactory(TextFieldTableCell.forTableColumn());
+    emailCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
+    user.setEmail(event.getNewValue());
+    dao.updateUser(user);});
+    nameCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
+    user.setName(event.getNewValue());
+    dao.updateUser(user);});
+    surnameCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
+    user.setSurname(event.getNewValue());
+    dao.updateUser(user);});
+    telephoneCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
+    user.setTelephone(event.getNewValue());
+    dao.updateUser(user);});
+    genderCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
+    user.setGender(event.getNewValue());
+    dao.updateUser(user);});
+    passwordCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
+    user.setPassword(event.getNewValue());
+    dao.updateUser(user);});
     
     // Columnas NO editables
     usernameCol.setEditable(false);
@@ -120,12 +143,7 @@ public class UserTableController implements Initializable {
     genderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
     passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
     }
-    
-    private ObservableList<User> add () {
-        User newUser = new User("a","q","a@a.com",12,"uwu","123456789","r","male","12123454678");
-        userList.add(newUser);
-        return userList;
-    }
+
     
     @FXML
     private void addUser() {
@@ -134,16 +152,17 @@ public class UserTableController implements Initializable {
         "",     // username
         "",     // password
         "",     // email
-        0,      // user_code (si no lo usas ahora)
+        "",      // user_code (si no lo usas ahora)
         "",     // name
         "",     // telephone
         "",     // surname
-        "",     // gender
         ""      // card number
     );
 
-    userList.add(newUser);
+    dao.saveUser(newUser);
+    userList.add(newUser);   
     }
+    
     
    private void setupDeleteColumn() {
 
@@ -166,29 +185,59 @@ public class UserTableController implements Initializable {
     });
 }
    
+   private void goToLogin() {
+    try {
+        Stage currentStage = (Stage) tableView.getScene().getWindow();
+        currentStage.close();
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/view/LogInWindow.fxml")
+        );
+        Parent root = loader.load();
+
+        Stage loginStage = new Stage();
+        loginStage.setTitle("Login");
+        loginStage.setScene(new Scene(root));
+        loginStage.show();
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+   
    private void confirmDelete(User user) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DeleteConfirmationView.fxml"));
+        Parent root = loader.load();
 
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Eliminar usuario");
-    alert.setHeaderText("¿Eliminar al usuario " + user.getUsername() + "?");
+        DeleteConfirmationViewController controller = loader.getController();
+        controller.setUser(user);
+        controller.setAdminPassword(loggedAdmin.getPassword());
 
-    PasswordField passwordField = new PasswordField();
-    passwordField.setPromptText("Contraseña admin");
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Confirmar eliminación");
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.setScene(new Scene(root));
+        controller.setStage(popupStage);
 
-    alert.getDialogPane().setContent(passwordField);
+        popupStage.showAndWait();
 
-    alert.showAndWait().ifPresent(result -> {
-        if (result == ButtonType.OK && isPasswordCorrect(passwordField.getText())) {
+        if (controller.isConfirmed()) {
             deleteUser(user);
+            goToLogin();
         }
-    });
-    }
 
-    private boolean isPasswordCorrect(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 
     private void deleteUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.deleteUser(user);
+        userList.remove(user);
+    }
+    
+    private void refreshTable() {
+    userList.setAll(dao.findAll());
     }
 }
