@@ -26,7 +26,7 @@ public class Size implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "size_id")
-    private Long sizeId;
+    private int sizeId;
 
     @Column(name = "label", nullable = false)
     private String label; 
@@ -47,7 +47,7 @@ public class Size implements Serializable {
         this.product = product;
     }
 
-    public Long getSizeId() {
+    public int getSizeId() {
         return sizeId;
     }
 

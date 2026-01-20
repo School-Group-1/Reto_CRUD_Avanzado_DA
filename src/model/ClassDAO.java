@@ -23,4 +23,10 @@ public interface ClassDAO {
 
   
     List comboBoxInsert();
+    
+    List<Product> findAllProducts();
+    void saveProduct(Product product);
+    void updateProduct(Product product);
+    void deleteProduct(Product product);
+    List<Product> findProductsByCompany(Company company);
 }

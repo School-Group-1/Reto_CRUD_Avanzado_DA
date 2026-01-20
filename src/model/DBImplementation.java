@@ -218,23 +218,23 @@ public class DBImplementation implements ClassDAO {
 
         return false;
     }
-    
+
     public void updateUser(User user) {
-    Transaction tx = session.beginTransaction();
-    session.update(user);
-    tx.commit();
+        Transaction tx = session.beginTransaction();
+        session.update(user);
+        tx.commit();
     }
-    
+
     public void deleteUser(User user) {
-    Transaction tx = session.beginTransaction();
-    session.delete(user);
-    tx.commit();
+        Transaction tx = session.beginTransaction();
+        session.delete(user);
+        tx.commit();
     }
-    
+
     public void saveUser(User user) {
-    Transaction tx = session.beginTransaction();
-    session.save(user);
-    tx.commit();
+        Transaction tx = session.beginTransaction();
+        session.save(user);
+        tx.commit();
     }
 
     /**
@@ -250,18 +250,50 @@ public class DBImplementation implements ClassDAO {
 
         return listaUsuarios;
     }
-    
+
     public ObservableList<User> findAll() {
-    ObservableList<User> users = FXCollections.observableArrayList();
+        ObservableList<User> users = FXCollections.observableArrayList();
 
-    try {
-        Query query = session.createQuery("from User");
-        List<User> result = query.list();
-        users.addAll(result);
-    } catch (Exception e) {
-        e.printStackTrace();
+        try {
+            Query query = session.createQuery("from User");
+            List<User> result = query.list();
+            users.addAll(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return users;
     }
 
-    return users;
+    public List<Product> findAllProducts() {
+        Query query = session.createQuery("FROM Product");
+        return query.list();
     }
+
+    public void saveProduct(Product product) {
+        Transaction tx = session.beginTransaction();
+        session.save(product);
+        tx.commit();
+    }
+
+    public void updateProduct(Product product) {
+        Transaction tx = session.beginTransaction();
+        session.update(product);
+        tx.commit();
+    }
+
+    public void deleteProduct(Product product) {
+        Transaction tx = session.beginTransaction();
+        session.delete(product);
+        tx.commit();
+    }
+    
+    public List<Product> findProductsByCompany(Company company) {
+        Query query = session.createQuery(
+            "from Product p where p.company = :company"
+        );
+        query.setParameter("company", company);
+        return query.list();
+    }
+
 }

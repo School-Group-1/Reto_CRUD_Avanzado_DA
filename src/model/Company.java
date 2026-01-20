@@ -27,7 +27,7 @@ public class Company implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "company_id")
-    private Long companyId;
+    private int companyId;
 
     @Column(name = "c_name", nullable = false)
     private String name;
@@ -54,7 +54,7 @@ public class Company implements Serializable {
         this.url = url;
     }
 
-    public Long getCompanyId() {
+    public int getCompanyId() {
         return companyId;
     }
 
