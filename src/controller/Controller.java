@@ -10,18 +10,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import model.ClassDAO;
+import model.Company;
 import model.DBImplementation;
+import model.Product;
 import model.Profile;
 import model.User;
 
 /**
  * Controller class that handles interaction between the GUI and the database.
  * Provides login, signup, deletion, modification, and data retrieval methods.
- * 
+ *
  * Author: acer
  */
 public class Controller {
-
+    
     private ClassDAO dao;
 
     /**
@@ -60,7 +62,7 @@ public class Controller {
     public Boolean dropOutUser(String username, String password) {
         return dao.dropOutUser(username, password);
     }
-
+    
     public Boolean dropOutAdmin(String usernameToDelete, String adminUsername, String adminPassword) {
         return dao.dropOutAdmin(usernameToDelete, adminUsername, adminPassword);
     }
@@ -78,4 +80,25 @@ public class Controller {
     public List comboBoxInsert() {
         return dao.comboBoxInsert();
     }
+    
+    public List<Product> findAllProducts() {
+        return dao.findAllProducts();
+    }
+    
+    public void saveProduct(Product product) {
+        dao.saveProduct(product);
+    }
+    
+    public void deleteProduct(Product product) {
+        dao.deleteProduct(product);
+    }
+    
+    public void updateProduct(Product product) {
+        dao.updateProduct(product);
+    }
+    
+    public List<Product> findProductsByCompany(Company company) {
+        return dao.findProductsByCompany(company);
+    }
+    
 }

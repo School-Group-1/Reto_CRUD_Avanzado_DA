@@ -43,7 +43,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" style="-fx-background-color: #D3D3D3; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Users">
+                  <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" style="-fx-background-color: #e2e2e2; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Users">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                            <image>
