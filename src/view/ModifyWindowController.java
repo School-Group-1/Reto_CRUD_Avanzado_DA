@@ -110,10 +110,10 @@ public class ModifyWindowController implements Initializable {
                 successAlert.showAndWait();
                 
                 try {
-                    javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/MenuWindow.fxml"));
+                    javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
                     javafx.scene.Parent root = fxmlLoader.load();
 
-                    view.MenuWindowController controllerWindow = fxmlLoader.getController();
+                    view.ProfileWindowController controllerWindow = fxmlLoader.getController();
                     controllerWindow.setUsuario(profile);
                     controllerWindow.setCont(this.cont);
                     javafx.stage.Stage stage = new javafx.stage.Stage();
@@ -123,7 +123,7 @@ public class ModifyWindowController implements Initializable {
                     currentStage.close();
 
                 } catch (IOException ex) {
-                    Logger.getLogger(MenuWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 javafx.scene.control.Alert error = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
@@ -152,10 +152,10 @@ public class ModifyWindowController implements Initializable {
                     successAlert.showAndWait();
                     
                     try {
-                        javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/MenuWindow.fxml"));
+                        javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
                         javafx.scene.Parent root = fxmlLoader.load();
 
-                        view.MenuWindowController controllerWindow = fxmlLoader.getController();
+                        view.ProfileWindowController controllerWindow = fxmlLoader.getController();
                         controllerWindow.setUsuario(profile);
                         controllerWindow.setCont(this.cont);
 
@@ -167,7 +167,7 @@ public class ModifyWindowController implements Initializable {
                         currentStage.close();
 
                     } catch (IOException ex) {
-                        Logger.getLogger(MenuWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
                     javafx.scene.control.Alert error = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
@@ -184,10 +184,10 @@ public class ModifyWindowController implements Initializable {
     @FXML
     private void cancel() {
         try {
-            javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/MenuWindow.fxml"));
+            javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
             javafx.scene.Parent root = fxmlLoader.load();
 
-            view.MenuWindowController controllerWindow = fxmlLoader.getController();
+            view.ProfileWindowController controllerWindow = fxmlLoader.getController();
             controllerWindow.setUsuario(profile);
             controllerWindow.setCont(this.cont);
 
@@ -199,7 +199,7 @@ public class ModifyWindowController implements Initializable {
             currentStage.close();
 
         } catch (IOException ex) {
-            Logger.getLogger(MenuWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

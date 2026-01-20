@@ -77,10 +77,10 @@ public class DeleteAccountController implements Initializable {
     @FXML
     private void cancel() {
         try {
-            javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/MenuWindow.fxml"));
+            javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
             javafx.scene.Parent root = fxmlLoader.load();
 
-            view.MenuWindowController controllerWindow = fxmlLoader.getController();
+            view.ProfileWindowController controllerWindow = fxmlLoader.getController();
             controllerWindow.setUsuario(profile);
             controllerWindow.setCont(this.cont);
             javafx.stage.Stage stage = new javafx.stage.Stage();
@@ -90,7 +90,7 @@ public class DeleteAccountController implements Initializable {
             currentStage.close();
 
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(MenuWindowController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProfileWindowController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
 
