@@ -29,7 +29,7 @@ import model.User;
  * Controller for the main Menu window.
  * Handles navigation to modify, delete, and logout actions.
  */
-public class MenuWindowController implements Initializable {
+public class ProfileWindowController implements Initializable {
 
     @FXML
     private Button Button_Delete;
@@ -80,7 +80,7 @@ public class MenuWindowController implements Initializable {
             currentStage.close();
 
         } catch (IOException ex) {
-            Logger.getLogger(MenuWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -120,7 +120,7 @@ public class MenuWindowController implements Initializable {
                 currentStage.close();
             }
         } catch (IOException ex) {
-            Logger.getLogger(MenuWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
