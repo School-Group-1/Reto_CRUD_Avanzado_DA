@@ -3,18 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/User.java</file>
+            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/HibernateUtil.java</file>
+            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/view/ModifyUserAdminController.java</file>
             <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/ClassDAO.java</file>
-            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/Product.java</file>
-            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/DBImplementation.java</file>
+            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/configClass.properties</file>
             <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/main/Main.java</file>
+            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/view/CompanyProductsController.java</file>
+            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/Company.java</file>
+            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/User.java</file>
+            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/Product.java</file>
+            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/view/ModifyUserAdmin.fxml</file>
+            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/DBImplementation.java</file>
             <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/Profile.java</file>
             <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/resources/hibernate.cfg.xml</file>
             <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/controller/Controller.java</file>
             <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/Size.java</file>
-            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/view/CompanyProductsController.java</file>
             <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/view/CompanyProducts.fxml</file>
-            <file>file:/C:/Users/acer/Documents/Reto_CRUD_Avanzado_DA/src/model/Company.java</file>
         </group>
     </open-files>
 </project-private>

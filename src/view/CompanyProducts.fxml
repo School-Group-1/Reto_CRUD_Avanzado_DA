@@ -13,187 +13,205 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CompanyProductsController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
    <children>
-      <BorderPane layoutY="-2.0" prefHeight="450.0" prefWidth="737.3333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="400.0" prefHeight="60.0" prefWidth="730.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER_LEFT">
-               <children>
-                  <ImageView fitHeight="33.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="190.0" prefWidth="519.0" style="-fx-background-color: transparent;" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="8" GridPane.vgrow="ALWAYS">
+         <content>
+            <VBox fx:id="productContainer" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="815.0" prefWidth="287.0" style="-fx-background-color: #FFFFFF;" />
+         </content>
+      </ScrollPane>
+      <VBox maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="400.0" prefWidth="140.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
+         <children>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Store" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="49.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/elcorte.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="57.0" prefWidth="77.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="&lt;">
-                     <font>
-                        <Font size="29.0" />
-                     </font>
-                  </Button>
-                  <StackPane maxWidth="1000.0" minWidth="20.0" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="113.0" style="-fx-background-color: transparent;" HBox.hgrow="NEVER">
-                    <menus>
-                      <Menu mnemonicParsing="false" text="Help">
-                        <items>
-                          <MenuItem mnemonicParsing="false" text="Close" />
-                        </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false">
-                           <graphic>
-                              <ImageView fitHeight="44.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/cart-59-xxl.png" />
-                                 </image>
-                                 <viewport>
-                                    <Rectangle2D />
-                                 </viewport>
-                              </ImageView>
-                           </graphic>
-                           <items>
-                              <SeparatorMenuItem mnemonicParsing="false">
-                                 <content>
-                                    <GridPane>
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <Label text="Your Cart" textFill="#0f954a" />
-                                          <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
-                                            <columns>
-                                              <TableColumn prefWidth="75.0" text="Amount" />
-                                              <TableColumn prefWidth="75.0" text="Item" />
-                                                <TableColumn prefWidth="75.0" text="Price" />
-                                            </columns>
-                                          </TableView>
-                                          <Button mnemonicParsing="false" text="Empty Cart" GridPane.rowIndex="2" />
-                                          <Button mnemonicParsing="false" text="Buy Cart" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                                       </children>
-                                    </GridPane>
-                                 </content>
-                              </SeparatorMenuItem>
-                           </items>
-                      </Menu>
-                    </menus>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets right="10.0" />
-                     </padding>
-                  </MenuBar>
-               </children></HBox>
-         </top>
-         <left>
-            <VBox maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="400.0" prefWidth="140.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
-               <children>
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Store">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="49.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/shop-xxl.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="185.0" style="-fx-background-color: #e2e2e2; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies">
-                     <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/truck-2-xxl.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Profile">
-                     <VBox.margin>
-                        <Insets top="218.0" />
-                     </VBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/user-xxl.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </VBox>
-         </left>
-         <center>
-            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="289.0" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
-               <content>
-                  <VBox fx:id="productContainer" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="815.0" prefWidth="287.0" style="-fx-background-color: #FFFFFF;" />
-               </content>
-            </ScrollPane>
-         </center>
-         <right>
-            <VBox alignment="CENTER" prefHeight="356.0" prefWidth="308.0" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fx:id="bigImage" fitHeight="243.0" fitWidth="229.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/baldinkent.png" />
+                        <Image url="@../images/shop-xxl.png" />
                      </image>
                   </ImageView>
-                  <HBox alignment="CENTER" prefHeight="96.0" prefWidth="233.0" spacing="45.0">
-                     <children>
-                        <ScrollPane fitToHeight="true" prefHeight="66.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" vbarPolicy="NEVER">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="71.0" prefWidth="171.0">
-                                 <children>
-                                    <HBox layoutY="28.0" prefHeight="35.0" prefWidth="200.0" spacing="10.0">
-                                       <padding>
-                                          <Insets right="5.0" />
-                                       </padding>
-                                       <children>
-                                          <Button mnemonicParsing="false" text="S" textFill="#0f954a" />
-                                          <Button mnemonicParsing="false" text="M" textFill="#0f954a" />
-                                          <Button mnemonicParsing="false" text="L" textFill="#0f954a" />
-                                          <Button mnemonicParsing="false" text="XL" textFill="#0f954a" />
-                                          <Button mnemonicParsing="false" text="XXL" textFill="#0f954a" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </ScrollPane>
-                        <Button fx:id="selectedSize" mnemonicParsing="false" prefHeight="41.0" prefWidth="97.0" style="-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="Add to cart" textFill="#0f954a">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets></Button>
-                     </children>
+               </graphic>
+            </Button>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="239.0" style="-fx-background-color: #e2e2e2; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies" VBox.vgrow="ALWAYS">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/truck-2-xxl.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Region prefHeight="400.0" prefWidth="186.0" VBox.vgrow="ALWAYS" />
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="22.0" prefWidth="208.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Profile" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/user-xxl.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="337.0" prefWidth="399.0" GridPane.columnIndex="6" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.rowSpan="6" GridPane.vgrow="ALWAYS">
+         <children>
+            <HBox alignment="CENTER" prefHeight="55.0" prefWidth="312.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <ScrollPane fitToHeight="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="144.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
                      <padding>
-                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                        <Insets right="20.0" />
                      </padding>
+                     <content>
+                        <HBox prefHeight="59.0" prefWidth="201.0" spacing="10.0">
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding>
+                           <children>
+                              <Button mnemonicParsing="false" text="S" textFill="#0f954a" HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" text="M" textFill="#0f954a" HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" text="L" textFill="#0f954a" HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" text="XL" textFill="#0f954a" HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" text="XXL" textFill="#0f954a" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                     </content>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </ScrollPane>
+                  <Button fx:id="selectedSize" mnemonicParsing="false" prefHeight="41.0" prefWidth="97.0" style="-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="Add to cart" textFill="#0f954a" HBox.hgrow="ALWAYS">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                  </HBox>
-                  <Label fx:id="sizeErrorLabel" style="-fx-text-fill: red;" text="Seleccione una talla previamente" visible="false" />
+                     <HBox.margin>
+                        <Insets left="20.0" right="5.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
-            </VBox>
-         </right>
-      </BorderPane>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+            <Label fx:id="sizeErrorLabel" style="-fx-text-fill: red;" text="Seleccione una talla previamente" visible="false" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="68.0" prefWidth="1050.0" style="-fx-background-color: #FFFFFF;" GridPane.columnSpan="9" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+         <children>
+            <ImageView fitHeight="66.0" fitWidth="199.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+               <image>
+                  <Image url="@../images/elcorte.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </ImageView>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="63.0" prefWidth="56.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="&lt;" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Button>
+            <StackPane maxWidth="1000.0" minWidth="20.0" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="113.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+               <menus>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="44.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/cart-59-xxl.png" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
+                     <items>
+                        <SeparatorMenuItem mnemonicParsing="false">
+                           <content>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Your Cart" textFill="#0f954a" />
+                                    <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="Amount" />
+                                          <TableColumn prefWidth="75.0" text="Item" />
+                                          <TableColumn prefWidth="75.0" text="Price" />
+                                       </columns>
+                                    </TableView>
+                                    <Button mnemonicParsing="false" text="Empty Cart" GridPane.rowIndex="2" />
+                                    <Button mnemonicParsing="false" text="Buy Cart" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                 </children>
+                              </GridPane>
+                           </content>
+                        </SeparatorMenuItem>
+                     </items>
+                  </Menu>
+               </menus>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </MenuBar>
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </HBox>
    </children>
-</AnchorPane>
+</GridPane>
