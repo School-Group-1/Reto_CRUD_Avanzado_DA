@@ -68,7 +68,7 @@ public class SignUpWindowController implements Initializable {
     }
 
     /**
-     * Signs up a new user and navigates to MenuWindow if successful.
+     * Signs up a new user and navigates to ProfileWindow if successful.
      */
     @FXML
     private void signup() throws passwordequalspassword {
@@ -91,9 +91,9 @@ public class SignUpWindowController implements Initializable {
         if (cont.signUp(gender, cardN, username, pass, email, name, telephone, surname)) {
             Profile profile = cont.logIn(username, pass);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MenuWindow.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
                 Parent root = fxmlLoader.load();
-                view.MenuWindowController controllerWindow = fxmlLoader.getController();
+                view.ProfileWindowController controllerWindow = fxmlLoader.getController();
                 controllerWindow.setUsuario(profile);
                 controllerWindow.setCont(this.cont);
                 Stage stage = new Stage();

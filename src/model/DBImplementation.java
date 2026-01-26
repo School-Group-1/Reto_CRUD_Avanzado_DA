@@ -23,17 +23,11 @@ public class DBImplementation implements ClassDAO {
 
     // Configuration for database connection
     private ResourceBundle configFile;
-    private String driverDB;
-    private String urlDB;
-    private String userDB;
-    private String passwordDB;
-    private final Session session = HibernateUtil.getSessionFactory().openSession();
+    private Session session;
 
     // HQL statements
     final String SQLMODIFYPROFILE = "UPDATE PROFILE_ P SET P.PASSWORD_ = ?, P.EMAIL = ?, P.NAME_ = ?, P.TELEPHONE = ?, P.SURNAME = ? WHERE USERNAME = ?;";
     final String SQLMODIFYUSER = "UPDATE USER_ U SET U.GENDER = ? WHERE USERNAME = ?";
-
-    private final String SLQSELECTNUSER = "SELECT u.USERNAME FROM USER_ u;";
 
     private final String HQL_GET_PROFILE_USERNAME = "select p from Profile p where p.username = :username";
 
@@ -46,11 +40,7 @@ public class DBImplementation implements ClassDAO {
      * Default constructor that loads DB configuration.
      */
     public DBImplementation() {
-        this.configFile = ResourceBundle.getBundle("model.configClass");
-        this.driverDB = this.configFile.getString("Driver");
-        this.urlDB = this.configFile.getString("Conn");
-        this.userDB = this.configFile.getString("DBUser");
-        this.passwordDB = this.configFile.getString("DBPass");
+        this.session = HibernateUtil.getSessionFactory().openSession();
     }
 
     /**

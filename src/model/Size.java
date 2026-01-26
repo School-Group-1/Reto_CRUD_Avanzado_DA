@@ -32,7 +32,7 @@ public class Size implements Serializable {
     private String label; 
 
     @Column(name = "stock", nullable = false)
-    private Integer stock;
+    private int stock;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
@@ -59,7 +59,7 @@ public class Size implements Serializable {
         this.label = label;
     }
 
-    public Integer getStock() {
+    public int getStock() {
         return stock;
     }
 

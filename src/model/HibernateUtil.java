@@ -1,8 +1,7 @@
 package model;
 
-import model.Admin;
-import model.Profile;
-import model.User;
+import model.*;
+import model.Size;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -20,6 +19,9 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(Profile.class);
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Admin.class);
+        configuration.addAnnotatedClass(Company.class);
+        configuration.addAnnotatedClass(Size.class);
+        configuration.addAnnotatedClass(Product.class);
 
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).build();

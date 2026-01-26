@@ -19,15 +19,12 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Profile {
     @Id
-    @Column(name = "username", nullable = false, updatable = false)
+    @Column(name = "username", nullable = false, updatable = false, length=40)
     private String username;
     @Column(name = "password_")
     private String password;
     @Column(name = "email")
     private String email;
-    @GeneratedValue
-    @Column(name = "user_code", unique=true, updatable=false)
-    private int userCode;
     @Column(name = "name_")
     private String name;
     @Column(name = "telephone")
@@ -54,7 +51,6 @@ public abstract class Profile {
         this.username = "";
         this.password = "";
         this.email = "";
-        this.userCode = 0;
         this.name = "";
         this.telephone = "";
         this.surname = "";
@@ -63,7 +59,6 @@ public abstract class Profile {
     public String getUsername() { return username; }
     public String getPassword() { return password; }
     public String getEmail() { return email; }
-    public int getUserCode() { return userCode; }
     public String getName() { return name; }
     public String getTelephone() { return telephone; }
     public String getSurname() { return surname; }
@@ -71,7 +66,6 @@ public abstract class Profile {
     public void setUsername(String username) { this.username = username; }
     public void setPassword(String password) { this.password = password; }
     public void setEmail(String email) { this.email = email; }
-    public void setUserCode(int userCode) { this.userCode = userCode; }
     public void setName(String name) { this.name = name; }
     public void setTelephone(String telephone) { this.telephone = telephone; }
     public void setSurname(String surname) { this.surname = surname; }
@@ -79,7 +73,7 @@ public abstract class Profile {
     @Override
     public String toString() {
         return "Profile{" + "username=" + username + ", password=" + password + ", email=" + email +
-                ", userCode=" + userCode + ", name=" + name + ", telephone=" + telephone + ", surname=" + surname + '}';
+                ", name=" + name + ", telephone=" + telephone + ", surname=" + surname + '}';
     }
 
     /**

@@ -6,8 +6,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.engine.jdbc.Size;
 
 /**
  *
@@ -60,7 +59,7 @@ public class Product implements Serializable {
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "username")
     )
-    private Set<User> buyers;
+    private List<User> buyers;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Size> sizes;
@@ -74,6 +73,7 @@ public class Product implements Serializable {
         this.description = description;
         this.image = image;
         this.company = company;
+        this.sizes = new ArrayList<>();
     }
 
     public int getProductId() {
@@ -128,11 +128,11 @@ public class Product implements Serializable {
         this.company = company;
     }
 
-    public Set<User> getBuyers() {
+    public List<User> getBuyers() {
         return buyers;
     }
 
-    public void setBuyers(Set<User> buyers) {
+    public void setBuyers(List<User> buyers) {
         this.buyers = buyers;
     }
 
