@@ -26,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Company;
 import model.Product;
@@ -55,6 +56,14 @@ public class ShopWindowController implements Initializable {
     private Label desc;
     @FXML
     private Label price;
+    @FXML
+    private GridPane Item1;
+    @FXML
+    private Button btnCompanies;
+    @FXML
+    private Button btnUser;
+    @FXML
+    private Button btnStore;
     /**
      * Initializes the controller class.
      */
@@ -68,6 +77,7 @@ public class ShopWindowController implements Initializable {
         price.setText(valueOf(BaldkShirt.getPrice()));
         name.setText(BaldkShirt.getProductType());
         desc.setText(BaldkShirt.getDescription());
+        
     }    
 
     @FXML
@@ -82,6 +92,42 @@ public class ShopWindowController implements Initializable {
     private void addItem(ActionEvent event) {
         
         
+    }
+
+    @FXML
+    private void GoToComp(ActionEvent event) {
+        try {
+            FXMLLoader loader;
+            Parent root;
+            Stage stage = new Stage();
+
+            
+                // 🔹 Si es usuario normal, cargar ModifyWindow.fxml
+                loader = new FXMLLoader(getClass().getResource("CompanyProducts.fxml"));
+                root = loader.load();
+
+                CompanyProductsController companyController = loader.getController();
+             
+               
+
+                stage.setTitle("Modificar perfil");
+            
+
+            stage.setScene(new Scene(root));
+
+            stage.show();
+
+            // Cerrar la ventana de login
+            Stage currentStage = (Stage) btnStore.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+    }
+
+    @FXML
+    private void GoToProf(ActionEvent event) {
     }
     
 }
