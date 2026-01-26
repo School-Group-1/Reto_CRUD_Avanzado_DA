@@ -6,7 +6,6 @@
 package model;
 
 import javax.persistence.*;
-
 /**
  * Represents a standard user in the system.
  * Extends Profile and adds gender and card number attributes.

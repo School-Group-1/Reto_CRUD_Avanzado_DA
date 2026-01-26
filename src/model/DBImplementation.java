@@ -3,6 +3,8 @@ package model;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javax.persistence.PersistenceException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -216,6 +218,24 @@ public class DBImplementation implements ClassDAO {
 
         return false;
     }
+    
+    public void updateUser(User user) {
+    Transaction tx = session.beginTransaction();
+    session.update(user);
+    tx.commit();
+    }
+    
+    public void deleteUser(User user) {
+    Transaction tx = session.beginTransaction();
+    session.delete(user);
+    tx.commit();
+    }
+    
+    public void saveUser(User user) {
+    Transaction tx = session.beginTransaction();
+    session.save(user);
+    tx.commit();
+    }
 
     /**
      * Retrieves a list of usernames from the database.
@@ -229,5 +249,19 @@ public class DBImplementation implements ClassDAO {
         System.out.println(listaUsuarios);
 
         return listaUsuarios;
+    }
+    
+    public ObservableList<User> findAll() {
+    ObservableList<User> users = FXCollections.observableArrayList();
+
+    try {
+        Query query = session.createQuery("from User");
+        List<User> result = query.list();
+        users.addAll(result);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return users;
     }
 }
