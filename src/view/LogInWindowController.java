@@ -82,7 +82,7 @@ public class LogInWindowController implements Initializable {
             Profile profile = cont.logIn(username, password);
             if (profile != null) {
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MenuWindow.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
                     Parent root = fxmlLoader.load();
 
                     view.ProfileWindowController controllerWindow = fxmlLoader.getController();

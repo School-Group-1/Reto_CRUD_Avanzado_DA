@@ -23,10 +23,18 @@ import javafx.collections.ObservableList;
 import javafx.collections.ListChangeListener;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Company;
 import model.Product;
@@ -64,6 +72,9 @@ public class ShopWindowController implements Initializable {
     private Button btnUser;
     @FXML
     private Button btnStore;
+    @FXML
+    private VBox productcardList;
+
     /**
      * Initializes the controller class.
      */
@@ -73,12 +84,19 @@ public class ShopWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         //Hacer que Items muestre Productos de la base de datos en la vista 
-        Product BaldkShirt= new Product("Bald Shirt", 15.40 , "Blue T-shirt", "A Great shirt for the summer, this is just not to write lorem ipsum", "i dont have an image yet", new Company("BalKe", "123456789abc", "somewhere","http://guthib.com/"));
-        price.setText(valueOf(BaldkShirt.getPrice()));
-        name.setText(BaldkShirt.getProductType());
-        desc.setText(BaldkShirt.getDescription());
-        
-    }    
+       
+        Product BaldkShirt1 = new Product("Bald Shirt", 15.40, "Blue T-shirt", "A Great shirt for the summer, this is just not to write lorem ipsum", "../images/baldinkent.png", new Company("BalKe", "123456789abc", "somewhere", "http://guthib.com/"));
+
+        Product BaldkShirt2 = new Product("Bald Shirt", 15.40, "Blue T-shirt", "A Great shirt for the summer, this is just not to write lorem ipsum", "../images/baldinkent.png", new Company("BalKe", "123456789abc", "somewhere", "http://guthib.com/"));
+       
+        Items.add(BaldkShirt2)
+        Items.add(BaldkShirt2);
+        List<Product> products = Items;
+        for (Product prod : products) {
+            Node card = createProductCard(prod);
+            productcardList.getChildren().add(card);
+        }
+    }
 
     @FXML
     private void emptyList(ActionEvent event) {
@@ -90,22 +108,7 @@ public class ShopWindowController implements Initializable {
 
     @FXML
     private void addItem(ActionEvent event) {
-        
-        Button button1 = new Button("Button 1");
-        Button button2 = new Button("Button 2");
-        Button button3 = new Button("Button 3");
-        Button button4 = new Button("Button 4");
-        Button button5 = new Button("Button 5");
-        Button button6 = new Button("Button 6");
 
-        GridPane gridPane = new GridPane();
-
-        gridPane.add(button1, 0, 0, 1, 1);
-        gridPane.add(button2, 1, 0, 1, 1);
-        gridPane.add(button3, 2, 0, 1, 1);
-        gridPane.add(button4, 0, 1, 1, 1);
-        gridPane.add(button5, 1, 1, 1, 1);
-        gridPane.add(button6, 2, 1, 1, 1);
     }
 
     @FXML
@@ -116,16 +119,15 @@ public class ShopWindowController implements Initializable {
             Stage stage = new Stage();
 
             
-                // 🔹 Si es usuario normal, cargar ModifyWindow.fxml
-                loader = new FXMLLoader(getClass().getResource("CompanyProducts.fxml"));
-                root = loader.load();
+            // 🔹 Si es usuario normal, cargar ModifyWindow.fxml
+            loader = new FXMLLoader(getClass().getResource("CompanyWindow.fxml"));
+            root = loader.load();
 
-                CompanyProductsController companyController = loader.getController();
-             
+            CompanyWindowController companyWController = loader.getController();
+
                
+            stage.setTitle("Modificar perfil");
 
-                stage.setTitle("Modificar perfil");
-            
 
             stage.setScene(new Scene(root));
 
@@ -142,23 +144,23 @@ public class ShopWindowController implements Initializable {
 
     @FXML
     private void GoToProf(ActionEvent event) {
-        
+
         try {
             FXMLLoader loader;
             Parent root;
             Stage stage = new Stage();
 
             
-                // 🔹 Si es usuario normal, cargar ModifyWindow.fxml
-                loader = new FXMLLoader(getClass().getResource("ProfileWindow.fxml"));
-                root = loader.load();
+            // 🔹 Si es usuario normal, cargar ModifyWindow.fxml
+            loader = new FXMLLoader(getClass().getResource("ProfileWindow.fxml"));
+            root = loader.load();
 
-                ProfileWindowController ProfileWController = loader.getController();
-             
+            ProfileWindowController ProfileWController = loader.getController();
+
                
 
-                stage.setTitle("Modificar perfil");
-            
+            stage.setTitle("Modificar perfil");
+
 
             stage.setScene(new Scene(root));
 
@@ -171,7 +173,64 @@ public class ShopWindowController implements Initializable {
         } catch (IOException e) {
             System.err.println(e);
         }
-        
+
     }
-    
+    private Node createProductCard(Product product) {
+        HBox card = new HBox(15);
+        card.setPadding(new Insets(15));
+        card.setAlignment(Pos.CENTER_LEFT);
+        card.setStyle(
+                "-fx-background-color: white;"
+                + "-fx-border-color: green;"
+                + "-fx-border-radius: 12;"
+                + "-fx-background-radius: 12;"
+        );
+
+        // Image
+        ImageView imageView = new ImageView(
+                new Image(getClass().getResourceAsStream(product.getImage()))
+        );
+        imageView.setFitWidth(90);
+        imageView.setFitHeight(90);
+        imageView.setPreserveRatio(true);
+
+        // Text container
+        VBox textBox = new VBox(5);
+
+        Label nameLabel = new Label(product.getName());
+        nameLabel.setStyle("-fx-font-size: 16; -fx-font-weight: bold;");
+
+        Label descLabel = new Label(product.getDescription());
+        descLabel.setWrapText(true);
+        descLabel.setMaxWidth(280);
+
+        textBox.getChildren().addAll(nameLabel, descLabel);
+
+        // Price + button
+        VBox rightBox = new VBox(8);
+        rightBox.setAlignment(Pos.CENTER_RIGHT);
+
+        Label priceLabel = new Label(product.getPrice()+"€");
+        priceLabel.setStyle(
+                "-fx-background-color: #e5e5e5;"
+                + "-fx-padding: 4 8 4 8;"
+                + "-fx-font-weight: bold;"
+        );
+
+        Button editButton = new Button("Edit Price");
+        editButton.setStyle(
+                "-fx-background-color: transparent;"
+                + "-fx-border-color: green;"
+                + "-fx-text-fill: green;"
+                + "-fx-border-radius: 6;"
+        );
+
+        rightBox.getChildren().addAll(priceLabel, editButton);
+
+        HBox.setHgrow(textBox, Priority.ALWAYS);
+
+        card.getChildren().addAll(imageView, textBox, rightBox);
+      
+        return card;
+    }
 }
