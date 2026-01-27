@@ -43,6 +43,13 @@ public abstract class Profile {
         this.telephone = telephone;
         this.surname = surname;
     }
+    
+    public Profile(String name,String surname, String telephone, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.telephone = telephone;
+        this.password = password;
+    }
 
     /**
      * Default constructor initializing attributes with default values.
