@@ -25,7 +25,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/LogInWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/ProductModifyWindow.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Login Application");
         stage.setScene(scene);
@@ -53,12 +53,12 @@ public class Main extends Application {
         Company company2 = new Company("Company 2", "456", "Bilbao", "https://www.linkedin.com/feed/");
         Company company3 = new Company("Company 3", "789", "Bilbao", "https://github.com/");
 
-        Product product1 = new Product(19.99, "Shirt", "A cool shirt.", "/images/baldinkent.png", company1);
-        Product product2 = new Product(39.99, "Shirt", "A cool shirt.", "/images/baldinkent.png", company1);
-        Product product3 = new Product(19.99, "Shirt", "A cool shirt.", "/images/exampleShirt.png", company2);
-        Product product4 = new Product(19.99, "Shoes", "A cool pair of shoes.", "/images/exampleShoes.png", company2);
-        Product product5 = new Product(19.99, "Shirt", "A cool shirt.", "/images/baldinkent.png", company3);
-        Product product6 = new Product(19.99, "Shoes", "A cool pair of shoes.", "/images/exampleShoes.png", company3);
+        Product product1 = new Product("Bald Shirt", 19.99, "Shirt", "A cool shirt.", "/images/baldinkent.png", company1);
+        Product product2 = new Product("Bald Shirt", 39.99, "Shirt", "A cool shirt.", "/images/baldinkent.png", company1);
+        Product product3 = new Product("Blue Shirt", 19.99, "Shirt", "A cool shirt.", "/images/exampleShirt1.png", company2);
+        Product product4 = new Product("Shoes", 19.99, "Shoes", "A cool pair of shoes.", "/images/exampleShoes.png", company2);
+        Product product5 = new Product("Bald Shirt", 19.99, "Shirt", "A cool shirt.", "/images/baldinkent.png", company3);
+        Product product6 = new Product("Shoes", 19.99, "Shoes", "A cool pair of shoes.", "/images/exampleShoes.png", company3);
 
         Size size1_1 = new Size("SM", 3, product1);
         Size size1_2 = new Size("MD", 5, product1);

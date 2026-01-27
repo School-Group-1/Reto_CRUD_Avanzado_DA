@@ -29,4 +29,5 @@ public interface ClassDAO {
     void updateProduct(Product product);
     void deleteProduct(Product product);
     List<Product> findProductsByCompany(Company company);
+    List<Company> findAllCompanies();
 }

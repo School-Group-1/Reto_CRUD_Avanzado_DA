@@ -286,4 +286,8 @@ public class DBImplementation implements ClassDAO {
         return query.list();
     }
 
+    public List<Company> findAllCompanies() {
+        Query query = session.createQuery("FROM Company");
+        return query.list();
+    }
 }
