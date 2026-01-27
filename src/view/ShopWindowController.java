@@ -73,7 +73,7 @@ public class ShopWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         //Hacer que Items muestre Productos de la base de datos en la vista 
-        Product BaldkShirt= new Product(15.40 , "Blue T-shirt", "A Great shirt for the summer, this is just not to write lorem ipsum", "i dont have an image yet", new Company("BalKe", "123456789abc", "somewhere","http://guthib.com/"));
+        Product BaldkShirt= new Product("Bald Shirt", 15.40 , "Blue T-shirt", "A Great shirt for the summer, this is just not to write lorem ipsum", "i dont have an image yet", new Company("BalKe", "123456789abc", "somewhere","http://guthib.com/"));
         price.setText(valueOf(BaldkShirt.getPrice()));
         name.setText(BaldkShirt.getProductType());
         desc.setText(BaldkShirt.getDescription());

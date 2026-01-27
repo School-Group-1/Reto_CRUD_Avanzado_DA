@@ -101,4 +101,7 @@ public class Controller {
         return dao.findProductsByCompany(company);
     }
     
+    public List<Company> findAllCompanies() {
+        return dao.findAllCompanies();
+    }
 }
