@@ -136,10 +136,10 @@ public class ShopWindowController implements Initializable {
 
             
                 // 🔹 Si es usuario normal, cargar ModifyWindow.fxml
-                loader = new FXMLLoader(getClass().getResource("CompanyProducts.fxml"));
+                loader = new FXMLLoader(getClass().getResource("ProfileWindow.fxml"));
                 root = loader.load();
 
-                CompanyProductsController companyController = loader.getController();
+                ProfileWindowController ProfileWController = loader.getController();
              
                
 
