@@ -152,63 +152,7 @@
       </Button>
       <ScrollPane fitToWidth="true" maxWidth="1.7976931348623157E308" prefHeight="200.0" style="-fx-background-color: e2e2e2;" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
          <content>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: e2e2e2;">
-               <children>
-                  <GridPane fx:id="Item1" maxHeight="150.0" maxWidth="1.7976931348623157E308" style="-fx-background-color: ffffff; -fx-background-radius: 20;" VBox.vgrow="ALWAYS">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="83.99999237060547" />
-                      <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
-                        <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="40.0" minHeight="10.0" vgrow="ALWAYS" />
-                      <RowConstraints maxHeight="80.0" minHeight="10.0" vgrow="ALWAYS" />
-                        <RowConstraints maxHeight="30.0" minHeight="10.0" vgrow="ALWAYS" />
-                    </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
-                           <image>
-                              <Image url="@../images/baldinkent.png" />
-                           </image>
-                           <GridPane.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                        </ImageView>
-                        <Label fx:id="name" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Baldin Kent Shirt" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold" size="23.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label fx:id="desc" text="Lorem ipsum dolor sit amet consectetur adipiscing elit lobortis, netus lectus potenti rhoncus semper natoque ad quisque ullamcorper, nostra maecenas in himenaeos pretium turpis fermentum. Interdum imperdiet nascetur auctor litora orci class cras ridiculus est natoque scelerisque egestas ante, venenatis eget lobortis nec felis quisque magnis porttitor volutpat non accumsan." wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                           <GridPane.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Button fx:id="btnaddToCart" mnemonicParsing="false" onAction="#addItem" style="-fx-background-color: transparent; -fx-border-color: #0f954a; -fx-border-radius: 10;" text="Add to cart" textFill="#0f954a" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets bottom="5.0" right="5.0" />
-                           </GridPane.margin></Button>
-                        <Label fx:id="price" text="[Insert Price]" underline="true" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets bottom="5.0" />
-                           </GridPane.margin>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                  </GridPane>
-               </children>
-            </VBox>
+            <VBox fx:id="productcardList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: e2e2e2;" />
          </content>
       </ScrollPane>
    </children>
