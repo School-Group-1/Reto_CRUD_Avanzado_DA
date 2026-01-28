@@ -112,24 +112,16 @@ public class ShopWindowController implements Initializable {
         try {
             FXMLLoader loader;
             Parent root;
-            Stage stage = new Stage();
-
             
-            // 🔹 Si es usuario normal, cargar ModifyWindow.fxml
+            Stage stage = new Stage();            
             loader = new FXMLLoader(getClass().getResource("CompanyWindow.fxml"));
             root = loader.load();
-
+            
             CompanyWindowController companyWController = loader.getController();
-
-               
-            stage.setTitle("Modificar perfil");
-
-
             stage.setScene(new Scene(root));
-
             stage.show();
 
-            // Cerrar la ventana de login
+            // Cerrar esta ventana
             Stage currentStage = (Stage) btnStore.getScene().getWindow();
             currentStage.close();
 

@@ -110,11 +110,6 @@ public class ProfileWindowController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-    @FXML
-    private void openModifyPopup(ActionEvent event) {
-        openModal("/view/ModifyUserAdmin.fxml");
-    }
 
     @FXML
     private void openDeletePopup(ActionEvent event) {
@@ -125,22 +120,22 @@ public class ProfileWindowController implements Initializable {
      * Opens the Modify window.
      */
     @FXML
-    private void modifyVentana(ActionEvent event) {
+    private void openModifyPopup(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ModifyWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ModifyUserAdmin.fxml"));
             javafx.scene.Parent root = fxmlLoader.load();
 
-            view.ModifyWindowController controllerWindow = fxmlLoader.getController();
+            /*view.ModifyWindowController controllerWindow = fxmlLoader.getController();
             controllerWindow.setProfile(profile);
-            controllerWindow.setCont(this.cont);
+            controllerWindow.setCont(this.cont);*/
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
 
-            Stage currentStage = (Stage) Button_Modify.getScene().getWindow();
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
             currentStage.close();
-
         } catch (IOException ex) {
             Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
