@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CompanyWindowController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -80,7 +80,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </ImageView>
-            <Button alignment="TOP_LEFT" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Store" textFill="#0f954a" VBox.vgrow="ALWAYS">
+            <Button id="btnStore" onAction="#goToStore" alignment="TOP_LEFT" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Store" textFill="#0f954a" VBox.vgrow="ALWAYS">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -92,7 +92,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" style="-fx-background-color: e2e2e2;" text="Companies" textFill="#0f954a" VBox.vgrow="ALWAYS">
+            <Button id="btnCompanies" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" style="-fx-background-color: e2e2e2;" text="Companies" textFill="#0f954a" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -111,7 +111,7 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></Region>
-            <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Profile" textFill="#0f954a" VBox.vgrow="ALWAYS">
+            <Button id="btnProfile" onAction="#goToProfile" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Profile" textFill="#0f954a" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -131,7 +131,7 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <ScrollPane fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
+      <ScrollPane id="ScrollPaneCompanies" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
          <content>
             <TilePane alignment="CENTER" hgap="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefTileHeight="200.0" prefTileWidth="200.0" vgap="60.0">
                <children>

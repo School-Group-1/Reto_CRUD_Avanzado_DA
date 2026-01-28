@@ -6,8 +6,8 @@
 
         <!-- JDBC Database Connection Settings -->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/crud?useSSL=false</property>
-        <property name="hibernate.connection.username">2025-2026</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/crud?serverTimezone=Europe/Madrid&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</property>
+        <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">abcd*1234</property>
 
         <!-- JDBC connection pool settings -->
