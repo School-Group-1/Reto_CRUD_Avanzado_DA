@@ -5,11 +5,9 @@
  */
 package view;
 
-import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
 import controller.Controller;
 import java.io.IOException;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -31,10 +29,7 @@ import model.User;
  * Controller for the main Menu window.
  * Handles navigation to modify, delete, and logout actions.
  */
-public class ProfileWindowController implements Initializable {
-
-    @FXML 
-    private Label label_Username;
+public class CompanyWindowController implements Initializable {
 
     @FXML 
     private Button btnStore;
@@ -51,7 +46,7 @@ public class ProfileWindowController implements Initializable {
 
     public void setUsuario(Profile profile) {
         this.profile = profile;
-        label_Username.setText(profile.getUsername());
+        //label_Username.setText(profile.getUsername());
     }
 
     public void setCont(Controller cont) {
@@ -86,22 +81,22 @@ public class ProfileWindowController implements Initializable {
     }
 
     @FXML
-    private void goToCompanies(ActionEvent event) {
-        changeWindow("/view/CompanyWindow.fxml", event);
+    private void goToProfile(ActionEvent event) {
+        changeWindow("/view/ProfileWindow.fxml", event);
     }
     
     @FXML
-    private void logout (ActionEvent event){
-        changeWindow("/view/LogInWindow.fxml", event);
+    private void openModifyPopup(ActionEvent event) {
+        changeWindow("/view/ModifyUserAdmin.fxml", event);
     }
 
-    private void openModal(String fxmlPath) {
+    private void openModal(String fxmlPath, ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             javafx.scene.Parent root = loader.load();
 
             Stage stage = new Stage();
-            stage.initOwner(Button_Modify.getScene().getWindow());
+            stage.initOwner(((Node) event.getSource()).getScene().getWindow());
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setScene(new Scene(root));
             stage.showAndWait();
@@ -110,15 +105,10 @@ public class ProfileWindowController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-    @FXML
-    private void openModifyPopup(ActionEvent event) {
-        openModal("/view/ModifyUserAdmin.fxml");
-    }
 
     @FXML
     private void openDeletePopup(ActionEvent event) {
-        openModal("/view/DeleteConfirmationView.fxml");
+        openModal("/view/DeleteCOnfirmationView.fxml", event);
     }
 
     /**
@@ -183,20 +173,6 @@ public class ProfileWindowController implements Initializable {
             }
         } catch (IOException ex) {
             Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /**
-     * Closes the current window (used for logout).
-     */
-    @FXML
-    private void logout() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
-            Stage stage = (Stage) label_Username.getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
