@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 import model.Company;
 import model.DBImplementation;
 import model.Product;
+import model.Size;
 
 /**
  * FXML Controller class
@@ -45,6 +46,8 @@ public class ProductModifyWindowController implements Initializable {
     private ComboBox<String> companyCombobox;
     @FXML
     private VBox productsVbox;
+    @FXML
+    private HBox sizesHbox;
 
     /**
      * Initializes the controller class.
@@ -119,7 +122,7 @@ public class ProductModifyWindowController implements Initializable {
         VBox rightBox = new VBox(8);
         rightBox.setAlignment(Pos.CENTER_RIGHT);
 
-        Label priceLabel = new Label(product.getPrice()+"€");
+        Label priceLabel = new Label(product.getPrice() + "€");
         priceLabel.setStyle(
                 "-fx-background-color: #e5e5e5;"
                 + "-fx-padding: 4 8 4 8;"
@@ -142,26 +145,59 @@ public class ProductModifyWindowController implements Initializable {
         card.setOnMouseClicked(e -> selectProduct(product));
         return card;
     }
-    
-    private void selectProduct(Product product) {
-        System.out.println(product.toString());
+
+    private Button createSizeButton(Size size) {
+        Button sizeButton = new Button(size.getLabel());
+
+        sizeButton.setStyle(
+                "-fx-background-color: #e0e0e0;"
+                + "-fx-background-radius: 50%;"
+                + "-fx-border-radius: 50%;"
+                + "-fx-border-color: #b0b0b0;"
+                + "-fx-border-width: 1;"
+        );
+
+        // Make the button perfectly circular
+        sizeButton.setMinSize(50, 50);
+        sizeButton.setPrefSize(50, 50);
+        sizeButton.setMaxSize(50, 50);
+
+        // Center the label
+        sizeButton.setAlignment(Pos.CENTER);
+
+        // Optional click event
+        sizeButton.setOnAction(e -> selectSize(size));
+
+        return sizeButton;
     }
     
+    private void selectSize(Size size) {
+        System.out.println(size.getLabel());
+    }
+
+    private void selectProduct(Product product) {
+        List<Size> sizes = cont.findProductSizes(product);
+        sizesHbox.getChildren().clear();
+
+        for(Size s:sizes) {
+            Button btn = createSizeButton(s);
+            sizesHbox.getChildren().add(btn);
+        }
+    }
+
     /*@FXML
     private void goToCompanies(ActionEvent event) {
         changeWindow("/view/ShopWindow.fxml", event);
     }*/
-    
     @FXML
     private void goToUsers(ActionEvent event) {
         changeWindow("/view/UserTable.fxml", event);
     }
-    
+
     /*@FXML
     private void goToProfile(ActionEvent event) {
         changeWindow("/view/ModifyUserAdmin.fxml", event);
     }*/
-    
     private void changeWindow(String fxml, ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));

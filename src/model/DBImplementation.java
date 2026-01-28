@@ -285,6 +285,12 @@ public class DBImplementation implements ClassDAO {
         query.setParameter("company", company);
         return query.list();
     }
+    
+    public List<Size> findProductSizes(Product product) {
+        Query query = session.createQuery("from Size s where s.product = :product");
+        query.setParameter("product", product);
+        return query.list();
+    }
 
     public List<Company> findAllCompanies() {
         Query query = session.createQuery("FROM Company");

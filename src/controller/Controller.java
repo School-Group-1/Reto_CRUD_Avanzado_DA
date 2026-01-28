@@ -5,16 +5,12 @@
  */
 package controller;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import model.ClassDAO;
 import model.Company;
-import model.DBImplementation;
 import model.Product;
 import model.Profile;
-import model.User;
+import model.Size;
 
 /**
  * Controller class that handles interaction between the GUI and the database.
@@ -99,6 +95,10 @@ public class Controller {
     
     public List<Product> findProductsByCompany(Company company) {
         return dao.findProductsByCompany(company);
+    }
+    
+    public List<Size> findProductSizes(Product product) {
+        return dao.findProductSizes(product);
     }
     
     public List<Company> findAllCompanies() {
