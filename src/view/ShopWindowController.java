@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.Controller;
 import java.io.IOException;
 import static java.lang.String.valueOf;
 import java.net.URL;
@@ -37,6 +38,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Company;
+import model.DBImplementation;
 import model.Product;
 
 /**
@@ -45,6 +47,7 @@ import model.Product;
  * @author 2dami
  */
 public class ShopWindowController implements Initializable {
+    private Controller cont = new Controller(new DBImplementation());
 
     @FXML
     private TableView<String> CartTable;
@@ -82,16 +85,9 @@ public class ShopWindowController implements Initializable {
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         //Hacer que Items muestre Productos de la base de datos en la vista 
-       
-        Product BaldkShirt1 = new Product("Bald Shirt", 15.40, "Blue T-shirt", "A Great shirt for the summer, this is just not to write lorem ipsum", "../images/baldinkent.png", new Company("BalKe", "123456789abc", "somewhere", "http://guthib.com/"));
+        List<Product> products = cont.findAllProducts();
 
-        Product BaldkShirt2 = new Product("Bald Shirt", 15.40, "Blue T-shirt", "A Great shirt for the summer, this is just not to write lorem ipsum", "../images/baldinkent.png", new Company("BalKe", "123456789abc", "somewhere", "http://guthib.com/"));
-       
-        Items.add(BaldkShirt2)
-        Items.add(BaldkShirt2);
-        List<Product> products = Items;
         for (Product prod : products) {
             Node card = createProductCard(prod);
             productcardList.getChildren().add(card);

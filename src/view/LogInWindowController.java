@@ -85,9 +85,9 @@ public class LogInWindowController implements Initializable {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
                     Parent root = fxmlLoader.load();
 
-                    view.ProfileWindowController controllerWindow = fxmlLoader.getController();
+                    /*view.ProfileWindowController controllerWindow = fxmlLoader.getController();
                     controllerWindow.setUsuario(profile);
-                    controllerWindow.setCont(cont);
+                    controllerWindow.setCont(cont);*/
 
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
