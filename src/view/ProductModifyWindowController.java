@@ -6,14 +6,19 @@
 package view;
 
 import controller.Controller;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -23,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.Company;
 import model.DBImplementation;
 import model.Product;
@@ -139,5 +145,38 @@ public class ProductModifyWindowController implements Initializable {
     
     private void selectProduct(Product product) {
         System.out.println(product.toString());
+    }
+    
+    /*@FXML
+    private void goToCompanies(ActionEvent event) {
+        changeWindow("/view/ShopWindow.fxml", event);
+    }*/
+    
+    @FXML
+    private void goToUsers(ActionEvent event) {
+        changeWindow("/view/UserTable.fxml", event);
+    }
+    
+    /*@FXML
+    private void goToProfile(ActionEvent event) {
+        changeWindow("/view/ModifyUserAdmin.fxml", event);
+    }*/
+    
+    private void changeWindow(String fxml, ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

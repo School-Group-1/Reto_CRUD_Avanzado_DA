@@ -21,8 +21,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
+import model.Admin;
 import model.DBImplementation;
 import model.Profile;
+import model.User;
 
 /**
  * Controller for the Login window. Handles user login and navigation to the
@@ -80,9 +82,17 @@ public class LogInWindowController implements Initializable {
             labelIncorrecto.setText("Please fill in both fields.");
         } else {
             Profile profile = cont.logIn(username, password);
+            
             if (profile != null) {
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
+                    FXMLLoader fxmlLoader;
+                    
+                    if(profile instanceof Admin) {
+                        fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProductModifyWindow.fxml"));
+                    }else{
+                        fxmlLoader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
+                    }
+                    
                     Parent root = fxmlLoader.load();
 
                     /*view.ProfileWindowController controllerWindow = fxmlLoader.getController();
