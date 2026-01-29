@@ -50,12 +50,12 @@
                         <Font size="45.0" />
                      </font>
                   </Label>
-                  <Button layoutX="39.0" layoutY="210.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-border-color: black; -fx-font-weight: bold;" text="Cancel">
+                  <Button layoutX="39.0" layoutY="210.0" mnemonicParsing="false" onAction="#cancel" prefHeight="48.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-border-color: black; -fx-font-weight: bold;" text="Cancel">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button layoutX="256.0" layoutY="210.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-border-color: black; -fx-font-weight: bold;" text="Delete">
+                  <Button layoutX="256.0" layoutY="210.0" mnemonicParsing="false" onAction="#confirm" prefHeight="48.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-border-color: black; -fx-font-weight: bold;" text="Delete">
                      <font>
                         <Font size="22.0" />
                      </font>

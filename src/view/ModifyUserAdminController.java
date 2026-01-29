@@ -61,24 +61,18 @@ public class ModifyUserAdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadCurrentUser();
-
-        loadUserData();
 
         setupButtons();
+        this.originalName = "";
+        this.originalSurname = "";
+        this.originalTelephone = "";
     }
-    
-    @FXML
-    private void loadCurrentUser() {
-        this.currentUser = new Profile("John", "Doe", "123456789", "password123") {
-            @Override
-            public void logIn() {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-        };
-        this.originalName = currentUser.getName();
-        this.originalSurname = currentUser.getSurname();
-        this.originalTelephone = currentUser.getTelephone();
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        if (currentUser != null) {
+            loadUserData();
+        }
     }
 
     @FXML
@@ -158,8 +152,8 @@ public class ModifyUserAdminController implements Initializable {
         boolean updateSuccessful = false;
         if (canProceed) {
             try {
-                updateUser(); 
-                updateSuccessful = true;  
+                updateUser();
+                updateSuccessful = true;
 
             } catch (Exception e) {
                 updateSuccessful = false;

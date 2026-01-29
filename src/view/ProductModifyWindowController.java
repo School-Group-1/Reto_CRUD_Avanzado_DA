@@ -170,7 +170,7 @@ public class ProductModifyWindowController implements Initializable {
 
         return sizeButton;
     }
-    
+     
     private void selectSize(Size size) {
         System.out.println(size.getLabel());
     }
@@ -184,7 +184,7 @@ public class ProductModifyWindowController implements Initializable {
             sizesHbox.getChildren().add(btn);
         }
     }
-
+    
     /*@FXML
     private void goToCompanies(ActionEvent event) {
         changeWindow("/view/ShopWindow.fxml", event);

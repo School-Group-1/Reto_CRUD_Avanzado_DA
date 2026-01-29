@@ -162,7 +162,7 @@ public class ShopWindowController implements Initializable {
             System.err.println(e);
         }
 
-    }
+    }  
     private Node createProductCard(Product product) {
         HBox card = new HBox(15);
         card.setPadding(new Insets(15));
