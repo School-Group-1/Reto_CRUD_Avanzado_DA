@@ -271,23 +271,42 @@ public class DBImplementation implements ClassDAO {
         session.update(product);
         tx.commit();
     }
-
+    
     public void deleteProduct(Product product) {
         Transaction tx = session.beginTransaction();
         session.delete(product);
         tx.commit();
     }
     
+    public List<Company> findAllCompanies() {
+        Query query = session.createQuery("FROM Product");
+        return query.list();
+    }
+    
+    public void saveCompany(Company company) {
+        Transaction tx = session.beginTransaction();
+        session.save(company);
+        tx.commit();
+    }
+    
+     public void updateCompany(Company company) {
+        Transaction tx = session.beginTransaction();
+        session.update(company);
+        tx.commit();
+    }
+     
+    public void deleteCompany(Company company) {
+        Transaction tx = session.beginTransaction();
+        session.delete(company);
+        tx.commit();
+    }
+
+    
     public List<Product> findProductsByCompany(Company company) {
         Query query = session.createQuery(
             "from Product p where p.company = :company"
         );
         query.setParameter("company", company);
-        return query.list();
-    }
-
-    public List<Company> findAllCompanies() {
-        Query query = session.createQuery("FROM Company");
         return query.list();
     }
 }

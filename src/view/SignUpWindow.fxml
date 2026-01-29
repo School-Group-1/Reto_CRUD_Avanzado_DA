@@ -65,7 +65,7 @@
          <GridPane.margin>
             <Insets left="200.0" />
          </GridPane.margin></Button>
-      <Button fx:id="buttonSignUp" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signup" prefHeight="28.0" prefWidth="369.0" style="-fx-background-color: A7C4E5; -fx-border-color: black;" text="Sign Up" GridPane.hgrow="ALWAYS" GridPane.rowIndex="25" GridPane.vgrow="ALWAYS">
+      <Button fx:id="buttonSignUp" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signup" prefHeight="28.0" prefWidth="369.0" style="-fx-background-color: white; -fx-border-color: black; -fx-font-weight: bold;" text="Sign Up" GridPane.hgrow="ALWAYS" GridPane.rowIndex="25" GridPane.vgrow="ALWAYS">
          <GridPane.margin>
             <Insets left="55.0" right="55.0" />
          </GridPane.margin>
