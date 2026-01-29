@@ -33,4 +33,7 @@ public interface ClassDAO {
     List<Size> findProductSizes(Product product);
     
     List<Company> findAllCompanies();
+    
+    List<Purchase> findSizePurchases(Size size);
+    List<Purchase> findProductPurchases(Product product);
 }

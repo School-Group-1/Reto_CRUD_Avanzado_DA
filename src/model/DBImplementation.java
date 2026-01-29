@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -307,7 +308,7 @@ public class DBImplementation implements ClassDAO {
     }
     
     public List<Size> findProductSizes(Product product) {
-        Query query = session.createQuery("from Size s where s.product = :product");
+        Query query = session.createQuery("from Size s WHERE s.product = :product");
         query.setParameter("product", product);
         return query.list();
     }
@@ -315,5 +316,29 @@ public class DBImplementation implements ClassDAO {
     public List<Company> findAllCompanies() {
         Query query = session.createQuery("FROM Company");
         return query.list();
+    }
+    
+    public List<Purchase> findSizePurchases(Size size) {
+        Query query = session.createQuery("FROM Purchase p WHERE p.size = :size");
+        query.setParameter("size", size);
+        return query.list();
+    }
+    
+    public List<Purchase> findProductPurchases(Product product) {
+        List<Purchase> size_purchases = new ArrayList<>();
+        
+        Query query = session.createQuery("FROM Size s WHERE s.product = :product");
+        query.setParameter("product", product);
+        List<Size> sizes = query.list();
+        
+        for(Size s:sizes) {
+            query = session.createQuery("FROM Purchase p WHERE p.size = :size");
+            query.setParameter("size", s);
+            List<Purchase> purchases = query.list();
+            
+            size_purchases.addAll(purchases);
+        }
+        
+        return size_purchases;
     }
 }

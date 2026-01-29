@@ -10,6 +10,7 @@ import model.ClassDAO;
 import model.Company;
 import model.Product;
 import model.Profile;
+import model.Purchase;
 import model.Size;
 
 /**
@@ -103,5 +104,13 @@ public class Controller {
     
     public List<Company> findAllCompanies() {
         return dao.findAllCompanies();
+    }
+    
+    public List<Purchase> findSizePurchases(Size size) {
+        return dao.findSizePurchases(size);
+    }
+    
+    public List<Purchase> findProductPurchases(Product product) {
+        return dao.findProductPurchases(product);
     }
 }

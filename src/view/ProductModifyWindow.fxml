@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -105,12 +104,12 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="50.0" />
          </GridPane.margin>
       </ComboBox>
-      <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="210.0" GridPane.columnIndex="5" GridPane.columnSpan="5" GridPane.rowSpan="6">
+      <LineChart fx:id="linechart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="210.0" GridPane.columnIndex="5" GridPane.columnSpan="5" GridPane.rowSpan="6">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <NumberAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
          <GridPane.margin>
             <Insets top="10.0" />
