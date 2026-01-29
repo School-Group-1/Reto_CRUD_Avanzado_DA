@@ -1,5 +1,6 @@
 package main;
 
+import java.time.LocalDate;
 import model.HibernateUtil;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 import model.Admin;
 import model.Company;
 import model.Product;
+import model.Purchase;
 import model.Size;
 import model.User;
 import org.hibernate.Session;
@@ -33,7 +35,8 @@ public class Main extends Application {
     }
 
     /**
-     * Main method to launch the JavaFX application and load test data into the database.
+     * Main method to launch the JavaFX application and load test data into the
+     * database.
      *
      * @param args command-line arguments (not used)
      */
@@ -96,19 +99,7 @@ public class Main extends Application {
         product6.getSizes().add(size6_1);
         product6.getSizes().add(size6_2);
         product6.getSizes().add(size6_3);
-
-        user1.getPurchases().add(size1_1);
-        user1.getPurchases().add(size1_2);
-        user1.getPurchases().add(size1_1);
-
-        user2.getPurchases().add(size2_3);
-        user2.getPurchases().add(size3_2);
-        user2.getPurchases().add(size4_1);
-
-        user3.getPurchases().add(size5_1);
-        user3.getPurchases().add(size5_1);
-        user3.getPurchases().add(size6_2);
-
+        
         session.save(user1);
         session.save(user2);
         session.save(user3);
@@ -146,6 +137,26 @@ public class Main extends Application {
         session.save(size6_1);
         session.save(size6_2);
         session.save(size6_3);
+
+        LocalDate today = LocalDate.now();
+        
+        user1.purchaseItem(size1_1, today.minusDays(2));
+        user1.purchaseItem(size1_2, today.minusDays(5));
+        user1.purchaseItem(size1_1, today.minusDays(8));
+        user1.purchaseItem(size3_2, today.minusDays(11));
+        user1.purchaseItem(size4_1, today.minusDays(14));
+
+        user2.purchaseItem(size2_3, today.minusDays(3));
+        user2.purchaseItem(size3_2, today.minusDays(6));
+        user2.purchaseItem(size4_2, today.minusDays(9));
+        user2.purchaseItem(size5_1, today.minusDays(12));
+        user2.purchaseItem(size6_2, today.minusDays(15));
+
+        user3.purchaseItem(size5_1, today.minusDays(1));
+        user3.purchaseItem(size5_1, today.minusDays(4));
+        user3.purchaseItem(size6_2, today.minusDays(7));
+        user3.purchaseItem(size2_1, today.minusDays(10));
+        user3.purchaseItem(size3_3, today.minusDays(13));
 
         tx.commit();
         session.close();

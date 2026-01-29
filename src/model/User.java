@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -20,10 +21,12 @@ public class User extends Profile {
 
     @Column(name = "gender")
     private String gender;
+
     @Column(name = "card_number")
     private String cardNumber;
-    @ManyToMany(mappedBy = "buyers")
-    private List<Size> purchases;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Purchase> purchases;
 
     public User(String gender, String cardNumber, String username, String password, String email, String name, String telephone, String surname) {
         super(username, password, email, name, telephone, surname);
@@ -54,14 +57,18 @@ public class User extends Profile {
         this.cardNumber = cardNumber;
     }
 
-    public List<Size> getPurchases() {
+    public List<Purchase> getPurchases() {
         return purchases;
     }
 
-    public void setPurchases(List<Size> purchases) {
+    public void setPurchases(List<Purchase> purchases) {
         this.purchases = purchases;
     }
-    
+
+    public void purchaseItem(Size size, LocalDate date) {
+        this.purchases.add(new Purchase(this, size, date));
+    }
+
     @Override
     public void logIn() {
         throw new UnsupportedOperationException("Not supported yet.");

@@ -20,6 +20,7 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Admin.class);
         configuration.addAnnotatedClass(Company.class);
+        configuration.addAnnotatedClass(Purchase.class);
         configuration.addAnnotatedClass(Size.class);
         configuration.addAnnotatedClass(Product.class);
 
