@@ -271,12 +271,32 @@ public class DBImplementation implements ClassDAO {
         session.update(product);
         tx.commit();
     }
-
+    
     public void deleteProduct(Product product) {
         Transaction tx = session.beginTransaction();
         session.delete(product);
         tx.commit();
     }
+    
+    
+    public void saveCompany(Company company) {
+        Transaction tx = session.beginTransaction();
+        session.save(company);
+        tx.commit();
+    }
+    
+     public void updateCompany(Company company) {
+        Transaction tx = session.beginTransaction();
+        session.update(company);
+        tx.commit();
+    }
+     
+    public void deleteCompany(Company company) {
+        Transaction tx = session.beginTransaction();
+        session.delete(company);
+        tx.commit();
+    }
+
     
     public List<Product> findProductsByCompany(Company company) {
         Query query = session.createQuery(

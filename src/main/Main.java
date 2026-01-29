@@ -25,7 +25,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/ProductModifyWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/CompaniesTable.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Login Application");
         stage.setScene(scene);

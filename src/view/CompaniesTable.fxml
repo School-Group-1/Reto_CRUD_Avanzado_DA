@@ -56,13 +56,10 @@
             </HBox>
             <TableView fx:id="tableView" prefHeight="370.0" prefWidth="776.0" VBox.vgrow="ALWAYS">
                <columns>
-                  <TableColumn fx:id="usernameCol" minWidth="80.0" prefWidth="100.0" text="USERNAME" />
-                  <TableColumn fx:id="passwordCol" minWidth="80.0" prefWidth="100.0" text="PASSWORD" />
-                  <TableColumn fx:id="emailCol" minWidth="100.0" prefWidth="180.0" text="EMAIL" />
                   <TableColumn fx:id="nameCol" minWidth="80.0" prefWidth="100.0" text="NAME" />
-                  <TableColumn fx:id="telephoneCol" minWidth="80.0" prefWidth="115.0" text="TELEPHONE" />
-                  <TableColumn fx:id="surnameCol" minWidth="80.0" prefWidth="110.0" text="SURNAME" />
-                  <TableColumn fx:id="genderCol" minWidth="80.0" prefWidth="100.0" text="GENDER" />
+                  <TableColumn fx:id="nieCol" prefWidth="75.0" text="NIE" />
+                  <TableColumn fx:id="locationCol" minWidth="80.0" prefWidth="100.0" text="LOCATION" />
+                  <TableColumn fx:id="urlCol" prefWidth="75.0" text="URL" />
                   <TableColumn fx:id="deleteCol" minWidth="50.0" prefWidth="50.0" text="DELETE" />
                </columns>
                <contextMenu>
@@ -109,7 +106,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="companiesButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies" VBox.vgrow="ALWAYS">
+            <Button fx:id="companiesButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #e2e2e2; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies" VBox.vgrow="ALWAYS">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -118,7 +115,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #e2e2e2; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Users" VBox.vgrow="ALWAYS">
+            <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Users" VBox.vgrow="ALWAYS">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>

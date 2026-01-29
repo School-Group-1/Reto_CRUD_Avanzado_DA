@@ -18,8 +18,8 @@
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ModifyUserAdminController">
   <columnConstraints>
       <ColumnConstraints hgrow="NEVER" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
-      <ColumnConstraints hgrow="NEVER" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+      <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
@@ -40,12 +40,12 @@
     <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="10.3333740234375" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Pane prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 35;" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="2" GridPane.rowSpan="7" />
-      <Label id="errorLabel" fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="329.0" style="-fx-text-fill: red;" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="7">
+      <Pane prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 35;" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="7" />
+      <Label id="errorLabel" fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="329.0" style="-fx-text-fill: red;" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.rowIndex="7">
          <GridPane.margin>
             <Insets left="50.0" />
          </GridPane.margin></Label>
-      <VBox maxWidth="200.0" minWidth="200.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
+      <VBox maxWidth="200.0" minWidth="200.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
          <children>
             <ImageView fitHeight="66.0" fitWidth="199.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                <image>
@@ -92,7 +92,7 @@
          </children>
       </VBox>
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" GridPane.columnIndex="1" GridPane.columnSpan="8" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER" />
-      <VBox prefHeight="68.0" prefWidth="204.0" spacing="10.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.hgrow="NEVER" GridPane.rowIndex="3">
+      <VBox prefHeight="68.0" prefWidth="297.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.hgrow="NEVER" GridPane.rowIndex="3">
          <children>
             <Label text="Name:" VBox.vgrow="ALWAYS">
                <font>
@@ -102,9 +102,9 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <TextField fx:id="nameText" style="-fx-border-color: #0f954a; -fx-border-radius: 35; -fx-background-radius: 35;">
+            <TextField fx:id="nameText" maxWidth="-Infinity" prefHeight="28.0" prefWidth="320.0" style="-fx-border-color: #0f954a; -fx-border-radius: 35; -fx-background-radius: 35;">
                <VBox.margin>
-                  <Insets right="20.0" />
+                  <Insets right="10.0" />
                </VBox.margin>
             </TextField>
          </children>
@@ -115,7 +115,7 @@
             <Insets left="20.0" right="20.0" />
          </GridPane.margin>
       </VBox>
-      <VBox prefHeight="64.0" prefWidth="300.0" spacing="10.0" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.hgrow="NEVER" GridPane.rowIndex="3">
+      <VBox prefHeight="64.0" prefWidth="300.0" spacing="10.0" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.hgrow="NEVER" GridPane.rowIndex="3">
          <children>
             <Label text="Surname:" VBox.vgrow="ALWAYS">
                <font>
@@ -128,7 +128,7 @@
                   <Insets left="20.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="surnameText" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-border-color: #0f954a;">
+            <TextField fx:id="surnameText" maxWidth="-Infinity" prefHeight="28.0" prefWidth="327.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-border-color: #0f954a;">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -141,14 +141,14 @@
             <Insets left="100.0" right="20.0" />
          </GridPane.margin>
       </VBox>
-      <VBox prefHeight="54.0" prefWidth="583.0" spacing="10.0" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.hgrow="NEVER" GridPane.rowIndex="4">
+      <VBox prefHeight="54.0" prefWidth="583.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.hgrow="NEVER" GridPane.rowIndex="4">
          <children>
             <Label text="Telephone:" VBox.vgrow="ALWAYS">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="telephoneText" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-border-color: #0f954a;">
+            <TextField fx:id="telephoneText" maxWidth="-Infinity" prefHeight="28.0" prefWidth="740.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-border-color: #0f954a;">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -158,7 +158,7 @@
             <Insets left="20.0" right="20.0" top="40.0" />
          </GridPane.margin>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.hgrow="NEVER" GridPane.rowIndex="5">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.hgrow="NEVER" GridPane.rowIndex="5">
          <children>
             <Label text="New Password:" VBox.vgrow="ALWAYS">
                <font>
@@ -168,9 +168,9 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <TextField fx:id="passwordText" prefHeight="25.0" prefWidth="223.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-border-color: #0f954a;">
+            <TextField fx:id="passwordText" maxWidth="-Infinity" prefHeight="28.0" prefWidth="331.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-border-color: #0f954a;">
                <VBox.margin>
-                  <Insets right="20.0" />
+                  <Insets right="10.0" />
                </VBox.margin>
             </TextField>
          </children>
@@ -178,12 +178,12 @@
             <Insets left="20.0" right="20.0" top="80.0" />
          </GridPane.margin>
       </VBox>
-      <VBox maxHeight="1.7976931348623157E308" minWidth="50.0" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
+      <VBox maxHeight="1.7976931348623157E308" minWidth="50.0" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
          <GridPane.margin>
             <Insets left="20.0" right="20.0" top="100.0" />
          </GridPane.margin>
          <children>
-            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" prefHeight="28.0" prefWidth="318.0" style="-fx-border-color: #0f954a; -fx-background-radius: 35; -fx-border-radius: 35; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="Cancel" VBox.vgrow="ALWAYS">
+            <Button fx:id="cancelButton" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleCancel" prefHeight="28.0" prefWidth="318.0" style="-fx-border-color: #0f954a; -fx-background-radius: 35; -fx-border-radius: 35; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="Cancel" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets right="20.0" />
                </VBox.margin>
@@ -192,12 +192,12 @@
                </padding></Button>
          </children>
       </VBox>
-      <VBox prefHeight="4.0" prefWidth="335.0" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" GridPane.vgrow="NEVER">
+      <VBox prefHeight="4.0" prefWidth="335.0" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" GridPane.vgrow="NEVER">
          <GridPane.margin>
             <Insets left="100.0" top="100.0" />
          </GridPane.margin>
          <children>
-            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveChanges" prefHeight="28.0" prefWidth="318.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-border-color: #0f954a; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="Save Changes" VBox.vgrow="ALWAYS">
+            <Button fx:id="saveButton" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSaveChanges" prefHeight="28.0" prefWidth="318.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-border-color: #0f954a; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="Save Changes" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets left="20.0" />
                </VBox.margin>
@@ -206,7 +206,7 @@
                </padding></Button>
          </children>
       </VBox>
-      <VBox prefHeight="68.0" prefWidth="207.0" spacing="10.0" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.hgrow="NEVER" GridPane.rowIndex="5">
+      <VBox prefHeight="68.0" prefWidth="207.0" spacing="10.0" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.hgrow="NEVER" GridPane.rowIndex="5">
          <children>
             <Label prefHeight="30.0" prefWidth="167.0" text="Confirm Password:" VBox.vgrow="ALWAYS">
                <font>
@@ -216,7 +216,7 @@
                   <Insets left="20.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="confirmText" prefHeight="25.0" prefWidth="223.0" style="-fx-border-color: #0f954a; -fx-background-radius: 35; -fx-border-radius: 35;">
+            <TextField fx:id="confirmText" maxWidth="-Infinity" prefHeight="28.0" prefWidth="341.0" style="-fx-border-color: #0f954a; -fx-background-radius: 35; -fx-border-radius: 35;">
                <VBox.margin>
                   <Insets left="20.0" />
                </VBox.margin></TextField>
@@ -225,7 +225,7 @@
             <Insets left="100.0" right="20.0" top="80.0" />
          </GridPane.margin>
       </VBox>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
          <children>
             <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="75.0" prefWidth="587.0" style="-fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Modify your account" VBox.vgrow="ALWAYS">
                <font>
@@ -233,6 +233,9 @@
                </font>
             </Label>
          </children>
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin>
       </VBox>
    </children>
 </GridPane>
