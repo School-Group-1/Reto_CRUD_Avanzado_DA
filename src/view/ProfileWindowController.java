@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import model.Admin;
+import model.DBImplementation;
 import model.Profile;
 import model.User;
 
@@ -87,7 +88,26 @@ public class ProfileWindowController implements Initializable {
 
     @FXML
     private void goToCompanies(ActionEvent event) {
-        changeWindow("/view/CompanyWindow.fxml", event);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompanyWindow.fxml"));
+            Parent root = loader.load();
+            
+            CompanyWindowController viewController = loader.getController();
+            viewController.setCont(cont);
+
+            viewController.initData();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML
@@ -198,5 +218,6 @@ public class ProfileWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialization logic if needed
+        cont=new Controller(DBImplementation dao = new DBImplementation());
     }
 }

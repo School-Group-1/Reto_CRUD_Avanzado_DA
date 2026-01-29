@@ -9,6 +9,7 @@ import controller.Controller;
 import java.io.IOException;
 import javafx.scene.control.Button;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,12 +17,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import model.Admin;
+import model.Company;
 import model.Profile;
 import model.User;
 
@@ -30,6 +38,9 @@ import model.User;
  * Handles navigation to modify, delete, and logout actions.
  */
 public class CompanyWindowController implements Initializable {
+    
+    @FXML
+    private TilePane PaneButtons;
 
     @FXML 
     private Button btnStore;
@@ -55,6 +66,12 @@ public class CompanyWindowController implements Initializable {
 
     public Controller getCont() {
         return cont;
+    }
+    
+    public void initData() {
+        System.out.println("PaneButtons = " + PaneButtons);
+        System.out.println("cont = " + cont);
+        loadCompanies();
     }
     
     private void changeWindow(String fxml, ActionEvent event) {
@@ -109,6 +126,62 @@ public class CompanyWindowController implements Initializable {
     @FXML
     private void openDeletePopup(ActionEvent event) {
         openModal("/view/DeleteCOnfirmationView.fxml", event);
+    }
+    
+    private void loadCompanies() {
+
+        PaneButtons.getChildren().clear();
+
+        List<Company> companies = cont.findAllCompanies();
+
+        for (Company c : companies) {
+            Button companyButton = createCompanyButton(c);
+            PaneButtons.getChildren().add(companyButton);
+            System.out.println(c.getName());
+        }
+    }
+
+    
+    private Button createCompanyButton(Company company) {
+
+        Button button = new Button();
+        button.setPrefSize(200, 200);
+        button.setStyle(
+            "-fx-background-color: white;"
+          + "-fx-background-radius: 20;"
+          + "-fx-border-radius: 20;"
+          + "-fx-border-color: #0f954a;"
+        );
+
+        VBox content = new VBox(10);
+        content.setAlignment(Pos.TOP_CENTER);
+
+        Label nameLabel = new Label(company.getName());
+        nameLabel.setStyle("-fx-font-size: 14; -fx-font-weight: bold;");
+
+        /*ImageView imageView = new ImageView(
+            new Image(getClass().getResourceAsStream(
+                "/images/Captura de pantalla 2026-01-26 085933.png"
+            ))
+        );
+        imageView.setFitWidth(140);
+        imageView.setFitHeight(120);
+        imageView.setPreserveRatio(true);*/
+
+        content.getChildren().addAll(nameLabel );
+        button.setGraphic(content);
+
+        button.setOnAction(e -> selectCompany(company));
+
+        return button;
+    }
+    
+    private void selectCompany(Company company) {
+        System.out.println("Empresa seleccionada: " + company.getName());
+
+        // después:
+        // cont.setSelectedCompany(company);
+        // abrir ventana de productos
     }
 
     /**
@@ -179,5 +252,7 @@ public class CompanyWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialization logic if needed
+        System.out.println("Controller REAL creado: " + this);
+        System.out.println("PaneButtons = " + PaneButtons);
     }
 }

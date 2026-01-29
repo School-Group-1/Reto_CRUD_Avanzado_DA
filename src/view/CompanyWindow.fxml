@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -80,7 +79,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </ImageView>
-            <Button id="btnStore" onAction="#goToStore" alignment="TOP_LEFT" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Store" textFill="#0f954a" VBox.vgrow="ALWAYS">
+            <Button id="btnStore" alignment="TOP_LEFT" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" onAction="#goToStore" style="-fx-background-color: transparent;" text="Store" textFill="#0f954a" VBox.vgrow="ALWAYS">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -111,7 +110,7 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></Region>
-            <Button id="btnProfile" onAction="#goToProfile" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Profile" textFill="#0f954a" VBox.vgrow="ALWAYS">
+            <Button id="btnProfile" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" onAction="#goToProfile" style="-fx-background-color: transparent;" text="Profile" textFill="#0f954a" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -131,179 +130,9 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <ScrollPane id="ScrollPaneCompanies" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
+      <ScrollPane fx:id="ScrollPaneCompanies" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
          <content>
-            <TilePane alignment="CENTER" hgap="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefTileHeight="200.0" prefTileWidth="200.0" vgap="60.0">
-               <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
-                     <graphic>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="label_Username11" text="Company" VBox.vgrow="ALWAYS">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ImageView fitHeight="137.0" fitWidth="156.0" VBox.vgrow="ALWAYS">
-                                 <image>
-                                    <Image url="@../images/Captura%20de%20pantalla%202026-01-26%20085933.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
-                        </VBox>
-                     </graphic>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
-                     <graphic>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="label_Username111" text="Company" VBox.vgrow="ALWAYS">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ImageView fitHeight="137.0" fitWidth="156.0" VBox.vgrow="ALWAYS">
-                                 <image>
-                                    <Image url="@../images/Captura%20de%20pantalla%202026-01-26%20085933.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
-                        </VBox>
-                     </graphic>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
-                     <graphic>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="label_Username112" text="Company" VBox.vgrow="ALWAYS">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ImageView fitHeight="137.0" fitWidth="156.0" VBox.vgrow="ALWAYS">
-                                 <image>
-                                    <Image url="@../images/Captura%20de%20pantalla%202026-01-26%20085933.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
-                        </VBox>
-                     </graphic>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
-                     <graphic>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="label_Username113" text="Company" VBox.vgrow="ALWAYS">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ImageView fitHeight="137.0" fitWidth="156.0" VBox.vgrow="ALWAYS">
-                                 <image>
-                                    <Image url="@../images/Captura%20de%20pantalla%202026-01-26%20085933.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
-                        </VBox>
-                     </graphic>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
-                     <graphic>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="label_Username114" text="Company" VBox.vgrow="ALWAYS">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ImageView fitHeight="137.0" fitWidth="156.0" VBox.vgrow="ALWAYS">
-                                 <image>
-                                    <Image url="@../images/Captura%20de%20pantalla%202026-01-26%20085933.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
-                        </VBox>
-                     </graphic>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
-                     <graphic>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="label_Username115" text="Company" VBox.vgrow="ALWAYS">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ImageView fitHeight="137.0" fitWidth="156.0" VBox.vgrow="ALWAYS">
-                                 <image>
-                                    <Image url="@../images/Captura%20de%20pantalla%202026-01-26%20085933.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
-                        </VBox>
-                     </graphic>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: ffffff; -fx-background-radius: 20;">
-                     <graphic>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="label_Username116" text="Company" VBox.vgrow="ALWAYS">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ImageView fitHeight="137.0" fitWidth="156.0" VBox.vgrow="ALWAYS">
-                                 <image>
-                                    <Image url="@../images/Captura%20de%20pantalla%202026-01-26%20085933.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
-                        </VBox>
-                     </graphic>
-                  </Button>
-               </children>
+            <TilePane fx:id="PaneButtons" alignment="CENTER" hgap="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefTileHeight="200.0" prefTileWidth="200.0" vgap="60.0">
                <padding>
                   <Insets bottom="10.0" top="10.0" />
                </padding>
