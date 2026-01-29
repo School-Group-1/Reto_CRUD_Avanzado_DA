@@ -218,6 +218,6 @@ public class ProfileWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialization logic if needed
-        cont=new Controller(DBImplementation dao = new DBImplementation());
+        cont = new Controller(new DBImplementation());
     }
 }

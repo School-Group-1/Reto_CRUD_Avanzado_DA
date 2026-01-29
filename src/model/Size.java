@@ -6,12 +6,16 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -37,6 +41,14 @@ public class Size implements Serializable {
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+    
+    @ManyToMany
+    @JoinTable(
+        name = "buy",
+        joinColumns = @JoinColumn(name = "size_id"),
+        inverseJoinColumns = @JoinColumn(name = "username")
+    )
+    private List<User> buyers;
 
     public Size() {
     }
@@ -45,6 +57,7 @@ public class Size implements Serializable {
         this.label = label;
         this.stock = stock;
         this.product = product;
+        this.buyers = new ArrayList<>();
     }
 
     public int getSizeId() {
@@ -73,5 +86,13 @@ public class Size implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+    
+    public List<User> getBuyers() {
+        return buyers;
+    }
+
+    public void setBuyers(List<User> buyers) {
+        this.buyers = buyers;
     }
 }

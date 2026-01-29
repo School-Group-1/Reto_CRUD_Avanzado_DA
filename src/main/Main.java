@@ -25,7 +25,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/CompaniesTable.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/LogInWindow.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Login Application");
         stage.setScene(scene);
@@ -33,7 +33,7 @@ public class Main extends Application {
     }
 
     /**
-     * Main method to launch the JavaFX application.
+     * Main method to launch the JavaFX application and load test data into the database.
      *
      * @param args command-line arguments (not used)
      */
@@ -96,6 +96,18 @@ public class Main extends Application {
         product6.getSizes().add(size6_1);
         product6.getSizes().add(size6_2);
         product6.getSizes().add(size6_3);
+
+        user1.getPurchases().add(size1_1);
+        user1.getPurchases().add(size1_2);
+        user1.getPurchases().add(size1_1);
+
+        user2.getPurchases().add(size2_3);
+        user2.getPurchases().add(size3_2);
+        user2.getPurchases().add(size4_1);
+
+        user3.getPurchases().add(size5_1);
+        user3.getPurchases().add(size5_1);
+        user3.getPurchases().add(size6_2);
 
         session.save(user1);
         session.save(user2);

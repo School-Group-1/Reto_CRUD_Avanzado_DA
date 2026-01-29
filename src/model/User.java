@@ -5,24 +5,31 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
+
 /**
- * Represents a standard user in the system.
- * Extends Profile and adds gender and card number attributes.
+ * Represents a standard user in the system. Extends Profile and adds gender and
+ * card number attributes.
  */
 @Entity
-@Table(name="user_")
+@Table(name = "user_")
 @PrimaryKeyJoinColumn(name = "username")
 public class User extends Profile {
+
     @Column(name = "gender")
     private String gender;
     @Column(name = "card_number")
     private String cardNumber;
+    @ManyToMany(mappedBy = "buyers")
+    private List<Size> purchases;
 
     public User(String gender, String cardNumber, String username, String password, String email, String name, String telephone, String surname) {
         super(username, password, email, name, telephone, surname);
         this.gender = gender;
         this.cardNumber = cardNumber;
+        this.purchases = new ArrayList<>();
     }
 
     public User() {
@@ -31,12 +38,30 @@ public class User extends Profile {
         this.cardNumber = "";
     }
 
-    public String getGender() { return gender; }
-    public void setGender(String gender) { this.gender = gender; }
+    public String getGender() {
+        return gender;
+    }
 
-    public String getCardNumber() { return cardNumber; }
-    public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public List<Size> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(List<Size> purchases) {
+        this.purchases = purchases;
+    }
+    
     @Override
     public void logIn() {
         throw new UnsupportedOperationException("Not supported yet.");

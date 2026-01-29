@@ -53,14 +53,6 @@ public class Product implements Serializable {
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
-    @ManyToMany
-    @JoinTable(
-        name = "buy",
-        joinColumns = @JoinColumn(name = "product_id"),
-        inverseJoinColumns = @JoinColumn(name = "username")
-    )
-    private List<User> buyers;
-
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Size> sizes;
 
@@ -127,14 +119,6 @@ public class Product implements Serializable {
 
     public void setCompany(Company company) {
         this.company = company;
-    }
-
-    public List<User> getBuyers() {
-        return buyers;
-    }
-
-    public void setBuyers(List<User> buyers) {
-        this.buyers = buyers;
     }
 
     public List<Size> getSizes() {
