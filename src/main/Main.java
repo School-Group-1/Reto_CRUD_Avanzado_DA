@@ -1,6 +1,10 @@
 package main;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import model.HibernateUtil;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -32,6 +36,37 @@ public class Main extends Application {
         stage.setTitle("Login Application");
         stage.setScene(scene);
         stage.show();
+    }
+
+    /**
+     * Generates random purchases for a user and size within a given date range.
+     *
+     * @param user the user making the purchases
+     * @param size the size being purchased
+     * @param startDate the first date in the range (inclusive)
+     * @param endDate the last date in the range (inclusive)
+     * @param maxPerDay the maximum number of purchases per day
+     * @param session the Hibernate session used to save the purchases
+     */
+    public static void generateDailyPurchases(
+            User user,
+            Size size,
+            LocalDate startDate,
+            LocalDate endDate,
+            int maxPerDay,
+            Session session
+    ) {
+        Random random = new Random();
+
+        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+            int purchasesToday = random.nextInt(maxPerDay + 1);
+
+            for (int i = 0; i < purchasesToday; i++) {
+                Purchase p = new Purchase(user, size, date);
+                user.getPurchases().add(p);
+                session.save(p);
+            }
+        }
     }
 
     /**
@@ -99,7 +134,7 @@ public class Main extends Application {
         product6.getSizes().add(size6_1);
         product6.getSizes().add(size6_2);
         product6.getSizes().add(size6_3);
-        
+
         session.save(user1);
         session.save(user2);
         session.save(user3);
@@ -138,25 +173,41 @@ public class Main extends Application {
         session.save(size6_2);
         session.save(size6_3);
 
-        LocalDate today = LocalDate.now();
-        
-        user1.purchaseItem(size1_1, today.minusDays(2));
-        user1.purchaseItem(size1_2, today.minusDays(5));
-        user1.purchaseItem(size1_1, today.minusDays(8));
-        user1.purchaseItem(size3_2, today.minusDays(11));
-        user1.purchaseItem(size4_1, today.minusDays(14));
+        List<User> users = Arrays.asList(user1, user2, user3);
 
-        user2.purchaseItem(size2_3, today.minusDays(3));
-        user2.purchaseItem(size3_2, today.minusDays(6));
-        user2.purchaseItem(size4_2, today.minusDays(9));
-        user2.purchaseItem(size5_1, today.minusDays(12));
-        user2.purchaseItem(size6_2, today.minusDays(15));
+        List<Size> allSizes = Arrays.asList(
+                size1_1, size1_2, size1_3,
+                size2_1, size2_2, size2_3,
+                size3_1, size3_2, size3_3,
+                size4_1, size4_2, size4_3,
+                size5_1, size5_2, size5_3,
+                size6_1, size6_2, size6_3
+        );
 
-        user3.purchaseItem(size5_1, today.minusDays(1));
-        user3.purchaseItem(size5_1, today.minusDays(4));
-        user3.purchaseItem(size6_2, today.minusDays(7));
-        user3.purchaseItem(size2_1, today.minusDays(10));
-        user3.purchaseItem(size3_3, today.minusDays(13));
+        Random random = new Random();
+
+        LocalDate startDate = LocalDate.now().minusDays(30);
+        LocalDate endDate = LocalDate.now();
+
+        for (Size size : allSizes) {
+
+            int usersForThisSize = random.nextInt(users.size()) + 1;
+
+            Collections.shuffle(users);
+
+            for (int i = 0; i < usersForThisSize; i++) {
+                User user = users.get(i);
+
+                generateDailyPurchases(
+                        user,
+                        size,
+                        startDate,
+                        endDate,
+                        2,
+                        session
+                );
+            }
+        }
 
         tx.commit();
         session.close();
