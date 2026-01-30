@@ -22,12 +22,12 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Admin;
 import model.Company;
 import model.DBImplementation;
-import model.User;
 
 /**
  * FXML Controller class
@@ -36,39 +36,27 @@ import model.User;
  */
 public class CompaniesTableController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
     @FXML
     private CheckBox editCheckBox;
     @FXML
     private TableView<Company> tableView;
     @FXML
     private TableColumn<Company, String> nieCol;
-
     @FXML
     private TableColumn<Company, String> nameCol;
-
     @FXML
     private TableColumn<Company, String> locationCol;
-
     @FXML
     private TableColumn<Company, String> urlCol;
-
     @FXML
     private TableColumn<Company, Void> deleteCol;
 
     private Admin loggedAdmin;
-
     private ObservableList<Company> companyList = FXCollections.observableArrayList();
     private DBImplementation dao = new DBImplementation();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        setupColumns();
-        setupEditableColumns();
-        setupDeleteColumn();
         checkbox();
         setupColumns();
         setupEditableColumns();
@@ -78,38 +66,65 @@ public class CompaniesTableController implements Initializable {
     }
 
     public void checkbox() {
-        // Estado inicial de la tabla
+        // Estado inicial
         tableView.setEditable(editCheckBox.isSelected());
-
-        // Cuando cambia el checkbox, cambia la edición de la tabla
+        
+        // Hacer columnas editables según checkbox
+        updateColumnEditability(editCheckBox.isSelected());
+        
+        // Listener para cambios
         editCheckBox.selectedProperty().addListener((obs, oldValue, isSelected) -> {
             tableView.setEditable(isSelected);
+            updateColumnEditability(isSelected);
         });
+    }
+    
+    private void updateColumnEditability(boolean isEditable) {
+        nameCol.setEditable(isEditable);
+        nieCol.setEditable(isEditable);
+        locationCol.setEditable(isEditable);
+        urlCol.setEditable(isEditable);
+    }
+
+    public void setLoggedAdmin(Admin admin) {
+        this.loggedAdmin = admin;
     }
 
     private void setupEditableColumns() {
-        // Columnas editables
+        // Hacer celdas editables
+        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        nieCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        locationCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        urlCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        // Eventos de edición
         nameCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
             comp.setName(event.getNewValue());
             dao.updateCompany(comp);
+            refreshTable();
         });
+        
         nieCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
             comp.setNie(event.getNewValue());
             dao.updateCompany(comp);
+            refreshTable();
         });
+        
         locationCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
             comp.setLocation(event.getNewValue());
             dao.updateCompany(comp);
+            refreshTable();
         });
+        
         urlCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
             comp.setUrl(event.getNewValue());
             dao.updateCompany(comp);
+            refreshTable();
         });
-
     }
 
     private void setupColumns() {
@@ -121,16 +136,10 @@ public class CompaniesTableController implements Initializable {
 
     @FXML
     private void addUser() {
-
-        Company newComp = new Company(
-                "", // name
-                "", // nie
-                "", // location
-                "" // url
-        );
-
+        Company newComp = new Company("", "", "", "");
         dao.saveCompany(newComp);
         companyList.add(newComp);
+        refreshTable();
     }
 
     private void showSuccessMessage(String message) {
@@ -141,54 +150,50 @@ public class CompaniesTableController implements Initializable {
         alert.showAndWait();
     }
 
-    private void showErrorMessage(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("No se pudo eliminar la compañía");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
     private void deleteCompany(Company company) {
         try {
-            // Eliminar de la base de datos
             dao.deleteCompany(company);
-
-            // Eliminar de la lista local
             companyList.remove(company);
-
-            // Actualizar la tabla
             refreshTable();
-
-            // Mostrar mensaje de éxito
             showSuccessMessage("Compañía eliminada correctamente: " + company.getName());
-
         } catch (Exception e) {
             e.printStackTrace();
-            // Mostrar mensaje de error
-            showErrorMessage("Error al eliminar la compañía: " + e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al eliminar la compañía");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
     }
 
     private void confirmDelete(Company company) {
-        // Crear un diálogo de confirmación
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar eliminación");
-        alert.setHeaderText("¿Eliminar compañía: " + company.getName() + "?");
-        alert.setContentText("NIE: " + company.getNie() + "\nEsta acción no se puede deshacer.");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DeleteConfirmationView.fxml"));
+            Parent root = loader.load();
 
-        // Mostrar el diálogo y esperar respuesta
-        alert.showAndWait().ifPresent(response -> {
-            if (response == javafx.scene.control.ButtonType.OK) {
+            DeleteConfirmationViewController controller = loader.getController();
+            controller.setCompanyToDelete(company);
+            controller.setCurrentUser(loggedAdmin); // Admin siempre logueado
+
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Confirmar eliminación");
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setScene(new Scene(root));
+            controller.setStage(popupStage);
+
+            popupStage.showAndWait();
+
+            if (controller.isConfirmed()) {
                 deleteCompany(company);
             }
-        });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setupDeleteColumn() {
-
         deleteCol.setCellFactory(col -> new TableCell<Company, Void>() {
-
             private final Button btnDelete = new Button("Delete");
 
             {
@@ -206,33 +211,7 @@ public class CompaniesTableController implements Initializable {
         });
     }
 
-    private void goToLogin() {
-        try {
-            Stage currentStage = (Stage) tableView.getScene().getWindow();
-            currentStage.close();
-
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/view/LogInWindow.fxml")
-            );
-            Parent root = loader.load();
-
-            Stage loginStage = new Stage();
-            loginStage.setTitle("Login");
-            loginStage.setScene(new Scene(root));
-            loginStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void deleteUser(User user) {
-        dao.deleteUser(user);
-        companyList.remove(user);
-    }
-
     private void refreshTable() {
         companyList.setAll(dao.findAllCompanies());
     }
-
 }

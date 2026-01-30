@@ -106,6 +106,11 @@ public class CompanyWindowController implements Initializable {
     private void openModifyPopup(ActionEvent event) {
         changeWindow("/view/ModifyUserAdmin.fxml", event);
     }
+    
+    @FXML
+    private void openCompanyProducts(ActionEvent event) {
+        changeWindow("/view/CompanyProducts.fxml", event);
+    }
 
     private void openModal(String fxmlPath, ActionEvent event) {
         try {
@@ -118,6 +123,26 @@ public class CompanyWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.showAndWait();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void openCompanyProductsWindow(Company company) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompanyProducts.fxml"));
+            Parent root = loader.load();
+            
+            CompanyProductsController controller = loader.getController();
+            controller.setCompany(company); 
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle(company.getName() + " - Products");
+            stage.show();
+
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -26,7 +26,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Admin;
-import model.ClassDAO;
 import model.DBImplementation;
 import model.User;
 
@@ -88,63 +87,114 @@ public class UserTableController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         checkbox();
         setupColumns();
-        setupEditableColumns();
+        setupEditableColumns(); 
         setupDeleteColumn();
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         userList = dao.findAll();
         tableView.setItems(userList);
-
-    }    
+    }
     
-    public void checkbox () {
-        // Estado inicial de la tabla
+    public void checkbox() {
         tableView.setEditable(editCheckBox.isSelected());
-
-        // Cuando cambia el checkbox, cambia la edición de la tabla
+        
+        updateColumnEditability(editCheckBox.isSelected());
+        
         editCheckBox.selectedProperty().addListener((obs, oldValue, isSelected) -> {
-        tableView.setEditable(isSelected);
+            tableView.setEditable(isSelected);
+            updateColumnEditability(isSelected);
+            System.out.println("DEBUG: Modo edición = " + isSelected);
         });
     }
     
-    private void setupEditableColumns() {
-    // Columnas editables
-    emailCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
-    user.setEmail(event.getNewValue());
-    dao.updateUser(user);});
-    nameCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
-    user.setName(event.getNewValue());
-    dao.updateUser(user);});
-    surnameCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
-    user.setSurname(event.getNewValue());
-    dao.updateUser(user);});
-    telephoneCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
-    user.setTelephone(event.getNewValue());
-    dao.updateUser(user);});
-    genderCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
-    user.setGender(event.getNewValue());
-    dao.updateUser(user);});
-    passwordCol.setOnEditCommit(event -> {User user = event.getRowValue(); 
-    user.setPassword(event.getNewValue());
-    dao.updateUser(user);});
+    private void updateColumnEditability(boolean isEditable) {
+        emailCol.setEditable(isEditable);
+        nameCol.setEditable(isEditable);
+        surnameCol.setEditable(isEditable);
+        telephoneCol.setEditable(isEditable);
+        genderCol.setEditable(isEditable);
+        passwordCol.setEditable(isEditable);
+    }
     
-    // Columnas NO editables
-    usernameCol.setEditable(false);
+    private void setupEditableColumns() {
+        emailCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        surnameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        telephoneCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        genderCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        passwordCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        emailCol.setOnEditCommit(event -> {
+            System.out.println("DEBUG: Editando email");
+            User user = event.getRowValue(); 
+            System.out.println("Usuario: " + user.getUsername() + ", Email nuevo: " + event.getNewValue());
+            user.setEmail(event.getNewValue());
+            dao.updateUser(user);
+            refreshTable();
+        });
+        
+        nameCol.setOnEditCommit(event -> {
+            System.out.println("DEBUG: Editando nombre");
+            User user = event.getRowValue(); 
+            user.setName(event.getNewValue());
+            dao.updateUser(user);
+            refreshTable();
+        });
+        
+        surnameCol.setOnEditCommit(event -> {
+            System.out.println("DEBUG: Editando apellido");
+            User user = event.getRowValue(); 
+            user.setSurname(event.getNewValue());
+            dao.updateUser(user);
+            refreshTable();
+        });
+        
+        telephoneCol.setOnEditCommit(event -> {
+            System.out.println("DEBUG: Editando teléfono");
+            User user = event.getRowValue(); 
+            user.setTelephone(event.getNewValue());
+            dao.updateUser(user);
+            refreshTable();
+        });
+        
+        genderCol.setOnEditCommit(event -> {
+            System.out.println("DEBUG: Editando género");
+            User user = event.getRowValue(); 
+            user.setGender(event.getNewValue());
+            dao.updateUser(user);
+            refreshTable();
+        });
+        
+        passwordCol.setOnEditCommit(event -> {
+            System.out.println("DEBUG: Editando contraseña");
+            User user = event.getRowValue(); 
+            user.setPassword(event.getNewValue());
+            dao.updateUser(user);
+            refreshTable();
+        });
+        
+        usernameCol.setEditable(false);
+        usernameCol.setCellFactory(col -> new TableCell<User, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(item);
+                setGraphic(null);
+            }
+        });
     }
     
     private void setupColumns() {
-    usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
-    emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-    nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-    surnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
-    telephoneCol.setCellValueFactory(new PropertyValueFactory<>("telephone"));
-    genderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
-    passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
+        usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        surnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        telephoneCol.setCellValueFactory(new PropertyValueFactory<>("telephone"));
+        genderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
     }
 
-    
     @FXML
     private void addUser() {
 
@@ -240,4 +290,5 @@ public class UserTableController implements Initializable {
     private void refreshTable() {
     userList.setAll(dao.findAll());
     }
+ 
 }

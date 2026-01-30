@@ -199,7 +199,7 @@ public class ProductModifyWindowController implements Initializable {
 
         return sizeButton;
     }
-    
+     
     private void selectSize(Size size) {
         List<Purchase> purchases = cont.findSizePurchases(size);
         
@@ -219,7 +219,7 @@ public class ProductModifyWindowController implements Initializable {
             sizesHbox.getChildren().add(btn);
         }
     }
-
+    
     /*@FXML
     private void goToCompanies(ActionEvent event) {
         changeWindow("/view/ShopWindow.fxml", event);

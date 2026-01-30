@@ -55,7 +55,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </ImageView>
-            <Button fx:id="storeButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Store" VBox.vgrow="ALWAYS">
+            <Button fx:id="storeButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToShopWindow" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Store" VBox.vgrow="ALWAYS">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -67,7 +67,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="companiesButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies" VBox.vgrow="ALWAYS">
+            <Button fx:id="companiesButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToCompanyWindow" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies" VBox.vgrow="ALWAYS">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -77,7 +77,7 @@
                </graphic>
             </Button>
             <Region prefHeight="273.0" prefWidth="200.0" />
-            <Button fx:id="profileButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="38.0" style="-fx-background-color: #e2e2e2; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Profile" VBox.vgrow="ALWAYS">
+            <Button fx:id="profileButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToProfileWindow" prefHeight="38.0" style="-fx-background-color: #e2e2e2; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Profile" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets top="70.0" />
                </VBox.margin>
@@ -183,7 +183,7 @@
             <Insets left="20.0" right="20.0" top="100.0" />
          </GridPane.margin>
          <children>
-            <Button fx:id="cancelButton" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleCancel" prefHeight="28.0" prefWidth="318.0" style="-fx-border-color: #0f954a; -fx-background-radius: 35; -fx-border-radius: 35; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="Cancel" VBox.vgrow="ALWAYS">
+            <Button fx:id="cancelButton" maxWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" prefHeight="28.0" prefWidth="318.0" style="-fx-border-color: #0f954a; -fx-background-radius: 35; -fx-border-radius: 35; -fx-background-color: #FFFFFF; -fx-font-weight: bold;" text="Cancel" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets right="20.0" />
                </VBox.margin>
