@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import javax.persistence.*;
 
 /**
@@ -17,7 +18,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="profile_")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Profile {
+public abstract class Profile implements Serializable{
     @Id
     @Column(name = "username", nullable = false, updatable = false, length=40)
     private String username;
