@@ -92,22 +92,27 @@ public class ModifyUserAdminController implements Initializable {
             confirmText.clear();
         }
     }
-    
+
     @FXML
     private void goToShopWindow(ActionEvent event) {
         changeWindow("/view/ShopWindow.fxml", event);
     }
-    
+
     @FXML
     private void goToCompanyWindow(ActionEvent event) {
         changeWindow("/view/CompanyWindow.fxml", event);
     }
-    
+
     @FXML
     private void goToProfileWindow(ActionEvent event) {
         changeWindow("/view/ProfileWindow.fxml", event);
     }
     
+    @FXML
+    private void cancel(ActionEvent event) {
+        changeWindow("/view/ProfileWindow.fxml",event);
+    }
+
     private void changeWindow(String fxml, ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
@@ -123,28 +128,6 @@ public class ModifyUserAdminController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void cancel() {
-        try {
-            javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
-            javafx.scene.Parent root = fxmlLoader.load();
-
-            view.ProfileWindowController controllerWindow = fxmlLoader.getController();
-            controllerWindow.setUsuario(currentUser);
-            controllerWindow.setCont(this.cont);
-
-            Stage stage = new Stage();
-            stage.setScene(new javafx.scene.Scene(root));
-            stage.show();
-
-            Stage currentStage = (Stage) cancelButton.getScene().getWindow();
-            currentStage.close();
-
-        } catch (IOException ex) {
-            Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -10,9 +10,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -210,8 +212,57 @@ public class CompaniesTableController implements Initializable {
             }
         });
     }
+    
+    @FXML
+    private void goToLogin() {
+        try {
+            Stage currentStage = (Stage) tableView.getScene().getWindow();
+            currentStage.close();
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/LogInWindow.fxml")
+            );
+            Parent root = loader.load();
+
+            Stage loginStage = new Stage();
+            loginStage.setTitle("Login");
+            loginStage.setScene(new Scene(root));
+            loginStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void refreshTable() {
         companyList.setAll(dao.findAllCompanies());
+    }
+    
+    @FXML
+    private void goToUsers(ActionEvent event) {
+        changeWindow("/view/UserTable.fxml", event);
+    }
+    
+    @FXML
+    private void goToProducts(ActionEvent event) {
+        changeWindow("/view/ProductModifyWindow.fxml", event);
+    }
+    
+    private void changeWindow(String fxml, ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
