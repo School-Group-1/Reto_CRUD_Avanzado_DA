@@ -5,12 +5,17 @@
  */
 package view;
 
+import controller.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -49,6 +54,7 @@ public class ModifyUserAdminController implements Initializable {
 
     // Usuario actual (deberías obtenerlo del sistema de login)
     private Profile currentUser;
+    private Controller cont;
 
     // Para mostrar mensajes de error
     @FXML
@@ -62,7 +68,6 @@ public class ModifyUserAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        setupButtons();
         this.originalName = "";
         this.originalSurname = "";
         this.originalTelephone = "";
@@ -87,36 +92,59 @@ public class ModifyUserAdminController implements Initializable {
             confirmText.clear();
         }
     }
-
+    
     @FXML
-    private void setupButtons() {
-        cancelButton.setOnAction(e -> handleCancel());
+    private void goToShopWindow(ActionEvent event) {
+        changeWindow("/view/ShopWindow.fxml", event);
+    }
+    
+    @FXML
+    private void goToCompanyWindow(ActionEvent event) {
+        changeWindow("/view/CompanyWindow.fxml", event);
+    }
+    
+    @FXML
+    private void goToProfileWindow(ActionEvent event) {
+        changeWindow("/view/ProfileWindow.fxml", event);
+    }
+    
+    private void changeWindow(String fxml, ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
 
-        // Botón Guardar Cambios
-        saveButton.setOnAction(e -> handleSaveChanges());
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
 
-        // Botones del menú lateral
-        storeButton.setOnAction(e -> openWindow("ShopWindow.fxml", "Store"));
-        companiesButton.setOnAction(e -> openWindow("CompanyWindow.fxml", "Companies"));
-        profileButton.setOnAction(e -> openWindow("ProfileWindow.fxml", "Profile"));
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    private void handleCancel() {
-        // Confirmar si hay cambios sin guardar
-        if (hasUnsavedChanges()) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Unsaved Changes");
-            alert.setHeaderText("You have unsaved changes");
-            alert.setContentText("Are you sure you want to discard changes?");
+    private void cancel() {
+        try {
+            javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
+            javafx.scene.Parent root = fxmlLoader.load();
 
-            alert.showAndWait().ifPresent(response -> {
-                if (response.getText().equals("OK")) {
-                    openProfileWindow();
-                }
-            });
-        } else {
-            openProfileWindow();
+            view.ProfileWindowController controllerWindow = fxmlLoader.getController();
+            controllerWindow.setUsuario(currentUser);
+            controllerWindow.setCont(this.cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.show();
+
+            Stage currentStage = (Stage) cancelButton.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
