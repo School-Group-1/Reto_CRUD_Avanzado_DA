@@ -42,6 +42,7 @@ import javafx.stage.Stage;
 import model.Company;
 import model.DBImplementation;
 import model.Product;
+import model.Profile;
 import model.Purchase;
 import model.Size;
 
@@ -65,12 +66,25 @@ public class ProductModifyWindowController implements Initializable {
     private NumberAxis xAxis;
     @FXML
     private NumberAxis yAxis;
+    
+    private Profile profile;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+    }
+    
+    //method to receive profile, controller and data
+    public void initData(Profile profile, Controller cont){
+        this.profile=profile;
+        this.cont=cont;
+        
+        System.out.println("Perfil: " + profile);
+        System.out.println("Controller: " + cont);
+        
         // Add companies to the combobox
         List<Company> companies = cont.findAllCompanies();
         System.out.println(companies);
@@ -89,6 +103,50 @@ public class ProductModifyWindowController implements Initializable {
         yAxis.setAutoRanging(true);
         
         linechart.setTitle("Product Sales");
+    }
+    
+    @FXML
+    private void goToCompanies(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompaniesTable.fxml"));
+            Parent root = loader.load();
+            
+            view.CompaniesTableController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToUsers(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UserTable.fxml"));
+            Parent root = loader.load();
+            
+            view.UserTableController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

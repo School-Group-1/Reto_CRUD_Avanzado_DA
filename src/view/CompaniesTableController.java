@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,6 +31,7 @@ import javafx.stage.Stage;
 import model.Admin;
 import model.Company;
 import model.DBImplementation;
+import model.Profile;
 
 /**
  * FXML Controller class
@@ -52,6 +54,10 @@ public class CompaniesTableController implements Initializable {
     private TableColumn<Company, String> urlCol;
     @FXML
     private TableColumn<Company, Void> deleteCol;
+    
+    private Profile profile;
+    
+    private Controller cont;
 
     private Admin loggedAdmin;
     private ObservableList<Company> companyList = FXCollections.observableArrayList();
@@ -59,6 +65,13 @@ public class CompaniesTableController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+    }
+    
+    public void initData(Profile profile, Controller cont){
+        this.profile=profile;
+        this.cont=cont;
+        
         checkbox();
         setupColumns();
         setupEditableColumns();

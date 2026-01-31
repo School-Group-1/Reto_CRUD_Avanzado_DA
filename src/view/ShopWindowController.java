@@ -61,10 +61,15 @@ public class ShopWindowController implements Initializable {
     private Button btnEmptyCart;
     @FXML
     private Button btnBuy;
+    @FXML
+    private Button btnaddToCart;
+    
     private Controller cont = new Controller(new DBImplementation());
     private File fichE;
     private ArrayList<Product> Items;
+    
     public ArrayList Cart;
+    
     @FXML
     private Button btnCompanies;
     public ObservableList<Product> carrito;
@@ -74,13 +79,7 @@ public class ShopWindowController implements Initializable {
     private Button btnStore;
     @FXML
     private VBox productcardList;
-    
-
-    private String uname;
-    /**
-     * Initializes the controller class.
-     */
-    private Profile profile;
+  
     @FXML
     private TableColumn<?, ?> tcAmout;
     @FXML
@@ -88,12 +87,31 @@ public class ShopWindowController implements Initializable {
     @FXML
     private TableColumn<?, ?> tcPrice;
 
+    private String uname;
+    /**
+     * Initializes the controller class.
+     */
+    private Profile profile;
+    
+    private Controller cont;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+         
+    }
+    
+    public void initData(Profile profile, Controller cont) {
+        //Hacer que Items muestre Productos de la base de datos en la vista
+        this.profile = profile;
+        this.cont = cont;
+
+        System.out.println("Perfil: " + profile);
+        System.out.println("Controller: " + cont);
+
         //Hacer que Items muestre Productos de la base de datos en la vista 
         // System.out.println(cont);
         uname = "Example User Name";
-         List<Product> products = cont.findAllProducts();
+        List<Product> products = cont.findAllProducts();
         if(fichE.exists()){
             if (fichE.getName().contains(uname)){
             
@@ -115,15 +133,7 @@ public class ShopWindowController implements Initializable {
             productcardList.getChildren().add(card);
         }
     }
-
-    public void setProfile(Profile prof) {
-        this.profile = prof;
-    }
-
-    public void setCont(Controller contr) {
-        this.cont = contr;
-    }
-
+  
     @FXML
     private void emptyList(ActionEvent event) {
     }
@@ -134,61 +144,48 @@ public class ShopWindowController implements Initializable {
 
 
     @FXML
-    private void GoToComp(ActionEvent event) {
+    private void goToCompanies(ActionEvent event) {
         try {
-            FXMLLoader loader;
-            Parent root;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompanyWindow.fxml"));
+            Parent root = loader.load();
+            
+            view.CompanyWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
 
             Stage stage = new Stage();
-            loader = new FXMLLoader(getClass().getResource("CompanyWindow.fxml"));
-            root = loader.load();
-
-            CompanyWindowController companyWController = loader.getController();
-            companyWController.setUsuario(profile);
-            companyWController.setCont(cont);
             stage.setScene(new Scene(root));
             stage.show();
 
-            // Cerrar esta ventana
-            Stage currentStage = (Stage) btnStore.getScene().getWindow();
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
             currentStage.close();
 
         } catch (IOException e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
     }
 
     @FXML
-    private void GoToProf(ActionEvent event) {
-
+    private void goToProfile(ActionEvent event) {
         try {
-            FXMLLoader loader;
-            Parent root;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
+            Parent root = loader.load();
+            
+            view.ProfileWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
             Stage stage = new Stage();
-
-            // ? Si es usuario normal, cargar ModifyWindow.fxml
-            loader = new FXMLLoader(getClass().getResource("ProfileWindow.fxml"));
-            root = loader.load();
-
-            ProfileWindowController ProfileWController = loader.getController();
-            ProfileWController.setUsuario(profile);
-            ProfileWController.setCont(cont);
-
-            stage.setTitle("Modificar perfil");
-
             stage.setScene(new Scene(root));
-
             stage.show();
 
-            // Cerrar la ventana de login
-            Stage currentStage = (Stage) btnStore.getScene().getWindow();
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
             currentStage.close();
 
         } catch (IOException e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
-
-    }
+    }    
 
     private Node createProductCard(Product product) {
         HBox card = new HBox(15);

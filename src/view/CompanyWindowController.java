@@ -68,9 +68,11 @@ public class CompanyWindowController implements Initializable {
         return cont;
     }
     
-    public void initData() {
-        System.out.println("PaneButtons = " + PaneButtons);
-        System.out.println("cont = " + cont);
+    public void initData(Profile profile, Controller cont) {
+        this.profile = profile;
+        this.cont = cont;
+        System.out.println("Perfil: " + profile);
+        System.out.println("Controller: " + cont);
         loadCompanies();
     }
     
@@ -94,12 +96,46 @@ public class CompanyWindowController implements Initializable {
     
     @FXML
     private void goToStore(ActionEvent event) {
-        changeWindow("/view/ShopWindow.fxml", event);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
+            Parent root = loader.load();
+            
+            view.ShopWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void goToProfile(ActionEvent event) {
-        changeWindow("/view/ProfileWindow.fxml", event);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
+            Parent root = loader.load();
+            
+            view.ProfileWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML

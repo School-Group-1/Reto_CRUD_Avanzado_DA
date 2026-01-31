@@ -11,6 +11,7 @@ import java.io.IOException;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.Modality;
 import model.Admin;
 import model.DBImplementation;
+import model.Product;
 import model.Profile;
 import model.User;
 
@@ -63,10 +65,45 @@ public class ProfileWindowController implements Initializable {
         return cont;
     }
     
-    private void changeWindow(String fxml, ActionEvent event) {
+    public void initData(Profile profile, Controller cont) {
+        this.profile = profile;
+        this.cont = cont;
+
+        System.out.println("Perfil: " + profile);
+        System.out.println("Controller: " + cont);
+    }
+    
+    @FXML
+    private void goToStore(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
             Parent root = loader.load();
+            
+            view.ShopWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToCompanies(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompanyWindow.fxml"));
+            Parent root = loader.load();
+            
+            CompanyWindowController viewController = loader.getController();
+
+            viewController.initData(profile, cont);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -81,21 +118,22 @@ public class ProfileWindowController implements Initializable {
         }
     }
     
+    /**
+     * Opens the Modify window.
+     */
+    
+    /**
+     * NO ES UN POP UP
+     */
     @FXML
-    private void goToStore(ActionEvent event) {
-        changeWindow("/view/ShopWindow.fxml", event);
-    }
-
-    @FXML
-    private void goToCompanies(ActionEvent event) {
+    private void openModifyPopup(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompanyWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ModifyUserAdmin.fxml"));
             Parent root = loader.load();
             
-            CompanyWindowController viewController = loader.getController();
-            viewController.setCont(cont);
+            ModifyUserAdminController viewController = loader.getController();
 
-            viewController.initData();
+            viewController.initData(profile, cont);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -112,7 +150,21 @@ public class ProfileWindowController implements Initializable {
     
     @FXML
     private void logout (ActionEvent event){
-        changeWindow("/view/LogInWindow.fxml", event);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LogInWindow.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void openModal(String fxmlPath) {
@@ -133,31 +185,22 @@ public class ProfileWindowController implements Initializable {
 
     @FXML
     private void openDeletePopup(ActionEvent event) {
-        openModal("/view/DeleteConfirmationView.fxml");
-    }
-
-    /**
-     * Opens the Modify window.
-     */
-    @FXML
-    private void openModifyPopup(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ModifyUserAdmin.fxml"));
-            javafx.scene.Parent root = fxmlLoader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DeleteConfirmationView.fxml"));
+            Parent root = loader.load();
+            
+            DeleteConfirmationViewController viewController = loader.getController();
 
-            /*view.ModifyWindowController controllerWindow = fxmlLoader.getController();
-            controllerWindow.setProfile(profile);
-            controllerWindow.setCont(this.cont);*/
+            viewController.initData(profile, cont);
 
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Stage modal = new Stage();
+            modal.initOwner(((Node) event.getSource()).getScene().getWindow());
+            modal.initModality(Modality.WINDOW_MODAL);
+            modal.setScene(new Scene(root));
+            modal.showAndWait();
 
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -218,6 +261,5 @@ public class ProfileWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialization logic if needed
-        cont = new Controller(new DBImplementation());
     }
 }
