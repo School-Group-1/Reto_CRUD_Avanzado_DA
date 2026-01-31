@@ -278,6 +278,45 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
     
+    /*@FXML
+    private void goToCompanies(ActionEvent event) {
+        changeWindow("/view/ShopWindow.fxml", event);
+    }*/
+    @FXML
+    private void goToCompanies(ActionEvent event) {
+        changeWindow("/view/CompaniesTable.fxml", event);
+    }
+    @FXML
+    private void goToUsers(ActionEvent event) {
+        changeWindow("/view/UserTable.fxml", event);
+    }
+    @FXML
+    private void goToLogin(ActionEvent event) {
+        changeWindow("/view/LogInWindow.fxml", event);
+    }
+
+    /*@FXML
+    private void goToProfile(ActionEvent event) {
+        changeWindow("/view/ModifyUserAdmin.fxml", event);
+    }*/
+    private void changeWindow(String fxml, ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private ObservableList<XYChart.Series<Number, Number>> getPurchasesData(List<Purchase> purchases) {
         ObservableList<XYChart.Series<Number, Number>> data = FXCollections.observableArrayList();
         HashMap<Size, ArrayList<Purchase>> sizes = new HashMap<>();

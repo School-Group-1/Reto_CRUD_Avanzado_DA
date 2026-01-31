@@ -11,9 +11,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -41,45 +43,44 @@ public class UserTableController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
     @FXML
     private CheckBox editCheckBox;
     @FXML
-    private TextField tfUser ;
+    private TextField tfUser;
     @FXML
-    private TextField tfEmail ;
+    private TextField tfEmail;
     @FXML
-    private TextField tfName ;
+    private TextField tfName;
     @FXML
-    private TextField tfSurname ;
+    private TextField tfSurname;
     @FXML
-    private TextField tfTel ;
+    private TextField tfTel;
     @FXML
-    private TableView<User> tableView;   
+    private TableView<User> tableView;
     @FXML
     private TableColumn<User, String> emailCol;
 
     @FXML
     private TableColumn<User, String> nameCol;
-    
+
     @FXML
     private TableColumn<User, String> passwordCol;
 
     @FXML
     private TableColumn<User, String> usernameCol;
-    
+
     @FXML
     private TableColumn<User, String> genderCol;
-    
+
     @FXML
     private TableColumn<User, String> surnameCol;
-    
+
     @FXML
     private TableColumn<User, String> telephoneCol;
-    
+
     @FXML
     private TableColumn<User, Void> deleteCol;
-    
+
     private Admin loggedAdmin;
     
     private Profile profile;
@@ -87,14 +88,14 @@ public class UserTableController implements Initializable {
     private Controller cont;
     
     private ObservableList<User> userList = FXCollections.observableArrayList();
-    
+
     private DBImplementation dao = new DBImplementation();
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         checkbox();
         setupColumns();
-        setupEditableColumns(); 
+        setupEditableColumns();
         setupDeleteColumn();
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         userList = dao.findAll();
@@ -115,16 +116,16 @@ public class UserTableController implements Initializable {
     
     public void checkbox() {
         tableView.setEditable(editCheckBox.isSelected());
-        
+
         updateColumnEditability(editCheckBox.isSelected());
-        
+
         editCheckBox.selectedProperty().addListener((obs, oldValue, isSelected) -> {
             tableView.setEditable(isSelected);
             updateColumnEditability(isSelected);
             System.out.println("DEBUG: Modo edición = " + isSelected);
         });
     }
-    
+
     private void updateColumnEditability(boolean isEditable) {
         emailCol.setEditable(isEditable);
         nameCol.setEditable(isEditable);
@@ -133,7 +134,7 @@ public class UserTableController implements Initializable {
         genderCol.setEditable(isEditable);
         passwordCol.setEditable(isEditable);
     }
-    
+
     private void setupEditableColumns() {
         emailCol.setCellFactory(TextFieldTableCell.forTableColumn());
         nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -141,56 +142,56 @@ public class UserTableController implements Initializable {
         telephoneCol.setCellFactory(TextFieldTableCell.forTableColumn());
         genderCol.setCellFactory(TextFieldTableCell.forTableColumn());
         passwordCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        
+
         emailCol.setOnEditCommit(event -> {
             System.out.println("DEBUG: Editando email");
-            User user = event.getRowValue(); 
+            User user = event.getRowValue();
             System.out.println("Usuario: " + user.getUsername() + ", Email nuevo: " + event.getNewValue());
             user.setEmail(event.getNewValue());
             dao.updateUser(user);
             refreshTable();
         });
-        
+
         nameCol.setOnEditCommit(event -> {
             System.out.println("DEBUG: Editando nombre");
-            User user = event.getRowValue(); 
+            User user = event.getRowValue();
             user.setName(event.getNewValue());
             dao.updateUser(user);
             refreshTable();
         });
-        
+
         surnameCol.setOnEditCommit(event -> {
             System.out.println("DEBUG: Editando apellido");
-            User user = event.getRowValue(); 
+            User user = event.getRowValue();
             user.setSurname(event.getNewValue());
             dao.updateUser(user);
             refreshTable();
         });
-        
+
         telephoneCol.setOnEditCommit(event -> {
             System.out.println("DEBUG: Editando teléfono");
-            User user = event.getRowValue(); 
+            User user = event.getRowValue();
             user.setTelephone(event.getNewValue());
             dao.updateUser(user);
             refreshTable();
         });
-        
+
         genderCol.setOnEditCommit(event -> {
             System.out.println("DEBUG: Editando género");
-            User user = event.getRowValue(); 
+            User user = event.getRowValue();
             user.setGender(event.getNewValue());
             dao.updateUser(user);
             refreshTable();
         });
-        
+
         passwordCol.setOnEditCommit(event -> {
             System.out.println("DEBUG: Editando contraseña");
-            User user = event.getRowValue(); 
+            User user = event.getRowValue();
             user.setPassword(event.getNewValue());
             dao.updateUser(user);
             refreshTable();
         });
-        
+
         usernameCol.setEditable(false);
         usernameCol.setCellFactory(col -> new TableCell<User, String>() {
             @Override
@@ -201,7 +202,7 @@ public class UserTableController implements Initializable {
             }
         });
     }
-    
+
     private void setupColumns() {
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -215,97 +216,125 @@ public class UserTableController implements Initializable {
     @FXML
     private void addUser() {
 
-    User newUser = new User(
-        "",     // username
-        "",     // password
-        "",     // email
-        "",      // user_code (si no lo usas ahora)
-        "",     // name
-        "",     // telephone
-        "",     // surname
-        ""      // card number
-    );
-
-    dao.saveUser(newUser);
-    userList.add(newUser);   
-    }
-    
-    
-   private void setupDeleteColumn() {
-
-    deleteCol.setCellFactory(col -> new TableCell<User, Void>() {
-
-        private final Button btnDelete = new Button("Delete");
-
-        {
-            btnDelete.setOnAction(e -> {
-                User user = getTableView().getItems().get(getIndex());
-                confirmDelete(user);
-            });
-        }
-
-        @Override
-        protected void updateItem(Void item, boolean empty) {
-            super.updateItem(item, empty);
-            setGraphic(empty ? null : btnDelete);
-        }
-    });
-}
-   
-   private void goToLogin() {
-    try {
-        Stage currentStage = (Stage) tableView.getScene().getWindow();
-        currentStage.close();
-
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/view/LogInWindow.fxml")
+        User newUser = new User(
+                "", // username
+                "", // password
+                "", // email
+                "", // user_code (si no lo usas ahora)
+                "", // name
+                "", // telephone
+                "", // surname
+                "" // card number
         );
-        Parent root = loader.load();
 
-        Stage loginStage = new Stage();
-        loginStage.setTitle("Login");
-        loginStage.setScene(new Scene(root));
-        loginStage.show();
-
-    } catch (IOException e) {
-        e.printStackTrace();
+        dao.saveUser(newUser);
+        userList.add(newUser);
     }
-}
-   
-   private void confirmDelete(User user) {
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DeleteConfirmationView.fxml"));
-        Parent root = loader.load();
 
-        DeleteConfirmationViewController controller = loader.getController();
-        controller.setUser(user);
-        controller.setAdminPassword(loggedAdmin.getPassword());
+    private void setupDeleteColumn() {
 
-        Stage popupStage = new Stage();
-        popupStage.setTitle("Confirmar eliminación");
-        popupStage.initModality(Modality.APPLICATION_MODAL);
-        popupStage.setScene(new Scene(root));
-        controller.setStage(popupStage);
+        deleteCol.setCellFactory(col -> new TableCell<User, Void>() {
 
-        popupStage.showAndWait();
+            private final Button btnDelete = new Button("Delete");
 
-        if (controller.isConfirmed()) {
-            deleteUser(user);
-            goToLogin();
+            {
+                btnDelete.setOnAction(e -> {
+                    User user = getTableView().getItems().get(getIndex());
+                    confirmDelete(user);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btnDelete);
+            }
+        });
+    }
+
+    @FXML
+    private void goToLogin() {
+        try {
+            Stage currentStage = (Stage) tableView.getScene().getWindow();
+            currentStage.close();
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/LogInWindow.fxml")
+            );
+            Parent root = loader.load();
+
+            Stage loginStage = new Stage();
+            loginStage.setTitle("Login");
+            loginStage.setScene(new Scene(root));
+            loginStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-    } catch (IOException e) {
-        e.printStackTrace();
     }
-}
+
+    private void confirmDelete(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DeleteConfirmationView.fxml"));
+            Parent root = loader.load();
+
+            DeleteConfirmationViewController controller = loader.getController();
+            controller.setUser(user);
+            controller.setAdminPassword(loggedAdmin.getPassword());
+
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Confirmar eliminación");
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setScene(new Scene(root));
+            controller.setStage(popupStage);
+
+            popupStage.showAndWait();
+
+            if (controller.isConfirmed()) {
+                deleteUser(user);
+                goToLogin();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void deleteUser(User user) {
         dao.deleteUser(user);
         userList.remove(user);
     }
-    
+
     private void refreshTable() {
-    userList.setAll(dao.findAll());
+        userList.setAll(dao.findAll());
     }
- 
+    
+    @FXML
+    private void goToCompanies(ActionEvent event) {
+        changeWindow("/view/CompaniesTable.fxml", event);
+    }
+    
+    @FXML
+    private void goToProducts(ActionEvent event) {
+        changeWindow("/view/ProductModifyWindow.fxml", event);
+    }
+    
+    private void changeWindow(String fxml, ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

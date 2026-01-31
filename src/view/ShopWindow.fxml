@@ -74,9 +74,9 @@
                               <Label text="Your Cart:" textFill="#0f954a" />
                               <TableView fx:id="CartTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <columns>
-                                    <TableColumn maxWidth="1.7976931348623157E308" prefWidth="75.0" text="Amount" />
-                                    <TableColumn maxWidth="1.7976931348623157E308" prefWidth="75.0" text="Item" />
-                                    <TableColumn maxWidth="1.7976931348623157E308" prefWidth="75.0" text="Price" />
+                                    <TableColumn fx:id="tcAmout" maxWidth="1.7976931348623157E308" prefWidth="75.0" text="Amount" />
+                                    <TableColumn fx:id="tcItem" maxWidth="1.7976931348623157E308" prefWidth="75.0" text="Item" />
+                                    <TableColumn fx:id="tcPrice" maxWidth="1.7976931348623157E308" prefWidth="75.0" text="Price" />
                                  </columns>
                               </TableView>
                               <Button fx:id="btnEmptyCart" mnemonicParsing="false" onAction="#emptyList" text="Empty Cart" GridPane.rowIndex="2" />

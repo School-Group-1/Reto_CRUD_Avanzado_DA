@@ -95,22 +95,27 @@ public class ModifyUserAdminController implements Initializable {
             confirmText.clear();
         }
     }
-    
+
     @FXML
     private void goToShopWindow(ActionEvent event) {
         changeWindow("/view/ShopWindow.fxml", event);
     }
-    
+
     @FXML
     private void goToCompanyWindow(ActionEvent event) {
         changeWindow("/view/CompanyWindow.fxml", event);
     }
-    
+
     @FXML
     private void goToProfileWindow(ActionEvent event) {
         changeWindow("/view/ProfileWindow.fxml", event);
     }
     
+    @FXML
+    private void cancel(ActionEvent event) {
+        changeWindow("/view/ProfileWindow.fxml",event);
+    }
+
     private void changeWindow(String fxml, ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));

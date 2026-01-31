@@ -6,7 +6,11 @@
 package view;
 
 import controller.Controller;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import static java.lang.String.valueOf;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,6 +34,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -48,9 +54,9 @@ import model.Profile;
  * @author 2dami
  */
 public class ShopWindowController implements Initializable {
-    
+
     @FXML
-    private TableView<String> CartTable;
+    private TableView<Product> CartTable;
     @FXML
     private Button btnEmptyCart;
     @FXML
@@ -58,27 +64,30 @@ public class ShopWindowController implements Initializable {
     @FXML
     private Button btnaddToCart;
     
+    private Controller cont = new Controller(new DBImplementation());
+    private File fichE;
     private ArrayList<Product> Items;
     
     public ArrayList Cart;
     
     @FXML
-    private Label name;
-    @FXML
-    private Label desc;
-    @FXML
-    private Label price;
-    @FXML
-    private GridPane Item1;
-    @FXML
     private Button btnCompanies;
+    public ObservableList<Product> carrito;
     @FXML
     private Button btnUser;
     @FXML
     private Button btnStore;
     @FXML
     private VBox productcardList;
+  
+    @FXML
+    private TableColumn<?, ?> tcAmout;
+    @FXML
+    private TableColumn<?, ?> tcItem;
+    @FXML
+    private TableColumn<?, ?> tcPrice;
 
+    private String uname;
     /**
      * Initializes the controller class.
      */
@@ -99,26 +108,41 @@ public class ShopWindowController implements Initializable {
         System.out.println("Perfil: " + profile);
         System.out.println("Controller: " + cont);
 
+        //Hacer que Items muestre Productos de la base de datos en la vista 
+        // System.out.println(cont);
+        uname = "Example User Name";
         List<Product> products = cont.findAllProducts();
+        if(fichE.exists()){
+            if (fichE.getName().contains(uname)){
+            
+            
+           
+            carrito=FXCollections.observableList(products);
+            tcAmout.setCellValueFactory(new PropertyValueFactory<>("atributoClase"));
+            tcItem.setCellValueFactory(new PropertyValueFactory<>("atributoClase"));
+            tcPrice.setCellValueFactory(new PropertyValueFactory<>("atributoClase"));
+            
+        
+            CartTable.setItems(carrito);
+            }
+        }else{
+            fichE=new File("Carrito"+uname+".dat");
+        }
         for (Product prod : products) {
             Node card = createProductCard(prod);
             productcardList.getChildren().add(card);
         }
     }
-    
+  
     @FXML
     private void emptyList(ActionEvent event) {
     }
-    
+
     @FXML
     private void buyCart(ActionEvent event) {
     }
-    
-    @FXML
-    private void addItem(ActionEvent event) {
-        
-    }
-    
+
+
     @FXML
     private void goToCompanies(ActionEvent event) {
         try {
@@ -140,7 +164,7 @@ public class ShopWindowController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void goToProfile(ActionEvent event) {
         try {
@@ -169,7 +193,6 @@ public class ShopWindowController implements Initializable {
         card.setAlignment(Pos.CENTER_LEFT);
         card.setStyle(
                 "-fx-background-color: white;"
-                + "-fx-border-color: green;"
                 + "-fx-border-radius: 12;"
                 + "-fx-background-radius: 12;"
         );
@@ -184,41 +207,53 @@ public class ShopWindowController implements Initializable {
 
         // Text container
         VBox textBox = new VBox(5);
-        
+
         Label nameLabel = new Label(product.getName());
         nameLabel.setStyle("-fx-font-size: 16; -fx-font-weight: bold;");
-        
+
         Label descLabel = new Label(product.getDescription());
         descLabel.setWrapText(true);
         descLabel.setMaxWidth(280);
-        
+
         textBox.getChildren().addAll(nameLabel, descLabel);
 
         // Price + button
         VBox rightBox = new VBox(8);
         rightBox.setAlignment(Pos.CENTER_RIGHT);
-        
+
         Label priceLabel = new Label(product.getPrice() + "€");
         priceLabel.setStyle(
                 "-fx-background-color: #e5e5e5;"
                 + "-fx-padding: 4 8 4 8;"
                 + "-fx-font-weight: bold;"
         );
-        
-        Button editButton = new Button("Edit Price");
-        editButton.setStyle(
+
+        Button addCButton = new Button("Add to Cart");
+        addCButton.setStyle(
                 "-fx-background-color: transparent;"
                 + "-fx-border-color: green;"
                 + "-fx-text-fill: green;"
                 + "-fx-border-radius: 6;"
         );
-        
-        rightBox.getChildren().addAll(priceLabel, editButton);
+        addCButton.setOnMouseClicked(e->addToCart(product));
+        rightBox.getChildren().addAll(priceLabel, addCButton);
         
         HBox.setHgrow(textBox, Priority.ALWAYS);
-        
+
         card.getChildren().addAll(imageView, textBox, rightBox);
-        
+
         return card;
+    }
+
+    private void addToCart( Product product) {
+        try {
+            ObjectInputStream ois=new ObjectInputStream(new FileInputStream(fichE));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 }
