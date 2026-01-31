@@ -22,16 +22,11 @@ import model.Admin;
 import model.DBImplementation;
 import model.Product;
 
-/**
- * FXML Controller class
- *
- * @author acer
- */
 public class DeleteConfirmationViewController implements Initializable {
-    
+
     @FXML
     private Label lblMessage;
-    
+
     @FXML
     private Label lblError;
 
@@ -39,44 +34,38 @@ public class DeleteConfirmationViewController implements Initializable {
     private PasswordField passwordField;
 
     private Stage stage;
-    private User userToDelete;  // Cambié de 'user' a 'userToDelete'
+    private User userToDelete;
     private Company companyToDelete;
     private Profile currentUser;
     private boolean confirmed = false;
     private String adminPassword;
-    private String operationType;  // Añadí esta variable
-    private DBImplementation dao;  // Añadí esta variable
-    
+    private String operationType;
+    private DBImplementation dao = new DBImplementation(); // INICIALIZADO AQUÍ
+
     private Profile profile;
     private Controller cont;
-    
-    /**
-     * Initializes the controller class.
-     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        // Inicialización
     }
-    
+
     public void initData(Profile profile, Controller cont) {
-        //Hacer que Items muestre Productos de la base de datos en la vista
         this.profile = profile;
         this.cont = cont;
-
-        System.out.println("Perfil: " + profile);
-        System.out.println("Controller: " + cont);
+        System.out.println("DeleteConfirmation - Perfil: " + profile);
     }
-     
+
     public void setUser(User user) {
         this.userToDelete = user;
         this.operationType = "user";
     }
-    
+
     public void setCompanyToDelete(Company company) {
         this.companyToDelete = company;
         this.operationType = "company";
     }
-    
+
     public void setCurrentUser(Profile user) {
         this.currentUser = user;
     }
@@ -84,69 +73,76 @@ public class DeleteConfirmationViewController implements Initializable {
     public void setAdminPassword(String adminPassword) {
         this.adminPassword = adminPassword;
     }
-    
+
     @FXML
     private void confirm() {
         String enteredPassword = passwordField.getText();
-        
-        // Validación básica
+
         if (enteredPassword == null || enteredPassword.trim().isEmpty()) {
             showError("Por favor, ingrese su contraseña");
             return;
         }
-        
-        // Verificar contraseña
+
         if (verifyPassword(enteredPassword)) {
             confirmed = true;
-            stage.close();
+            if (stage != null) {
+                stage.close();
+            } else {
+                // Si stage es null, cerrar desde el scene
+                ((Stage) passwordField.getScene().getWindow()).close();
+            }
         } else {
             showError("Contraseña incorrecta");
             passwordField.clear();
         }
     }
-    
+
     private boolean verifyPassword(String enteredPassword) {
-        // Si tenemos currentUser, usamos DBImplementation
+        // Si currentUser no es null, verificamos con DAO
         if (currentUser != null) {
+            // Verificar que dao no sea null
+            if (dao == null) {
+                System.err.println("ERROR: dao es null en verifyPassword");
+                return false;
+            }
+
             Profile verifiedProfile = dao.logIn(currentUser.getUsername(), enteredPassword);
-            
-            // Verificar que sea un Admin
+
             if (verifiedProfile != null && verifiedProfile instanceof Admin) {
                 return true;
             }
             return false;
         }
-        
+
         // Método antiguo para compatibilidad
         if (adminPassword != null) {
             return enteredPassword.equals(adminPassword);
         }
-        
+
         return false;
     }
-    
-    
+
     public String getPassword() {
         return passwordField.getText();
     }
 
-    /*@FXML
-    private void cancel() {
-        confirmed = false;
-        stage.close();
-    }*/
-    
     @FXML
     private void cancel() {
-        ((Stage) passwordField.getScene().getWindow()).close();
+        confirmed = false;
+        if (stage != null) {
+            stage.close();
+        } else {
+            ((Stage) passwordField.getScene().getWindow()).close();
+        }
     }
 
     private void showError(String message) {
-        lblError.setText(message);
-        lblError.setVisible(true);
+        if (lblError != null) {
+            lblError.setText(message);
+            lblError.setVisible(true);
+        }
     }
-    
-    // Getters
+
     public boolean isConfirmed() {
         return confirmed;
     }
@@ -154,13 +150,13 @@ public class DeleteConfirmationViewController implements Initializable {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-    
-    // Métodos para obtener lo que se va a eliminar
+
     public User getUserToDelete() {
         return userToDelete;
     }
-    
+
     public Company getCompanyToDelete() {
         return companyToDelete;
     }
+
 }
