@@ -72,12 +72,59 @@ public class CompaniesTableController implements Initializable {
         this.profile=profile;
         this.cont=cont;
         
+        System.out.println("Perfil: " + profile);
+        System.out.println("Controller: " + cont);
+        
         checkbox();
         setupColumns();
         setupEditableColumns();
         setupDeleteColumn();
         companyList = FXCollections.observableArrayList(dao.findAllCompanies());
         tableView.setItems(companyList);
+    }
+    
+    @FXML
+    private void goToProducts(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProductModifyWindow.fxml"));
+            Parent root = loader.load();
+            
+            ProductModifyWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void goToUsers(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UserTable.fxml"));
+            Parent root = loader.load();
+            
+            UserTableController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void checkbox() {
@@ -227,43 +274,9 @@ public class CompaniesTableController implements Initializable {
     }
     
     @FXML
-    private void goToLogin() {
+    private void logout(ActionEvent event){
         try {
-            Stage currentStage = (Stage) tableView.getScene().getWindow();
-            currentStage.close();
-
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/view/LogInWindow.fxml")
-            );
-            Parent root = loader.load();
-
-            Stage loginStage = new Stage();
-            loginStage.setTitle("Login");
-            loginStage.setScene(new Scene(root));
-            loginStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void refreshTable() {
-        companyList.setAll(dao.findAllCompanies());
-    }
-    
-    @FXML
-    private void goToUsers(ActionEvent event) {
-        changeWindow("/view/UserTable.fxml", event);
-    }
-    
-    @FXML
-    private void goToProducts(ActionEvent event) {
-        changeWindow("/view/ProductModifyWindow.fxml", event);
-    }
-    
-    private void changeWindow(String fxml, ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LogInWindow.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
@@ -277,5 +290,9 @@ public class CompaniesTableController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void refreshTable() {
+        companyList.setAll(dao.findAllCompanies());
     }
 }

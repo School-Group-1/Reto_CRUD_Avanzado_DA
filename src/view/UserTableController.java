@@ -93,18 +93,24 @@ public class UserTableController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        checkbox();
+        /*
+            HAY QUE QUITAR ESTO?
+        */
+        
+        /*checkbox();
         setupColumns();
         setupEditableColumns();
         setupDeleteColumn();
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         userList = dao.findAll();
-        tableView.setItems(userList);
+        tableView.setItems(userList);*/
     }
     
     public void initData(Profile profile, Controller cont){
         this.profile=profile;
         this.cont=cont;
+        System.out.println("Perfil: " + profile);
+        System.out.println("Controller: " + cont);
         checkbox();
         setupColumns();
         setupEditableColumns(); 
@@ -251,6 +257,10 @@ public class UserTableController implements Initializable {
             }
         });
     }
+    
+    /*
+        SE PUEDE SUSTITUIR POR LOGOUT?
+    */
 
     @FXML
     private void goToLogin() {
@@ -279,6 +289,8 @@ public class UserTableController implements Initializable {
             Parent root = loader.load();
 
             DeleteConfirmationViewController controller = loader.getController();
+            controller.initData(profile, cont);
+            
             controller.setUser(user);
             controller.setAdminPassword(loggedAdmin.getPassword());
 
@@ -311,17 +323,52 @@ public class UserTableController implements Initializable {
     
     @FXML
     private void goToCompanies(ActionEvent event) {
-        changeWindow("/view/CompaniesTable.fxml", event);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompaniesTable.fxml"));
+            Parent root = loader.load();
+            
+            CompaniesTableController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML
     private void goToProducts(ActionEvent event) {
-        changeWindow("/view/ProductModifyWindow.fxml", event);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProductModifyWindow.fxml"));
+            Parent root = loader.load();
+            
+            ProductModifyWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
-    private void changeWindow(String fxml, ActionEvent event) {
+    @FXML
+    private void logout(ActionEvent event){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LogInWindow.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
@@ -336,5 +383,4 @@ public class UserTableController implements Initializable {
             e.printStackTrace();
         }
     }
-
 }

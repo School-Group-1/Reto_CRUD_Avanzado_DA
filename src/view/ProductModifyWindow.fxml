@@ -83,7 +83,7 @@
                </graphic>
             </Button>
             <Region prefHeight="400.0" prefWidth="186.0" VBox.vgrow="ALWAYS" />
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToLogin" prefHeight="40.0" prefWidth="238.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Logout" VBox.vgrow="ALWAYS">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="40.0" prefWidth="238.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Logout" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>

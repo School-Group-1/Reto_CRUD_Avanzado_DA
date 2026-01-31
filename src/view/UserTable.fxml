@@ -128,7 +128,7 @@
                </graphic>
             </Button>
             <Region prefHeight="300.0" prefWidth="148.0" />
-            <Button fx:id="profileButton" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToLogin" prefHeight="38.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Logout" VBox.vgrow="ALWAYS">
+            <Button fx:id="logout" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" prefHeight="38.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Logout" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
