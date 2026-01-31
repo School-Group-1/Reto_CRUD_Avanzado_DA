@@ -312,6 +312,29 @@ public class DBImplementation implements ClassDAO {
         query.setParameter("product", product);
         return query.list();
     }
+    
+    public Size modifySize(Size size, String newLabel, int newStock) {
+        Transaction tx = session.beginTransaction();
+        size.setLabel(newLabel);
+        size.setStock(newStock);
+        session.update(size);
+        tx.commit();
+        return size;
+    }
+    
+    public Size createSize(String label, int stock, Product product) {
+        Transaction tx = session.beginTransaction();
+        Size size = new Size(label, stock, product);
+        session.save(size);
+        tx.commit();
+        return size;
+    }
+    
+    public void deleteSize(Size size) {
+        Transaction tx = session.beginTransaction();
+        session.delete(size);
+        tx.commit();
+    }
 
     public List<Company> findAllCompanies() {
         Query query = session.createQuery("FROM Company");

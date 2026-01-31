@@ -31,6 +31,9 @@ public interface ClassDAO {
     List<Product> findProductsByCompany(Company company);
     
     List<Size> findProductSizes(Product product);
+    Size modifySize(Size size, String newLabel, int newStock);
+    Size createSize(String label, int stock, Product product);
+    void deleteSize(Size size);
     
     List<Company> findAllCompanies();
     

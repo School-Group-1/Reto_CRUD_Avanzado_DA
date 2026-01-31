@@ -30,9 +30,13 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -54,6 +58,10 @@ import model.Size;
 public class ProductModifyWindowController implements Initializable {
 
     private Controller cont = new Controller(new DBImplementation());
+    private Company selectedCompany = null;
+    private Product selectedProduct = null;
+    private Size selectedSize = null;
+
     @FXML
     private ComboBox<String> companyCombobox;
     @FXML
@@ -68,6 +76,10 @@ public class ProductModifyWindowController implements Initializable {
     private NumberAxis yAxis;
     
     private Profile profile;
+    @FXML
+    private Spinner<Integer> stockCountSpinner;
+    @FXML
+    private TextField sizeTextField;
 
     /**
      * Initializes the controller class.
@@ -92,16 +104,16 @@ public class ProductModifyWindowController implements Initializable {
         for (Company comp : companies) {
             companyCombobox.getItems().add(comp.getName());
         }
-        
+
         // Prepare the line chart (https://youtu.be/HWfZPiPu1sI?si=KFfRQ06_IlluRXsj good luck)
         xAxis.setLabel("Days");
         // Automatically sets the ranges aka size of the x axis
         xAxis.setAutoRanging(true);
-        
+
         yAxis.setLabel("Sales");
         // Automatically sets the ranges aka size of the x axis
         yAxis.setAutoRanging(true);
-        
+
         linechart.setTitle("Product Sales");
     }
     
@@ -151,7 +163,10 @@ public class ProductModifyWindowController implements Initializable {
 
     @FXML
     private void selectCompany() {
-        Company company = null;
+        // Resets linechart, sizes, and stock count to be empty
+        // This is becuase no product is selected when a company is first selected
+        resetData();
+
         List<Company> companies = cont.findAllCompanies();
         List<Product> products = null;
         List<Purchase> purchases = null;
@@ -160,12 +175,12 @@ public class ProductModifyWindowController implements Initializable {
 
         for (Company comp : companies) {
             if (comp.getName().equals(companyName)) {
-                company = comp;
+                selectedCompany = comp;
             }
         }
 
-        if (company != null) {
-            products = cont.findProductsByCompany(company);
+        if (selectedCompany != null) {
+            products = cont.findProductsByCompany(selectedCompany);
 
             for (Product prod : products) {
                 Node card = createProductCard(prod);
@@ -209,14 +224,18 @@ public class ProductModifyWindowController implements Initializable {
         VBox rightBox = new VBox(8);
         rightBox.setAlignment(Pos.CENTER_RIGHT);
 
-        Label priceLabel = new Label(product.getPrice() + "€");
-        priceLabel.setStyle(
+        Spinner<Double> priceSpinner = new Spinner<>();
+        SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1000.0, product.getPrice(), 1);
+        priceSpinner.setValueFactory(valueFactory);
+        priceSpinner.setEditable(true);
+
+        priceSpinner.setStyle(
                 "-fx-background-color: #e5e5e5;"
                 + "-fx-padding: 4 8 4 8;"
                 + "-fx-font-weight: bold;"
         );
 
-        Button editButton = new Button("Edit Price");
+        Button editButton = new Button("Save price");
         editButton.setStyle(
                 "-fx-background-color: transparent;"
                 + "-fx-border-color: green;"
@@ -224,12 +243,14 @@ public class ProductModifyWindowController implements Initializable {
                 + "-fx-border-radius: 6;"
         );
 
-        rightBox.getChildren().addAll(priceLabel, editButton);
+        rightBox.getChildren().addAll(priceSpinner, editButton);
 
         HBox.setHgrow(textBox, Priority.ALWAYS);
 
         card.getChildren().addAll(imageView, textBox, rightBox);
         card.setOnMouseClicked(e -> selectProduct(product));
+        editButton.setOnMouseClicked(e -> editProductPrice(product, priceSpinner.getValue()));
+        
         return card;
     }
 
@@ -237,17 +258,16 @@ public class ProductModifyWindowController implements Initializable {
         Button sizeButton = new Button(size.getLabel());
 
         sizeButton.setStyle(
-                "-fx-background-color: #e0e0e0;"
-                + "-fx-background-radius: 50%;"
-                + "-fx-border-radius: 50%;"
-                + "-fx-border-color: #b0b0b0;"
+                "-fx-background-color: white;"
+                + "-fx-background-radius: 100%;"
+                + "-fx-border-radius: 100%;"
+                + "-fx-border-color: green;"
                 + "-fx-border-width: 1;"
         );
 
         // Make the button perfectly circular
-        sizeButton.setMinSize(50, 50);
-        sizeButton.setPrefSize(50, 50);
-        sizeButton.setMaxSize(50, 50);
+        sizeButton.setMaxHeight(Double.MAX_VALUE);
+        sizeButton.maxWidthProperty().bind(sizeButton.maxHeightProperty());
 
         // Center the label
         sizeButton.setAlignment(Pos.CENTER);
@@ -257,36 +277,90 @@ public class ProductModifyWindowController implements Initializable {
 
         return sizeButton;
     }
-     
+
     private void selectSize(Size size) {
+        this.selectedSize = size;
         List<Purchase> purchases = cont.findSizePurchases(size);
-        
+
         linechart.setData(getPurchasesData(purchases));
+
+        SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, size.getStock());
+        stockCountSpinner.setValueFactory(factory);
+
+        factory.setValue(size.getStock());
+        stockCountSpinner.getEditor().setText(
+                String.valueOf(factory.getValue())
+        );
+
+        sizeTextField.setText(size.getLabel());
     }
 
     private void selectProduct(Product product) {
+        // Resets data from the previous selected product
+        resetData();
+
+        this.selectedProduct = product;
+
         List<Purchase> purchases = cont.findProductPurchases(product);
         linechart.setData(getPurchasesData(purchases));
-        
+
         // Add the available sizes
         List<Size> sizes = cont.findProductSizes(product);
         sizesHbox.getChildren().clear();
 
-        for(Size s:sizes) {
+        for (Size s : sizes) {
             Button btn = createSizeButton(s);
             sizesHbox.getChildren().add(btn);
         }
+
+        // Makes a button to allow the user to add a size and adds it to the end of the list
+        Button addSizeButton = new Button("+");
+
+        addSizeButton.setStyle(
+                "-fx-background-color: white;"
+                + "-fx-background-radius: 100%;"
+                + "-fx-border-radius: 100%;"
+                + "-fx-border-color: green;"
+                + "-fx-border-width: 1;"
+        );
+
+        addSizeButton.setMaxHeight(Double.MAX_VALUE);
+        addSizeButton.maxWidthProperty().bind(addSizeButton.maxHeightProperty());
+
+        addSizeButton.setAlignment(Pos.CENTER);
+
+        addSizeButton.setOnAction(e -> {
+            selectedSize = null;
+
+            // Reset the fields to let the user fill them in and add a size
+            sizeTextField.setText("");
+            stockCountSpinner.getEditor().clear();
+
+            SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 1);
+            stockCountSpinner.setValueFactory(factory);
+
+            factory.setValue(1);
+            stockCountSpinner.getEditor().setText(
+                    String.valueOf(factory.getValue())
+            );
+        });
+
+        sizesHbox.getChildren().add(addSizeButton);
     }
     
+
+    private void resetData() {
+        linechart.getData().clear();
+        sizesHbox.getChildren().clear();
+        stockCountSpinner.getEditor().clear();
+        sizeTextField.setText("");
+    }
+
     @FXML
     private void goToLogin(ActionEvent event) {
         changeWindow("/view/LogInWindow.fxml", event);
     }
 
-    /*@FXML
-    private void goToProfile(ActionEvent event) {
-        changeWindow("/view/ModifyUserAdmin.fxml", event);
-    }*/
     private void changeWindow(String fxml, ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
@@ -308,50 +382,160 @@ public class ProductModifyWindowController implements Initializable {
     private ObservableList<XYChart.Series<Number, Number>> getPurchasesData(List<Purchase> purchases) {
         ObservableList<XYChart.Series<Number, Number>> data = FXCollections.observableArrayList();
         HashMap<Size, ArrayList<Purchase>> sizes = new HashMap<>();
-        
+
         // Gets all of the sizes purchased
-        for(Purchase p:purchases) {
+        for (Purchase p : purchases) {
             Size size = p.getSize();
             sizes.putIfAbsent(size, new ArrayList<>());
             sizes.get(size).add(p);
         }
-        
+
         // Maps points, for every product the first date of purchase will always be the first point
         // The last date will be the last point
         // Any days in between the first and last will include the amount purchased, wether its above 0 or not
-        for(Map.Entry<Size, ArrayList<Purchase>> entry : sizes.entrySet()) {
+        for (Map.Entry<Size, ArrayList<Purchase>> entry : sizes.entrySet()) {
             Size size = entry.getKey();
             ArrayList<Purchase> size_purchases = entry.getValue();
-            
+
             // Sorts by date of purchase
             size_purchases.sort(Comparator.comparing(Purchase::getTimeOfPurchase));
-            
+
             LocalDate firstDate = purchases.get(0).getTimeOfPurchase();
-            LocalDate lastDate = purchases.get(purchases.size()-1).getTimeOfPurchase();
-            
+            LocalDate lastDate = purchases.get(purchases.size() - 1).getTimeOfPurchase();
+
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
-            series.setName(size.getProduct().getName()+ "-" +size.getLabel());
-            
+            series.setName(size.getProduct().getName() + "-" + size.getLabel());
+
             // Adds all the days between the first and last purchase
             long totalDays = ChronoUnit.DAYS.between(firstDate, lastDate);
-            
+
             for (long day = 0; day <= totalDays; day++) {
                 // Gets the current date in the loop
                 LocalDate currentDate = firstDate.plusDays(day);
-                
+
                 int counter = 0;
-                for(Purchase p:size_purchases) {
-                    if(p.getTimeOfPurchase().equals(currentDate)) {
+                for (Purchase p : size_purchases) {
+                    if (p.getTimeOfPurchase().equals(currentDate)) {
                         counter += 1;
                     }
                 }
-                
+
                 series.getData().add(new XYChart.Data<>(day, counter));
             }
-            
+
             data.add(series);
         }
-        
+
         return data;
+    }
+
+    @FXML
+    private void updateCreateSize(ActionEvent event) {
+        int newStock = stockCountSpinner.getValue();
+        String newLabel = sizeTextField.getText().trim();
+
+        if (newLabel.equals("") || newStock <= 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid size data");
+            alert.setContentText("Please insert valid data for the new size.");
+            alert.setHeaderText("Insert valid data");
+            alert.showAndWait();
+        } else {
+            //Updates size one is selected, creates it if not
+            if (selectedSize != null) {
+                cont.modifySize(selectedSize, newLabel, newStock);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Size stock modification confirmation");
+                alert.setContentText("Size information successfully modified!");
+                alert.setHeaderText("Size stock");
+                alert.showAndWait();
+            } else if (selectedProduct != null) {
+                selectedSize = cont.createSize(newLabel, newStock, selectedProduct);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Size has been created");
+                alert.setContentText("The new size has been added to the product.");
+                alert.setHeaderText("Select a size");
+                alert.showAndWait();
+
+                // Refreshes data to update the size list
+                resetData();
+                selectProduct(selectedProduct);
+                selectSize(selectedSize);
+            }
+        }
+    }
+
+    @FXML
+    private void deleteProduct(ActionEvent event) {
+        if (selectedProduct != null) {
+            cont.deleteProduct(selectedProduct);
+
+            selectedProduct = null;
+            selectedSize = null;
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Product deletion confirmation");
+            alert.setContentText("Product successfully deleted!");
+            alert.setHeaderText("Product deletion");
+            alert.showAndWait();
+
+            // Refreshes the product list and resets linechart, size list, etc.
+            selectCompany();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setContentText("Please select a product to delete.");
+            alert.setHeaderText("No product selected");
+            alert.showAndWait();
+        }
+    }
+
+    // TODO: REDIRECT TO CREATE PRODUCT FORM ONCE FINISHED
+    @FXML
+    private void createItem(ActionEvent event) {
+    }
+
+    @FXML
+    private void deleteSize(ActionEvent event) {
+        if (selectedSize != null) {
+            cont.deleteSize(selectedSize);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Size deletion confirmation");
+            alert.setContentText("The selected size has been deleted.");
+            alert.setHeaderText("Size deleted.");
+            alert.showAndWait();
+
+            selectedSize = null;
+            resetData();
+            selectProduct(selectedProduct);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Select a size");
+            alert.setContentText("No size has been selected to delete.");
+            alert.setHeaderText("Select a size to delete.");
+            alert.showAndWait();
+        }
+    }
+
+    private void editProductPrice(Product product, double newPrice) {
+        if(product.getPrice() == newPrice) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Product price change warning");
+            alert.setContentText("The products price is the same as before");
+            alert.setHeaderText("Same price as before");
+            alert.showAndWait();
+        }else{
+            product.setPrice(newPrice);
+            cont.updateProduct(product);
+            
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Products price modification");
+            alert.setContentText("The products price has been modified");
+            alert.setHeaderText("Product price modified");
+            alert.showAndWait();
+        }
     }
 }

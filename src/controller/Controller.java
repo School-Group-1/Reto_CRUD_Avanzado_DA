@@ -110,6 +110,18 @@ public class Controller {
         return dao.findSizePurchases(size);
     }
     
+    public Size modifySize(Size size, String newLabel, int newStock) {
+        return dao.modifySize(size, newLabel, newStock);
+    }
+    
+    public Size createSize(String label, int stock, Product product) {
+        return dao.createSize(label, stock, product);
+    }
+    
+    public void deleteSize(Size size) {
+        dao.deleteSize(size);
+    }
+    
     public List<Purchase> findProductPurchases(Product product) {
         return dao.findProductPurchases(product);
     }
