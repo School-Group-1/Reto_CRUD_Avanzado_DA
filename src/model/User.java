@@ -76,6 +76,6 @@ public class User extends Profile {
 
     @Override
     public String toString() {
-        return "User{" + "gender=" + gender + ", cardNumber=" + cardNumber + '}';
+        return "User{" + super.toString() + "gender=" + gender + ", cardNumber=" + cardNumber + '}';
     }
 }

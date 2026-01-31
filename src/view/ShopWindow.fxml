@@ -112,7 +112,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnCompanies" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#GoToComp" style="-fx-background-color: transparent;" text="Companies" textFill="#0f954a">
+            <Button fx:id="btnCompanies" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToCompanies" style="-fx-background-color: transparent;" text="Companies" textFill="#0f954a">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -132,7 +132,7 @@
             </Button>
          </children>
       </VBox>
-      <Button fx:id="btnUser" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#GoToProf" style="-fx-background-color: transparent;" text="Profile" textFill="#0f954a" GridPane.rowIndex="2">
+      <Button fx:id="btnUser" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToProfile" style="-fx-background-color: transparent;" text="Profile" textFill="#0f954a" GridPane.rowIndex="2">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

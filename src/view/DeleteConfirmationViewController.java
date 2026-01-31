@@ -5,10 +5,13 @@
  */
 package view;
 
+import controller.Controller;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
@@ -17,6 +20,7 @@ import model.User;
 import model.Profile;
 import model.Admin;
 import model.DBImplementation;
+import model.Product;
 
 /**
  * FXML Controller class
@@ -43,13 +47,24 @@ public class DeleteConfirmationViewController implements Initializable {
     private String operationType;  // Añadí esta variable
     private DBImplementation dao;  // Añadí esta variable
     
+    private Profile profile;
+    private Controller cont;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.dao = new DBImplementation();  // Inicializar DAO
-        lblError.setVisible(false);  // Ocultar mensaje de error inicialmente
+        
+    }
+    
+    public void initData(Profile profile, Controller cont) {
+        //Hacer que Items muestre Productos de la base de datos en la vista
+        this.profile = profile;
+        this.cont = cont;
+
+        System.out.println("Perfil: " + profile);
+        System.out.println("Controller: " + cont);
     }
      
     public void setUser(User user) {
@@ -115,10 +130,15 @@ public class DeleteConfirmationViewController implements Initializable {
         return passwordField.getText();
     }
 
-    @FXML
+    /*@FXML
     private void cancel() {
         confirmed = false;
         stage.close();
+    }*/
+    
+    @FXML
+    private void cancel() {
+        ((Stage) passwordField.getScene().getWindow()).close();
     }
 
     private void showError(String message) {

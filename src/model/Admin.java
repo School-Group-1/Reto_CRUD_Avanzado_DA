@@ -37,6 +37,6 @@ public class Admin extends Profile {
 
     @Override
     public String toString() {
-        return "Admin{" + "currentAccount=" + currentAccount + '}';
+        return "Admin{" + super.toString() + "currentAccount=" + currentAccount + '}';
     }
 }

@@ -44,7 +44,7 @@ public class LogInWindowController implements Initializable {
     private Label labelIncorrecto; // Label to show error messages
 
     // Controller handling business logic
-    private Controller cont = new Controller(new DBImplementation());
+    private final Controller cont = new Controller(new DBImplementation());
 
     /**
      * Opens the SignUp window.
@@ -89,21 +89,25 @@ public class LogInWindowController implements Initializable {
                     
                     if(profile instanceof Admin) {
                         fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProductModifyWindow.fxml"));
+                        Parent root = fxmlLoader.load();
+
+                        view.ProductModifyWindowController controllerWindow = fxmlLoader.getController();
+                        controllerWindow.initData(profile, cont);
+                        
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.show();
                     }else{
                         fxmlLoader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
+                        Parent root = fxmlLoader.load();
+
+                        ShopWindowController controllerWindow = fxmlLoader.getController();
+                        controllerWindow.initData(profile, cont);
+                        
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.show();
                     }
-                    
-                    Parent root = fxmlLoader.load();
-
-                    
-                    view.ShopWindowController controllerWindow = fxmlLoader.getController();
-                    controllerWindow.setProfile(profile);
-                    System.out.println("Controlador=" + cont);
-                    controllerWindow.setCont(cont);
-
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root));
-                    stage.show();
 
                     Stage currentStage = (Stage) Button_LogIn.getScene().getWindow();
                     currentStage.close();

@@ -53,7 +53,7 @@ public class ModifyUserAdminController implements Initializable {
     private DBImplementation dao = new DBImplementation();
 
     // Usuario actual (deberías obtenerlo del sistema de login)
-    private Profile currentUser;
+    private Profile profile;
     private Controller cont;
 
     // Para mostrar mensajes de error
@@ -72,20 +72,23 @@ public class ModifyUserAdminController implements Initializable {
         this.originalSurname = "";
         this.originalTelephone = "";
     }
+    
+    public void initData(Profile profile, Controller cont) {
+        this.profile = profile;
+        this.cont = cont;
 
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-        if (currentUser != null) {
-            loadUserData();
-        }
+        System.out.println("Perfil: " + profile);
+        System.out.println("Controller: " + cont);
+        
+        loadUserData();
     }
 
     @FXML
     private void loadUserData() {
-        if (currentUser != null) {
-            nameText.setText(currentUser.getName());
-            surnameText.setText(currentUser.getSurname());
-            telephoneText.setText(currentUser.getTelephone());
+        if (profile != null) {
+            nameText.setText(profile.getName());
+            surnameText.setText(profile.getSurname());
+            telephoneText.setText(profile.getTelephone());
 
             // Limpiar campos de contraseña
             passwordText.clear();
@@ -127,24 +130,24 @@ public class ModifyUserAdminController implements Initializable {
     }
 
     @FXML
-    private void cancel() {
+    private void cancel(ActionEvent event) {
         try {
-            javafx.fxml.FXMLLoader fxmlLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
-            javafx.scene.Parent root = fxmlLoader.load();
-
-            view.ProfileWindowController controllerWindow = fxmlLoader.getController();
-            controllerWindow.setUsuario(currentUser);
-            controllerWindow.setCont(this.cont);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
+            Parent root = loader.load();
+            
+            view.ProfileWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
 
             Stage stage = new Stage();
-            stage.setScene(new javafx.scene.Scene(root));
+            stage.setScene(new Scene(root));
             stage.show();
 
-            Stage currentStage = (Stage) cancelButton.getScene().getWindow();
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
             currentStage.close();
 
-        } catch (IOException ex) {
-            Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -219,7 +222,7 @@ public class ModifyUserAdminController implements Initializable {
                     return !correct;
                 }
 
-                if (newPassword.equals(currentUser.getPassword())) {
+                if (newPassword.equals(profile.getPassword())) {
                     showError("New password cannot be the same as current password");
                     return !correct;
                 }
@@ -265,19 +268,19 @@ public class ModifyUserAdminController implements Initializable {
 
     @FXML
     private void updateUser() {
-        currentUser.setName(nameText.getText());
-        currentUser.setSurname(surnameText.getText());
-        currentUser.setTelephone(telephoneText.getText());
+        profile.setName(nameText.getText());
+        profile.setSurname(surnameText.getText());
+        profile.setTelephone(telephoneText.getText());
 
         if (!passwordText.getText().isEmpty()) {
-            currentUser.setPassword(passwordText.getText().trim());
+            profile.setPassword(passwordText.getText().trim());
         }
 
-        dao.updateUser((User) currentUser);
+        dao.updateUser((User) profile);
 
-        originalName = currentUser.getName();
-        originalSurname = currentUser.getSurname();
-        originalTelephone = currentUser.getTelephone();
+        originalName = profile.getName();
+        originalSurname = profile.getSurname();
+        originalTelephone = profile.getTelephone();
     }
 
     @FXML

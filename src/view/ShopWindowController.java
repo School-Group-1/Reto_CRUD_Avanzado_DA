@@ -57,10 +57,11 @@ public class ShopWindowController implements Initializable {
     private Button btnBuy;
     @FXML
     private Button btnaddToCart;
-    private Controller cont;
     
     private ArrayList<Product> Items;
+    
     public ArrayList Cart;
+    
     @FXML
     private Label name;
     @FXML
@@ -83,24 +84,26 @@ public class ShopWindowController implements Initializable {
      */
     private Profile profile;
     
+    private Controller cont;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Hacer que Items muestre Productos de la base de datos en la vista 
-        System.out.println(cont);
+         
+    }
+    
+    public void initData(Profile profile, Controller cont) {
+        //Hacer que Items muestre Productos de la base de datos en la vista
+        this.profile = profile;
+        this.cont = cont;
+
+        System.out.println("Perfil: " + profile);
+        System.out.println("Controller: " + cont);
+
         List<Product> products = cont.findAllProducts();
-        
         for (Product prod : products) {
             Node card = createProductCard(prod);
             productcardList.getChildren().add(card);
         }
-    }
-    
-    public void setProfile(Profile prof) {
-        this.profile = prof;
-    }
-    
-    public void setCont(Controller contr) {
-        this.cont = contr;
     }
     
     @FXML
@@ -117,60 +120,47 @@ public class ShopWindowController implements Initializable {
     }
     
     @FXML
-    private void GoToComp(ActionEvent event) {
+    private void goToCompanies(ActionEvent event) {
         try {
-            FXMLLoader loader;
-            Parent root;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompanyWindow.fxml"));
+            Parent root = loader.load();
             
-            Stage stage = new Stage();            
-            loader = new FXMLLoader(getClass().getResource("CompanyWindow.fxml"));
-            root = loader.load();
-            
-            CompanyWindowController companyWController = loader.getController();
-            companyWController.setUsuario(profile);
-            companyWController.setCont(cont);
+            view.CompanyWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
 
-            // Cerrar esta ventana
-            Stage currentStage = (Stage) btnStore.getScene().getWindow();
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
             currentStage.close();
-            
+
         } catch (IOException e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
     }
     
     @FXML
-    private void GoToProf(ActionEvent event) {
-        
+    private void goToProfile(ActionEvent event) {
         try {
-            FXMLLoader loader;
-            Parent root;
-            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
+            Parent root = loader.load();
+            
+            view.ProfileWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
 
-            // ? Si es usuario normal, cargar ModifyWindow.fxml
-            loader = new FXMLLoader(getClass().getResource("ProfileWindow.fxml"));
-            root = loader.load();
-            
-            ProfileWindowController ProfileWController = loader.getController();
-            ProfileWController.setUsuario(profile);
-            ProfileWController.setCont(cont);
-            
-            stage.setTitle("Modificar perfil");
-            
+            Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            
             stage.show();
 
-            // Cerrar la ventana de login
-            Stage currentStage = (Stage) btnStore.getScene().getWindow();
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
             currentStage.close();
-            
+
         } catch (IOException e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
-        
     }    
 
     private Node createProductCard(Product product) {

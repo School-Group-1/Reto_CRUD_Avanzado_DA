@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,6 +28,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Admin;
 import model.DBImplementation;
+import model.Profile;
 import model.User;
 
 /**
@@ -80,6 +82,9 @@ public class UserTableController implements Initializable {
     
     private Admin loggedAdmin;
     
+    private Profile profile;
+    
+    private Controller cont;
     
     private ObservableList<User> userList = FXCollections.observableArrayList();
     
@@ -87,6 +92,18 @@ public class UserTableController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        checkbox();
+        setupColumns();
+        setupEditableColumns(); 
+        setupDeleteColumn();
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        userList = dao.findAll();
+        tableView.setItems(userList);
+    }
+    
+    public void initData(Profile profile, Controller cont){
+        this.profile=profile;
+        this.cont=cont;
         checkbox();
         setupColumns();
         setupEditableColumns(); 
