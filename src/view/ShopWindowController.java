@@ -64,7 +64,6 @@ public class ShopWindowController implements Initializable {
     @FXML
     private Button btnaddToCart;
     
-    private Controller cont = new Controller(new DBImplementation());
     private File fichE;
     private ArrayList<Product> Items;
     
@@ -112,22 +111,19 @@ public class ShopWindowController implements Initializable {
         // System.out.println(cont);
         uname = "Example User Name";
         List<Product> products = cont.findAllProducts();
-        if(fichE.exists()){
+        /*if(fichE.exists()){
             if (fichE.getName().contains(uname)){
             
-            
-           
             carrito=FXCollections.observableList(products);
             tcAmout.setCellValueFactory(new PropertyValueFactory<>("atributoClase"));
             tcItem.setCellValueFactory(new PropertyValueFactory<>("atributoClase"));
             tcPrice.setCellValueFactory(new PropertyValueFactory<>("atributoClase"));
             
-        
             CartTable.setItems(carrito);
             }
         }else{
             fichE=new File("Carrito"+uname+".dat");
-        }
+        }*/
         for (Product prod : products) {
             Node card = createProductCard(prod);
             productcardList.getChildren().add(card);

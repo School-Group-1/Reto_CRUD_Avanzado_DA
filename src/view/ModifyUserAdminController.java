@@ -110,11 +110,6 @@ public class ModifyUserAdminController implements Initializable {
     private void goToProfileWindow(ActionEvent event) {
         changeWindow("/view/ProfileWindow.fxml", event);
     }
-    
-    @FXML
-    private void cancel(ActionEvent event) {
-        changeWindow("/view/ProfileWindow.fxml",event);
-    }
 
     private void changeWindow(String fxml, ActionEvent event) {
         try {

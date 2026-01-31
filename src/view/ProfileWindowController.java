@@ -5,7 +5,6 @@
  */
 package view;
 
-import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
 import controller.Controller;
 import java.io.IOException;
 import javafx.scene.control.Button;

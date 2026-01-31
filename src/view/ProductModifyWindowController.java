@@ -278,18 +278,6 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
     
-    /*@FXML
-    private void goToCompanies(ActionEvent event) {
-        changeWindow("/view/ShopWindow.fxml", event);
-    }*/
-    @FXML
-    private void goToCompanies(ActionEvent event) {
-        changeWindow("/view/CompaniesTable.fxml", event);
-    }
-    @FXML
-    private void goToUsers(ActionEvent event) {
-        changeWindow("/view/UserTable.fxml", event);
-    }
     @FXML
     private void goToLogin(ActionEvent event) {
         changeWindow("/view/LogInWindow.fxml", event);
