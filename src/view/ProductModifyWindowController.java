@@ -61,6 +61,7 @@ public class ProductModifyWindowController implements Initializable {
     private Company selectedCompany = null;
     private Product selectedProduct = null;
     private Size selectedSize = null;
+    private Profile profile;
 
     @FXML
     private ComboBox<String> companyCombobox;
@@ -74,8 +75,6 @@ public class ProductModifyWindowController implements Initializable {
     private NumberAxis xAxis;
     @FXML
     private NumberAxis yAxis;
-    
-    private Profile profile;
     @FXML
     private Spinner<Integer> stockCountSpinner;
     @FXML
@@ -86,17 +85,17 @@ public class ProductModifyWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
-    
+
     //method to receive profile, controller and data
-    public void initData(Profile profile, Controller cont){
-        this.profile=profile;
-        this.cont=cont;
-        
+    public void initData(Profile profile, Controller cont) {
+        this.profile = profile;
+        this.cont = cont;
+
         System.out.println("Perfil: " + profile);
         System.out.println("Controller: " + cont);
-        
+
         // Add companies to the combobox
         List<Company> companies = cont.findAllCompanies();
         System.out.println(companies);
@@ -116,13 +115,13 @@ public class ProductModifyWindowController implements Initializable {
 
         linechart.setTitle("Product Sales");
     }
-    
+
     @FXML
     private void goToCompanies(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompaniesTable.fxml"));
             Parent root = loader.load();
-            
+
             CompaniesTableController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -144,7 +143,7 @@ public class ProductModifyWindowController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UserTable.fxml"));
             Parent root = loader.load();
-            
+
             UserTableController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -250,7 +249,7 @@ public class ProductModifyWindowController implements Initializable {
         card.getChildren().addAll(imageView, textBox, rightBox);
         card.setOnMouseClicked(e -> selectProduct(product));
         editButton.setOnMouseClicked(e -> editProductPrice(product, priceSpinner.getValue()));
-        
+
         return card;
     }
 
@@ -347,7 +346,6 @@ public class ProductModifyWindowController implements Initializable {
 
         sizesHbox.getChildren().add(addSizeButton);
     }
-    
 
     private void resetData() {
         linechart.getData().clear();
@@ -357,27 +355,9 @@ public class ProductModifyWindowController implements Initializable {
     }
 
     @FXML
-    private void logout(ActionEvent event){
+    private void logout(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LogInWindow.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
-            currentStage.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void changeWindow(String fxml, ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent root = loader.load();
 
             Stage stage = new Stage();
@@ -509,6 +489,23 @@ public class ProductModifyWindowController implements Initializable {
     // TODO: REDIRECT TO CREATE PRODUCT FORM ONCE FINISHED
     @FXML
     private void createItem(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProductCreationWindow.fxml"));
+            Parent root = loader.load();
+
+            ProductCreationWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -535,16 +532,16 @@ public class ProductModifyWindowController implements Initializable {
     }
 
     private void editProductPrice(Product product, double newPrice) {
-        if(product.getPrice() == newPrice) {
+        if (product.getPrice() == newPrice) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Product price change warning");
             alert.setContentText("The products price is the same as before");
             alert.setHeaderText("Same price as before");
             alert.showAndWait();
-        }else{
+        } else {
             product.setPrice(newPrice);
             cont.updateProduct(product);
-            
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Products price modification");
             alert.setContentText("The products price has been modified");
