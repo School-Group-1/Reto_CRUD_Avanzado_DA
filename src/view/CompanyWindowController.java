@@ -34,6 +34,7 @@ import model.Profile;
 import model.User;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ContextMenuEvent;
 import report.ReportService;
 
@@ -46,6 +47,9 @@ public class CompanyWindowController implements Initializable {
     
     @FXML
     private TilePane PaneButtons;
+    
+   @FXML
+   private ScrollPane ScrollPaneCompanies;
 
     @FXML 
     private Button btnStore;
@@ -320,7 +324,7 @@ public class CompanyWindowController implements Initializable {
     
     @FXML
     private void showContextMenu(ContextMenuEvent event) {
-        contextMenu.show(PaneButtons, event.getScreenX(), event.getScreenY());
+        contextMenu.show(ScrollPaneCompanies, event.getScreenX(), event.getScreenY());
         event.consume();
     }
 
@@ -342,6 +346,6 @@ public class CompanyWindowController implements Initializable {
 
         contextMenu.getItems().add(reportItem);
 
-        PaneButtons.setOnContextMenuRequested(this::showContextMenu);
+        ScrollPaneCompanies.setOnContextMenuRequested(this::showContextMenu);
     }
 }

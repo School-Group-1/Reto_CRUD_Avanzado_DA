@@ -23,6 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.testfx.matcher.base.WindowMatchers;
+import view.CompanyWindowController;
 
 
 /**
