@@ -41,4 +41,6 @@ public interface ClassDAO {
     
     List<Purchase> findSizePurchases(Size size);
     List<Purchase> findProductPurchases(Product product);
+    
+    void deleteUser(User user);
 }
