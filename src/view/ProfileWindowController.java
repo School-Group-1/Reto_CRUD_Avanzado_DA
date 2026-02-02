@@ -21,13 +21,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import model.Admin;
+import model.Company;
 import model.DBImplementation;
 import model.Product;
 import model.Profile;
 import model.User;
+import report.ReportService;
 
 /**
  * Controller for the main Menu window.
@@ -37,6 +43,8 @@ public class ProfileWindowController implements Initializable {
 
     @FXML 
     private Label label_Username;
+    @FXML 
+    private GridPane gridPane;
 
     @FXML 
     private Button btnStore;
@@ -47,6 +55,9 @@ public class ProfileWindowController implements Initializable {
     private Button Button_Modify;
     @FXML 
     private Button Button_Delete;
+    
+    private ContextMenu contextMenu;
+    private MenuItem reportItem;
 
     private Profile profile;
     private Controller cont;
@@ -257,8 +268,28 @@ public class ProfileWindowController implements Initializable {
         }
     }
 
+    @FXML
+    private void showContextMenu(ContextMenuEvent event) {
+        contextMenu.show(gridPane, event.getScreenX(), event.getScreenY());
+        event.consume();
+    }
+
+    private void handleImprimirAction() {
+        ReportService reportService = new ReportService();
+        reportService.generateUserReport(profile);
+
+        System.out.println("Reporte generado correctamente");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialization logic if needed
+        contextMenu = new ContextMenu();
+
+        reportItem = new MenuItem("Report");
+        reportItem.setOnAction(e -> handleImprimirAction());
+
+        contextMenu.getItems().add(reportItem);
+
+        gridPane.setOnContextMenuRequested(this::showContextMenu);
     }
 }
