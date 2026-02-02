@@ -11,6 +11,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -94,10 +95,16 @@
             </Button>
          </children>
       </VBox>
-      <Button fx:id="insertImageButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#insertImage" style="-fx-background-radius: 50; -fx-background-color: transparent; -fx-border-color: b1b2b5; -fx-border-radius: 50; -fx-border-width: 5;" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="5">
+      <Button fx:id="insertImageButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#insertImage" style="-fx-background-radius: 50; -fx-background-color: transparent; -fx-border-color: b1b2b5; -fx-border-radius: 50; -fx-border-width: 5;" text="+" textFill="#0f954a" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="5">
          <GridPane.margin>
             <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
          </GridPane.margin>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <font>
+            <Font size="36.0" />
+         </font>
       </Button>
       <GridPane style="-fx-background-color: white; -fx-background-radius: 99;" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="6">
         <columnConstraints>
@@ -229,17 +236,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Provider:" textFill="#0f954a" GridPane.columnSpan="2">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
+            <ComboBox fx:id="companyComboBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="Select a company..." GridPane.columnSpan="3">
                <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin>
-            </Label>
-            <ComboBox fx:id="companyComboBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
-               <GridPane.margin>
-                  <Insets bottom="20.0" left="30.0" right="10.0" top="20.0" />
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                </GridPane.margin>
             </ComboBox>
          </children>
@@ -292,12 +291,12 @@
             <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="nameTextField1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Insert a size..." GridPane.columnSpan="2147483647">
+            <TextField fx:id="sizeTextField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Insert a size..." GridPane.columnSpan="2147483647">
                <GridPane.margin>
                   <Insets bottom="20.0" left="20.0" right="50.0" top="20.0" />
                </GridPane.margin>
             </TextField>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-radius: 99; -fx-background-color: transparent;" text="+" textFill="#0f954a" GridPane.columnIndex="2">
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addSize" style="-fx-background-radius: 99; -fx-background-color: transparent;" text="+" textFill="#0f954a" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -305,10 +304,13 @@
                   <Insets bottom="20.0" left="100.0" right="10.0" top="20.0" />
                </GridPane.margin>
             </Button>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
+               <content>
+                  <FlowPane fx:id="sizesFlowPane" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" vgap="10.0" />
+               </content>
             </ScrollPane>
          </children>
          <GridPane.margin>

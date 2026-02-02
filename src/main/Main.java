@@ -39,37 +39,6 @@ public class Main extends Application {
     }
 
     /**
-     * Generates random purchases for a user and size within a given date range.
-     *
-     * @param user the user making the purchases
-     * @param size the size being purchased
-     * @param startDate the first date in the range (inclusive)
-     * @param endDate the last date in the range (inclusive)
-     * @param maxPerDay the maximum number of purchases per day
-     * @param session the Hibernate session used to save the purchases
-     */
-    public static void generateDailyPurchases(
-            User user,
-            Size size,
-            LocalDate startDate,
-            LocalDate endDate,
-            int maxPerDay,
-            Session session
-    ) {
-        Random random = new Random();
-
-        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
-            int purchasesToday = random.nextInt(maxPerDay + 1);
-
-            for (int i = 0; i < purchasesToday; i++) {
-                Purchase p = new Purchase(user, size, date);
-                user.getPurchases().add(p);
-                session.save(p);
-            }
-        }
-    }
-
-    /**
      * Main method to launch the JavaFX application and load test data into the
      * database.
      *

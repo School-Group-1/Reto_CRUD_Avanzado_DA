@@ -6,8 +6,13 @@
 package view;
 
 import controller.Controller;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -93,12 +98,8 @@ public class ProductModifyWindowController implements Initializable {
         this.profile = profile;
         this.cont = cont;
 
-        System.out.println("Perfil: " + profile);
-        System.out.println("Controller: " + cont);
-
         // Add companies to the combobox
         List<Company> companies = cont.findAllCompanies();
-        System.out.println(companies);
 
         for (Company comp : companies) {
             companyCombobox.getItems().add(comp.getName());
@@ -200,8 +201,9 @@ public class ProductModifyWindowController implements Initializable {
         );
 
         // Image
+        System.out.println(product.getImage());
         ImageView imageView = new ImageView(
-                new Image(getClass().getResourceAsStream(product.getImage()))
+                loadImage(product.getImage())
         );
         imageView.setFitWidth(90);
         imageView.setFitHeight(90);
@@ -486,7 +488,6 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
 
-    // TODO: REDIRECT TO CREATE PRODUCT FORM ONCE FINISHED
     @FXML
     private void createItem(ActionEvent event) {
         try {
@@ -549,4 +550,26 @@ public class ProductModifyWindowController implements Initializable {
             alert.showAndWait();
         }
     }
+
+    public static Image loadImage(String path) {
+
+        // 1) Classpath resource (starts with /)
+        if (path.startsWith("/")) {
+            InputStream is = Product.class.getResourceAsStream(path);
+            if (is == null) {
+                throw new IllegalArgumentException("Classpath image not found: " + path);
+            }
+            return new Image(is);
+        }
+
+        // 2) File system path (relative or absolute)
+        Path filePath = Paths.get(path);
+
+        if (!Files.exists(filePath)) {
+            throw new IllegalArgumentException("File image not found: " + path);
+        }
+
+        return new Image(filePath.toUri().toString());
+    }
+
 }

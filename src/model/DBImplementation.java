@@ -266,6 +266,18 @@ public class DBImplementation implements ClassDAO {
         session.save(product);
         tx.commit();
     }
+    
+    public void saveProductSizes(Product product, List<String> sizeLabels, int initialStock) {
+        Transaction tx = session.beginTransaction();
+        session.save(product);
+        
+        for(String label: sizeLabels) {
+            Size size = new Size(label, initialStock, product);
+            session.save(size);
+        }
+        
+        tx.commit();
+    }
 
     public void updateProduct(Product product) {
         Transaction tx = session.beginTransaction();
@@ -339,6 +351,12 @@ public class DBImplementation implements ClassDAO {
     public List<Company> findAllCompanies() {
         Query query = session.createQuery("FROM Company");
         return query.list();
+    }
+    
+    public Company findCompanyByName(String name) {
+        Query query = session.createQuery("FROM Company c WHERE c.name = :name");
+        query.setParameter("name", name);
+        return (Company) query.list().get(0);
     }
     
     public List<Purchase> findSizePurchases(Size size) {

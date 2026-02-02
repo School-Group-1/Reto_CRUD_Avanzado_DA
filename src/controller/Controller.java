@@ -86,6 +86,10 @@ public class Controller {
         dao.saveProduct(product);
     }
     
+    public void saveProductSizes(Product product, List<String> sizeLabels, int initialStock) {
+        dao.saveProductSizes(product, sizeLabels, initialStock);
+    }
+    
     public void deleteProduct(Product product) {
         dao.deleteProduct(product);
     }
@@ -104,6 +108,10 @@ public class Controller {
     
     public List<Company> findAllCompanies() {
         return dao.findAllCompanies();
+    }
+    
+    public Company findCompanyByName(String name) {
+        return dao.findCompanyByName(name);
     }
     
     public List<Purchase> findSizePurchases(Size size) {

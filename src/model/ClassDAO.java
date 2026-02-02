@@ -26,6 +26,7 @@ public interface ClassDAO {
     
     List<Product> findAllProducts();
     void saveProduct(Product product);
+    void saveProductSizes(Product product, List<String> sizeLabels, int initialStock);
     void updateProduct(Product product);
     void deleteProduct(Product product);
     List<Product> findProductsByCompany(Company company);
@@ -36,6 +37,7 @@ public interface ClassDAO {
     void deleteSize(Size size);
     
     List<Company> findAllCompanies();
+    Company findCompanyByName(String name);
     
     List<Purchase> findSizePurchases(Size size);
     List<Purchase> findProductPurchases(Product product);
