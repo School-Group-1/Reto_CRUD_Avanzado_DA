@@ -36,7 +36,7 @@ public class DBImplementation implements ClassDAO {
     private final String HQL_GET_USER_USERNAME = "select u from User u where u.username = :username";
     private final String HQL_GET_USER_USERNAME_PASSWORD = "select u from User u where u.username = :username and u.password = :password";
     private final String HQL_GET_ADMIN_USERNAME_PASSWORD = "select a from Admin a where a.username = :username and a.password = :password";
-
+    
     /**
      * Default constructor that loads DB configuration.
      */
@@ -215,7 +215,8 @@ public class DBImplementation implements ClassDAO {
         session.update(user);
         tx.commit();
     }
-
+   
+    @Override
     public void deleteUser(User user) {
         Transaction tx = session.beginTransaction();
         session.delete(user);

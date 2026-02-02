@@ -54,9 +54,9 @@ public class CompaniesTableController implements Initializable {
     private TableColumn<Company, String> urlCol;
     @FXML
     private TableColumn<Company, Void> deleteCol;
-    
+
     private Profile profile;
-    
+
     private Controller cont;
 
     private Admin loggedAdmin;
@@ -65,16 +65,16 @@ public class CompaniesTableController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
-    
-    public void initData(Profile profile, Controller cont){
-        this.profile=profile;
-        this.cont=cont;
-        
+
+    public void initData(Profile profile, Controller cont) {
+        this.profile = profile;
+        this.cont = cont;
+
         System.out.println("Perfil: " + profile);
         System.out.println("Controller: " + cont);
-        
+
         checkbox();
         setupColumns();
         setupEditableColumns();
@@ -82,13 +82,13 @@ public class CompaniesTableController implements Initializable {
         companyList = FXCollections.observableArrayList(dao.findAllCompanies());
         tableView.setItems(companyList);
     }
-    
+
     @FXML
     private void goToProducts(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProductModifyWindow.fxml"));
             Parent root = loader.load();
-            
+
             ProductModifyWindowController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -104,13 +104,13 @@ public class CompaniesTableController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void goToUsers(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UserTable.fxml"));
             Parent root = loader.load();
-            
+
             UserTableController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -130,17 +130,17 @@ public class CompaniesTableController implements Initializable {
     public void checkbox() {
         // Estado inicial
         tableView.setEditable(editCheckBox.isSelected());
-        
+
         // Hacer columnas editables según checkbox
         updateColumnEditability(editCheckBox.isSelected());
-        
+
         // Listener para cambios
         editCheckBox.selectedProperty().addListener((obs, oldValue, isSelected) -> {
             tableView.setEditable(isSelected);
             updateColumnEditability(isSelected);
         });
     }
-    
+
     private void updateColumnEditability(boolean isEditable) {
         nameCol.setEditable(isEditable);
         nieCol.setEditable(isEditable);
@@ -158,7 +158,7 @@ public class CompaniesTableController implements Initializable {
         nieCol.setCellFactory(TextFieldTableCell.forTableColumn());
         locationCol.setCellFactory(TextFieldTableCell.forTableColumn());
         urlCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        
+
         // Eventos de edición
         nameCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
@@ -166,21 +166,21 @@ public class CompaniesTableController implements Initializable {
             dao.updateCompany(comp);
             refreshTable();
         });
-        
+
         nieCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
             comp.setNie(event.getNewValue());
             dao.updateCompany(comp);
             refreshTable();
         });
-        
+
         locationCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
             comp.setLocation(event.getNewValue());
             dao.updateCompany(comp);
             refreshTable();
         });
-        
+
         urlCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
             comp.setUrl(event.getNewValue());
@@ -204,53 +204,32 @@ public class CompaniesTableController implements Initializable {
         refreshTable();
     }
 
-    private void showSuccessMessage(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Éxito");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    private void deleteCompany(Company company) {
-        try {
-            dao.deleteCompany(company);
-            companyList.remove(company);
-            refreshTable();
-            showSuccessMessage("Compañía eliminada correctamente: " + company.getName());
-        } catch (Exception e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error al eliminar la compañía");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
-    }
-
     private void confirmDelete(Company company) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DeleteConfirmationView.fxml"));
             Parent root = loader.load();
 
             DeleteConfirmationViewController controller = loader.getController();
+            controller.initData(profile, cont);
+
             controller.setCompanyToDelete(company);
-            controller.setCurrentUser(loggedAdmin); // Admin siempre logueado
 
             Stage popupStage = new Stage();
-            popupStage.setTitle("Confirmar eliminación");
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.setScene(new Scene(root));
-            controller.setStage(popupStage);
 
             popupStage.showAndWait();
 
             if (controller.isConfirmed()) {
-                deleteCompany(company);
+                dao.deleteCompany(company);
+                companyList.remove(company);
+                tableView.refresh();
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            dao.deleteCompany(company);
+            companyList.remove(company);
+            tableView.refresh();
         }
     }
 
@@ -272,9 +251,9 @@ public class CompaniesTableController implements Initializable {
             }
         });
     }
-    
+
     @FXML
-    private void logout(ActionEvent event){
+    private void logout(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LogInWindow.fxml"));
             Parent root = loader.load();

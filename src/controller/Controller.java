@@ -12,6 +12,7 @@ import model.Product;
 import model.Profile;
 import model.Purchase;
 import model.Size;
+import model.User;
 
 /**
  * Controller class that handles interaction between the GUI and the database.
@@ -132,5 +133,9 @@ public class Controller {
     
     public List<Purchase> findProductPurchases(Product product) {
         return dao.findProductPurchases(product);
+    }
+    
+    public void deleteUser(User user) {
+        dao.deleteUser(user);
     }
 }
