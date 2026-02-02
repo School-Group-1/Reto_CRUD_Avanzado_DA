@@ -32,6 +32,12 @@ import model.Admin;
 import model.Company;
 import model.Profile;
 import model.User;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.ContextMenuEvent;
+import report.ReportService;
+
 
 /**
  * Controller for the main Menu window.
@@ -41,6 +47,9 @@ public class CompanyWindowController implements Initializable {
     
     @FXML
     private TilePane PaneButtons;
+    
+   @FXML
+   private ScrollPane ScrollPaneCompanies;
 
     @FXML 
     private Button btnStore;
@@ -51,6 +60,9 @@ public class CompanyWindowController implements Initializable {
     private Button Button_Modify;
     @FXML 
     private Button Button_Delete;
+    
+    private ContextMenu contextMenu;
+    private MenuItem reportItem;
 
     private Profile profile;
     private Controller cont;
@@ -309,11 +321,31 @@ public class CompanyWindowController implements Initializable {
             Logger.getLogger(ProfileWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @FXML
+    private void showContextMenu(ContextMenuEvent event) {
+        contextMenu.show(ScrollPaneCompanies, event.getScreenX(), event.getScreenY());
+        event.consume();
+    }
+
+    private void handleImprimirAction() {
+        List<Company> companies = cont.findAllCompanies();
+
+        ReportService reportService = new ReportService();
+        reportService.generateCompaniesReport(companies);
+
+        System.out.println("Reporte generado correctamente");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialization logic if needed
-        System.out.println("Controller REAL creado: " + this);
-        System.out.println("PaneButtons = " + PaneButtons);
+        contextMenu = new ContextMenu();
+
+        reportItem = new MenuItem("Report");
+        reportItem.setOnAction(e -> handleImprimirAction());
+
+        contextMenu.getItems().add(reportItem);
+
+        ScrollPaneCompanies.setOnContextMenuRequested(this::showContextMenu);
     }
 }
