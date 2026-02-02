@@ -23,7 +23,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import model.Admin;
 import model.Profile;
 
 /**
@@ -35,18 +37,26 @@ public class SignUpWindowController implements Initializable {
     @FXML
     private TextField textFieldEmail, textFieldName, textFieldSurname, textFieldTelephone;
     @FXML
-    private TextField textFieldCardN, textFieldPassword, textFieldCPassword, textFieldUsername;
+    private TextField textFieldCardN;
+    @FXML
+    private TextField textFieldPassword, textFieldUsername;
     @FXML
     private RadioButton rButtonM, rButtonW, rButtonO;
     @FXML
     private Button buttonSignUp, buttonLogIn;
+    @FXML
+    private Label errorLbl;
 
     private Controller cont;
     private ToggleGroup grupOp;
-
-    public void setCont(Controller cont) {
+    
+    private Profile profile;
+    
+    public void initData(Controller cont) {
+        //Hacer que Items muestre Productos de la base de datos en la vista
         this.cont = cont;
-    }
+        System.out.println("Controller: " + cont);
+    }  
 
     /**
      * Navigates back to login window.
@@ -56,14 +66,16 @@ public class SignUpWindowController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/LogInWindow.fxml"));
             Parent root = fxmlLoader.load();
-            view.LogInWindowController controllerWindow = fxmlLoader.getController();
+            
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
-            Stage currentStage = (Stage) buttonLogIn.getScene().getWindow();
+
+            // Close current window
+            Stage currentStage = (Stage) buttonSignUp.getScene().getWindow();
             currentStage.close();
         } catch (IOException ex) {
-            Logger.getLogger(SignUpWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -72,13 +84,13 @@ public class SignUpWindowController implements Initializable {
      */
     @FXML
     private void signup() throws passwordequalspassword {
+
         String email = textFieldEmail.getText();
         String name = textFieldName.getText();
         String surname = textFieldSurname.getText();
         String telephone = textFieldTelephone.getText();
         String cardN = textFieldCardN.getText();
         String pass = textFieldPassword.getText();
-        String passC = textFieldCPassword.getText();
         String username = textFieldUsername.getText();
         String gender = null;
 
@@ -86,32 +98,81 @@ public class SignUpWindowController implements Initializable {
         else if (rButtonW.isSelected()) gender = "Woman";
         else if (rButtonO.isSelected()) gender = "Other";
 
-        if (!pass.equals(passC)) throw new passwordequalspassword("No son iguales las contraseñas");
+        // Limpiamos el label de error
+        errorLbl.setText("");
 
+        // 1. Campos obligatorios
+        if (email.isEmpty() || name.isEmpty() || surname.isEmpty() || telephone.isEmpty() || cardN.isEmpty() || pass.isEmpty() || username.isEmpty()) {
+            errorLbl.setText("All fields must be filled");
+            return;
+        }
+
+        // 2. Género obligatorio
+        if (gender == null) {
+            errorLbl.setText("You must select a gender");
+            return;
+        }
+
+        // 4. Validación de email completa
+        String emailRegex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
+        if (!email.matches(emailRegex)) {
+            errorLbl.setText("Invalid email format");
+            return;
+        }
+
+        // 5. Teléfono: solo números y 9 dígitos
+        if (!telephone.matches("\\d{9}")) {
+            errorLbl.setText("Telephone must have exactly 9 digits");
+            return;
+        }
+
+        // 6. Card number: solo números y 16 dígitos
+        if (!cardN.matches("\\d{16}")) {
+            errorLbl.setText("Card number must have exactly 16 digits");
+            return;
+        }
+
+        // ---- SIGN UP ----
         if (cont.signUp(gender, cardN, username, pass, email, name, telephone, surname)) {
-            Profile profile = cont.logIn(username, pass);
+
+            profile = cont.logIn(username, pass);
+
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
-                Parent root = fxmlLoader.load();
-                view.ProfileWindowController controllerWindow = fxmlLoader.getController();
-                controllerWindow.setUsuario(profile);
-                controllerWindow.setCont(this.cont);
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.show();
+                FXMLLoader fxmlLoader;
+
+                if (profile instanceof Admin) {
+                    fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProductModifyWindow.fxml"));
+                    Parent root = fxmlLoader.load();
+
+                    ProductModifyWindowController controllerWindow = fxmlLoader.getController();
+                    controllerWindow.initData(profile, cont);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } else {
+                    fxmlLoader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
+                    Parent root = fxmlLoader.load();
+
+                    ShopWindowController controllerWindow = fxmlLoader.getController();
+                    controllerWindow.initData(profile, cont);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                }
+
                 Stage currentStage = (Stage) buttonSignUp.getScene().getWindow();
                 currentStage.close();
+
             } catch (IOException ex) {
-                Logger.getLogger(SignUpWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        grupOp = new ToggleGroup();
-        rButtonM.setToggleGroup(grupOp);
-        rButtonW.setToggleGroup(grupOp);
-        rButtonO.setToggleGroup(grupOp);
+        
     }
 }

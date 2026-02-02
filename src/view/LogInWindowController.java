@@ -39,8 +39,6 @@ public class LogInWindowController implements Initializable {
     @FXML
     private Button Button_LogIn;
     @FXML
-    private Button Button_SignUp;
-    @FXML
     private Label labelIncorrecto; // Label to show error messages
 
     // Controller handling business logic
@@ -54,16 +52,17 @@ public class LogInWindowController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/SignUpWindow.fxml"));
             Parent root = fxmlLoader.load();
+
+            SignUpWindowController controllerWindow = fxmlLoader.getController();
+            controllerWindow.initData(cont);
+            
             Stage stage = new Stage();
             stage.setTitle("SignUp");
             stage.setScene(new Scene(root));
             stage.show();
 
-            view.SignUpWindowController controllerWindow = fxmlLoader.getController();
-            controllerWindow.setCont(cont);
-
             // Close current window
-            Stage currentStage = (Stage) Button_SignUp.getScene().getWindow();
+            Stage currentStage = (Stage) Button_LogIn.getScene().getWindow();
             currentStage.close();
         } catch (IOException ex) {
             Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);

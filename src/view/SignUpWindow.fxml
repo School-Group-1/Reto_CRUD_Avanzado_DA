@@ -13,172 +13,103 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #0f954a;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Pane prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 35; -fx-border-color: black; -fx-background-radius: 35;" GridPane.rowIndex="2" GridPane.rowSpan="26">
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-      </Pane>
-      <Label prefHeight="23.0" prefWidth="159.0" text="Have an account?" GridPane.hgrow="ALWAYS" GridPane.rowIndex="27" GridPane.vgrow="ALWAYS">
-         <font>
-            <Font size="13.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="70.0" />
-         </GridPane.margin>
-      </Label>
-      <Button fx:id="buttonLogIn" mnemonicParsing="false" onAction="#login" prefHeight="28.0" prefWidth="95.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-text-fill: black; -fx-cursor: hand; -fx-text-fill: blue;" text="Log In" GridPane.hgrow="ALWAYS" GridPane.rowIndex="27" GridPane.vgrow="ALWAYS">
-         <GridPane.margin>
-            <Insets left="200.0" />
-         </GridPane.margin></Button>
-      <Button fx:id="buttonSignUp" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signup" prefHeight="28.0" prefWidth="369.0" style="-fx-background-color: white; -fx-border-color: black; -fx-font-weight: bold;" text="Sign Up" GridPane.hgrow="ALWAYS" GridPane.rowIndex="25" GridPane.vgrow="ALWAYS">
-         <GridPane.margin>
-            <Insets left="55.0" right="55.0" />
-         </GridPane.margin>
-      </Button>
-      <RadioButton fx:id="rButtonM" mnemonicParsing="false" text="Man" GridPane.rowIndex="23">
-         <GridPane.margin>
-            <Insets left="55.0" />
-         </GridPane.margin></RadioButton>
-      <RadioButton fx:id="rButtonW" mnemonicParsing="false" text="Woman" GridPane.rowIndex="23">
-         <GridPane.margin>
-            <Insets left="145.0" />
-         </GridPane.margin></RadioButton>
-      <RadioButton fx:id="rButtonO" mnemonicParsing="false" prefHeight="17.0" prefWidth="363.0" text="Other" GridPane.hgrow="ALWAYS" GridPane.rowIndex="23" GridPane.vgrow="ALWAYS">
-         <padding>
-            <Insets left="250.0" />
-         </padding></RadioButton>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="367.0" text="Gender" GridPane.hgrow="ALWAYS" GridPane.rowIndex="16" GridPane.vgrow="ALWAYS">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="textFieldCardN" alignment="CENTER" prefHeight="27.0" prefWidth="128.0" style="-fx-border-color: black; -fx-background-radius: 50; -fx-border-radius: 50;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="15" GridPane.vgrow="ALWAYS">
-         <GridPane.margin>
-            <Insets left="25.0" right="25.0" />
-         </GridPane.margin></TextField>
-      <Label fx:id="labelCardN" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="412.0" text="Card number" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14" GridPane.vgrow="ALWAYS">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="textFieldPassword" alignment="CENTER" prefHeight="27.0" prefWidth="128.0" style="-fx-border-color: black; -fx-border-radius: 50; -fx-background-radius: 50;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="19" GridPane.vgrow="ALWAYS">
-         <GridPane.margin>
-            <Insets left="25.0" right="25.0" />
-         </GridPane.margin></TextField>
-      <Label fx:id="labelpassword" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="453.0" text="Password" GridPane.hgrow="ALWAYS" GridPane.rowIndex="18" GridPane.vgrow="ALWAYS">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="textFieldCPassword" alignment="CENTER" maxWidth="-Infinity" prefHeight="28.0" prefWidth="377.0" style="-fx-border-color: black; -fx-border-radius: 50; -fx-background-radius: 50;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="21" GridPane.vgrow="ALWAYS">
-         <GridPane.margin>
-            <Insets left="25.0" right="25.0" />
-         </GridPane.margin></TextField>
-      <Label fx:id="labelConfirmPassword" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="385.0" text="Confirm password" GridPane.hgrow="ALWAYS" GridPane.rowIndex="20" GridPane.vgrow="ALWAYS">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="textFieldEmail" alignment="CENTER" prefHeight="27.0" prefWidth="170.0" style="-fx-border-radius: 50; -fx-border-color: black; -fx-background-radius: 50;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="13" GridPane.vgrow="ALWAYS">
-         <GridPane.margin>
-            <Insets left="25.0" right="25.0" />
-         </GridPane.margin></TextField>
-      <Label fx:id="labelEmail" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="423.0" text="Email" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="textFieldUsername" alignment="CENTER" prefHeight="27.0" prefWidth="170.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
-         <GridPane.margin>
-            <Insets left="25.0" right="25.0" />
-         </GridPane.margin></TextField>
-      <Label fx:id="labelUsername" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="399.0" text="Username" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="textFieldName" alignment="CENTER" prefHeight="27.0" prefWidth="170.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" GridPane.vgrow="ALWAYS">
-         <GridPane.margin>
-            <Insets left="25.0" right="25.0" />
-         </GridPane.margin></TextField>
-      <TextField fx:id="textFieldSurname" alignment="CENTER" prefHeight="27.0" prefWidth="170.0" style="-fx-border-color: black; -fx-border-radius: 50; -fx-background-radius: 50;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="9" GridPane.vgrow="ALWAYS">
-         <GridPane.margin>
-            <Insets left="25.0" right="25.0" />
-         </GridPane.margin></TextField>
-      <Label fx:id="labelSurname" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="420.0" text="Surname" GridPane.hgrow="ALWAYS" GridPane.rowIndex="10" GridPane.vgrow="ALWAYS">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="textFieldTelephone" alignment="CENTER" prefHeight="27.0" prefWidth="170.0" style="-fx-border-color: black; -fx-border-radius: 50; -fx-background-radius: 50;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="11" GridPane.vgrow="ALWAYS">
-         <GridPane.margin>
-            <Insets left="25.0" right="25.0" />
-         </GridPane.margin></TextField>
-      <Label fx:id="labelTelephone" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="403.0" text="Telephone" GridPane.hgrow="ALWAYS" GridPane.rowIndex="12" GridPane.vgrow="ALWAYS">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" prefHeight="36.0" prefWidth="417.0" text="Create your account" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
-         <font>
-            <Font name="CaskaydiaMono NFM Regular" size="21.0" />
-         </font>
-      </Label>
-      <Label fx:id="labelName" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="412.0" text="Name" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" GridPane.vgrow="ALWAYS">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="textFieldCardN11" alignment="CENTER" prefHeight="27.0" prefWidth="128.0" style="-fx-border-color: black; -fx-background-radius: 50; -fx-border-radius: 50;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="17" GridPane.vgrow="ALWAYS">
-         <GridPane.margin>
-            <Insets left="25.0" right="25.0" />
-         </GridPane.margin>
-      </TextField>
-      <ImageView fitHeight="39.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
-         <image>
-            <Image url="@../images/LogoRetoDinAlt.png" />
-         </image>
-         <GridPane.margin>
-            <Insets left="110.0" />
-         </GridPane.margin>
-      </ImageView>
-   </children>
-   <padding>
-      <Insets bottom="30.0" left="20.0" right="20.0" />
-   </padding>
+<GridPane alignment="CENTER" prefHeight="700.0" prefWidth="400.0" style="-fx-background-color: #0f954a;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SignUpWindowController">
+    <columnConstraints>
+        <ColumnConstraints prefWidth="400.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+
+        <ImageView fitHeight="39.0" fitWidth="500.0" preserveRatio="true" GridPane.rowIndex="0">
+            <image>
+                <Image url="@../images/LogoRetoDinAlt.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="110.0" top="10.0" />
+            </GridPane.margin>
+        </ImageView>
+
+        <Pane prefHeight="620.0" prefWidth="360.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 35; -fx-border-color: black; -fx-background-radius: 35;" GridPane.rowIndex="1">
+            <children>
+
+                <Label alignment="CENTER" layoutY="20.0" prefWidth="360.0" text="Create your account" textFill="#0f954a">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+
+                <Label alignment="CENTER" layoutY="65.0" prefWidth="360.0" text="Username">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="textFieldUsername" alignment="CENTER" layoutX="25.0" layoutY="90.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
+
+                <Label alignment="CENTER" layoutY="125.0" prefWidth="360.0" text="Name">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="textFieldName" alignment="CENTER" layoutX="25.0" layoutY="150.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
+
+                <Label alignment="CENTER" layoutY="185.0" prefWidth="360.0" text="Surname">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="textFieldSurname" alignment="CENTER" layoutX="25.0" layoutY="210.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
+
+                <Label alignment="CENTER" layoutY="245.0" prefWidth="360.0" text="Email">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="textFieldEmail" alignment="CENTER" layoutX="25.0" layoutY="270.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
+
+                <Label alignment="CENTER" layoutY="305.0" prefWidth="360.0" text="Telephone">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="textFieldTelephone" alignment="CENTER" layoutX="25.0" layoutY="330.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
+
+                <Label alignment="CENTER" layoutY="365.0" prefWidth="360.0" text="Card number">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="textFieldCardN" alignment="CENTER" layoutX="25.0" layoutY="390.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
+
+                <Label alignment="CENTER" layoutY="425.0" prefWidth="360.0" text="Password">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="textFieldPassword" alignment="CENTER" layoutX="25.0" layoutY="450.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
+
+                <RadioButton fx:id="rButtonM" layoutX="70.0" layoutY="485.0" text="Man" />
+                <RadioButton fx:id="rButtonW" layoutX="150.0" layoutY="485.0" text="Woman" />
+                <RadioButton fx:id="rButtonO" layoutX="245.0" layoutY="485.0" text="Other" />
+                
+                <Label fx:id="errorLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="59.0" layoutY="514.0" prefHeight="17.0" prefWidth="253.0" textFill="RED" />
+
+                <Button fx:id="buttonSignUp" layoutX="115.0" layoutY="538.0" onAction="#signup" prefWidth="133.0" style="-fx-background-color: white; -fx-border-color: black; -fx-font-weight: bold;" text="Sign Up" />
+
+                <Label layoutX="77.0" layoutY="569.0" text="Already have an account?">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+                <Button fx:id="buttonLogIn" layoutX="221.0" layoutY="565.0" onAction="#login" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-text-fill: blue; -fx-cursor: hand;" text="Log In" />
+
+            </children>
+        </Pane>
+
+    </children>
+    <padding>
+        <Insets bottom="30.0" left="20.0" right="20.0" />
+    </padding>
 </GridPane>
