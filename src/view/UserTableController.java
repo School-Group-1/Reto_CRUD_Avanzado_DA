@@ -82,44 +82,34 @@ public class UserTableController implements Initializable {
     private TableColumn<User, Void> deleteCol;
 
     private Admin loggedAdmin;
-    
+
     private Profile profile;
-    
+
     private Controller cont;
-    
+
     private ObservableList<User> userList = FXCollections.observableArrayList();
 
     private DBImplementation dao = new DBImplementation();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /*
-            HAY QUE QUITAR ESTO?
-        */
-        
-        /*checkbox();
+
+    }
+
+    public void initData(Profile profile, Controller cont) {
+        this.profile = profile;
+        this.cont = cont;
+        System.out.println("Perfil: " + profile);
+        System.out.println("Controller: " + cont);
+        checkbox();
         setupColumns();
         setupEditableColumns();
         setupDeleteColumn();
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         userList = dao.findAll();
-        tableView.setItems(userList);*/
-    }
-    
-    public void initData(Profile profile, Controller cont){
-        this.profile=profile;
-        this.cont=cont;
-        System.out.println("Perfil: " + profile);
-        System.out.println("Controller: " + cont);
-        checkbox();
-        setupColumns();
-        setupEditableColumns(); 
-        setupDeleteColumn();
-        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        userList = dao.findAll();
         tableView.setItems(userList);
     }
-    
+
     public void checkbox() {
         tableView.setEditable(editCheckBox.isSelected());
 
@@ -257,11 +247,10 @@ public class UserTableController implements Initializable {
             }
         });
     }
-    
+
     /*
         SE PUEDE SUSTITUIR POR LOGOUT?
-    */
-
+     */
     @FXML
     private void goToLogin() {
         try {
@@ -289,13 +278,12 @@ public class UserTableController implements Initializable {
             Parent root = loader.load();
 
             DeleteConfirmationViewController controller = loader.getController();
+
             controller.initData(profile, cont);
-            
-            controller.setUser(user);
-            controller.setAdminPassword(loggedAdmin.getPassword());
+
+            controller.setUserToDelete(user);
 
             Stage popupStage = new Stage();
-            popupStage.setTitle("Confirmar eliminación");
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.setScene(new Scene(root));
             controller.setStage(popupStage);
@@ -303,8 +291,11 @@ public class UserTableController implements Initializable {
             popupStage.showAndWait();
 
             if (controller.isConfirmed()) {
-                deleteUser(user);
-                goToLogin();
+                cont.dropOutAdmin(user.getUsername(),
+                controller.getAdminUsername(), 
+                controller.getEnteredPassword());
+                userList.remove(user);
+                tableView.refresh();
             }
 
         } catch (IOException e) {
@@ -312,21 +303,16 @@ public class UserTableController implements Initializable {
         }
     }
 
-    private void deleteUser(User user) {
-        dao.deleteUser(user);
-        userList.remove(user);
-    }
-
     private void refreshTable() {
         userList.setAll(dao.findAll());
     }
-    
+
     @FXML
     private void goToCompanies(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompaniesTable.fxml"));
             Parent root = loader.load();
-            
+
             CompaniesTableController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -342,13 +328,13 @@ public class UserTableController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void goToProducts(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProductModifyWindow.fxml"));
             Parent root = loader.load();
-            
+
             ProductModifyWindowController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -364,9 +350,9 @@ public class UserTableController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
-    private void logout(ActionEvent event){
+    private void logout(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LogInWindow.fxml"));
             Parent root = loader.load();
