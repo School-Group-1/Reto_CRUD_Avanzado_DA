@@ -36,6 +36,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ContextMenuEvent;
+import model.Product;
 import report.ReportService;
 
 
@@ -66,6 +67,7 @@ public class CompanyWindowController implements Initializable {
 
     private Profile profile;
     private Controller cont;
+    private Company selectedCompany;
 
     public void setUsuario(Profile profile) {
         this.profile = profile;
@@ -176,6 +178,12 @@ public class CompanyWindowController implements Initializable {
         }
     }
     
+    private void selectCompany(Company company) {
+        System.out.println("Empresa seleccionada: " + company.getName());
+        this.selectedCompany = company;
+        openCompanyProductsWindow(company);
+    }
+    
     @FXML
     private void openCompanyProductsWindow(Company company) {
         try {
@@ -183,13 +191,22 @@ public class CompanyWindowController implements Initializable {
             Parent root = loader.load();
             
             CompanyProductsController controller = loader.getController();
-            controller.setCompany(company); 
+            
+            List<Product> companyProducts = cont.findProductsByCompany(company);
+            controller.initData(
+                company, 
+                companyProducts, 
+                this.profile, 
+                this.cont
+            );
             
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle(company.getName() + " - Products");
             stage.show();
 
+            Stage currentStage = (Stage) PaneButtons.getScene().getWindow();
+            currentStage.close();
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -249,14 +266,6 @@ public class CompanyWindowController implements Initializable {
         return button;
     }
     
-    private void selectCompany(Company company) {
-        System.out.println("Empresa seleccionada: " + company.getName());
-
-        // después:
-        // cont.setSelectedCompany(company);
-        // abrir ventana de productos
-    }
-
     /**
      * Opens the Modify window.
      */
