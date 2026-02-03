@@ -76,7 +76,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToUsers" prefHeight="37.0" prefWidth="236.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Users">
+            <Button fx:id="users" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToUsers" prefHeight="37.0" prefWidth="236.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Users">
                <graphic>
                   <ImageView fitHeight="49.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>

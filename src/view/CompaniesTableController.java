@@ -8,6 +8,7 @@ package view;
 import controller.Controller;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,20 +19,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Admin;
 import model.Company;
 import model.DBImplementation;
 import model.Profile;
+import report.ReportService;
 
 /**
  * FXML Controller class
@@ -58,14 +62,23 @@ public class CompaniesTableController implements Initializable {
     private Profile profile;
 
     private Controller cont;
-
+    
+    private ContextMenu contextMenu;
+    private MenuItem reportItem;
     private Admin loggedAdmin;
     private ObservableList<Company> companyList = FXCollections.observableArrayList();
-    private DBImplementation dao = new DBImplementation();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        contextMenu = new ContextMenu();
 
+        reportItem = new MenuItem("Report");
+        reportItem.setOnAction(e -> handleImprimirAction());
+
+        contextMenu.getItems().add(reportItem);
+        tableView.setOnContextMenuRequested(this::showContextMenu);
+        
+        
     }
 
     public void initData(Profile profile, Controller cont) {
@@ -79,7 +92,7 @@ public class CompaniesTableController implements Initializable {
         setupColumns();
         setupEditableColumns();
         setupDeleteColumn();
-        companyList = FXCollections.observableArrayList(dao.findAllCompanies());
+        companyList = FXCollections.observableArrayList(cont.findAllCompanies());
         tableView.setItems(companyList);
     }
 
@@ -163,28 +176,28 @@ public class CompaniesTableController implements Initializable {
         nameCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
             comp.setName(event.getNewValue());
-            dao.updateCompany(comp);
+            cont.updateCompany(comp);
             refreshTable();
         });
 
         nieCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
             comp.setNie(event.getNewValue());
-            dao.updateCompany(comp);
+            cont.updateCompany(comp);
             refreshTable();
         });
 
         locationCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
             comp.setLocation(event.getNewValue());
-            dao.updateCompany(comp);
+            cont.updateCompany(comp);
             refreshTable();
         });
 
         urlCol.setOnEditCommit(event -> {
             Company comp = event.getRowValue();
             comp.setUrl(event.getNewValue());
-            dao.updateCompany(comp);
+            cont.updateCompany(comp);
             refreshTable();
         });
     }
@@ -199,7 +212,7 @@ public class CompaniesTableController implements Initializable {
     @FXML
     private void addUser() {
         Company newComp = new Company("", "", "", "");
-        dao.saveCompany(newComp);
+        cont.saveCompany(newComp);
         companyList.add(newComp);
         refreshTable();
     }
@@ -221,13 +234,13 @@ public class CompaniesTableController implements Initializable {
             popupStage.showAndWait();
 
             if (controller.isConfirmed()) {
-                dao.deleteCompany(company);
+                cont.deleteCompany(company);
                 companyList.remove(company);
                 tableView.refresh();
             }
 
         } catch (IOException e) {
-            dao.deleteCompany(company);
+            cont.deleteCompany(company);
             companyList.remove(company);
             tableView.refresh();
         }
@@ -270,8 +283,23 @@ public class CompaniesTableController implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    @FXML
+    private void showContextMenu(ContextMenuEvent event) {
+        contextMenu.show(tableView, event.getScreenX(), event.getScreenY());
+        event.consume();
+    }
+    
+    private void handleImprimirAction() {
+        List<Company> companies = cont.findAllCompanies();
+
+        ReportService reportService = new ReportService();
+        reportService.generateCompaniesReport(companies);
+
+        System.out.println("Reporte generado correctamente");
+    }
 
     private void refreshTable() {
-        companyList.setAll(dao.findAllCompanies());
+        companyList.setAll(cont.findAllCompanies());
     }
 }

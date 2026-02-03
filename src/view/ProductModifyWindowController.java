@@ -87,6 +87,8 @@ public class ProductModifyWindowController implements Initializable {
     private Spinner<Integer> stockCountSpinner;
     @FXML
     private TextField sizeTextField;
+    @FXML
+    private Button users;
 
     /**
      * Initializes the controller class.

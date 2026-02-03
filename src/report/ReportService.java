@@ -21,16 +21,16 @@ public class ReportService {
                     .getResourceAsStream("/report/companies_report.jrxml");
 
             // 2. Compilar el reporte
-            JasperReport jasperReport =
-                    JasperCompileManager.compileReport(reportStream);
+            JasperReport jasperReport
+                    = JasperCompileManager.compileReport(reportStream);
 
             // 3. Pasar los datos
-            JRBeanCollectionDataSource dataSource =
-                    new JRBeanCollectionDataSource(companies);
+            JRBeanCollectionDataSource dataSource
+                    = new JRBeanCollectionDataSource(companies);
 
             // 4. Rellenar el reporte
-            JasperPrint jasperPrint =
-                    JasperFillManager.fillReport(
+            JasperPrint jasperPrint
+                    = JasperFillManager.fillReport(
                             jasperReport,
                             new HashMap<>(),
                             dataSource
@@ -43,7 +43,7 @@ public class ReportService {
             e.printStackTrace();
         }
     }
-    
+
     public void generateUserReport(Profile profile) {
 
         try {
@@ -52,16 +52,16 @@ public class ReportService {
                     .getResourceAsStream("/report/profile_report.jrxml");
 
             // 2. Compilar el reporte
-            JasperReport jasperReport =
-                    JasperCompileManager.compileReport(reportStream);
+            JasperReport jasperReport
+                    = JasperCompileManager.compileReport(reportStream);
 
             // 3. Pasar los datos
-            JRBeanCollectionDataSource dataSource =
-                    new JRBeanCollectionDataSource(java.util.Collections.singletonList(profile));
+            JRBeanCollectionDataSource dataSource
+                    = new JRBeanCollectionDataSource(java.util.Collections.singletonList(profile));
 
             // 4. Rellenar el reporte
-            JasperPrint jasperPrint =
-                    JasperFillManager.fillReport(
+            JasperPrint jasperPrint
+                    = JasperFillManager.fillReport(
                             jasperReport,
                             new HashMap<>(),
                             dataSource
@@ -74,4 +74,35 @@ public class ReportService {
             e.printStackTrace();
         }
     }
+
+    public void generateUsersReport(List<Profile> users) {
+        try {
+            // 1. Cargar el diseño jrxml
+            InputStream reportStream = getClass()
+                    .getResourceAsStream("/report/users_list_report.jrxml");
+
+            // 2. Compilar el reporte
+            JasperReport jasperReport
+                    = JasperCompileManager.compileReport(reportStream);
+
+            // 3. Pasar los datos (lista completa)
+            JRBeanCollectionDataSource dataSource
+                    = new JRBeanCollectionDataSource(users);
+
+            // 4. Rellenar el reporte
+            JasperPrint jasperPrint
+                    = JasperFillManager.fillReport(
+                            jasperReport,
+                            new HashMap<>(),
+                            dataSource
+                    );
+
+            // 5. Mostrar el PDF
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
