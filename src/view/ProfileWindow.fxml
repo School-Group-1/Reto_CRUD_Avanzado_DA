@@ -154,7 +154,7 @@
             </HBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                <children>
-                  <Button fx:id="Button_Modify" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" onAction="#openModifyPopup" style="-fx-border-color: #0f954a; -fx-background-color: ffffff; -fx-border-radius: 20;" text="Modify Account" VBox.vgrow="ALWAYS">
+                  <Button fx:id="Button_Modify" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" onAction="#openModifyUser" style="-fx-border-color: #0f954a; -fx-background-color: ffffff; -fx-border-radius: 20;" text="Modify Account" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
