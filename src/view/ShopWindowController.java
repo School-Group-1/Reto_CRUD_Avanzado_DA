@@ -109,7 +109,7 @@ public class ShopWindowController implements Initializable {
 
         //Hacer que Items muestre Productos de la base de datos en la vista 
         // System.out.println(cont);
-        uname = "Example User Name";
+        uname = profile.getName();
         List<Product> products = cont.findAllProducts();
         /*if(fichE.exists()){
             if (fichE.getName().contains(uname)){
@@ -242,13 +242,15 @@ public class ShopWindowController implements Initializable {
     }
 
     private void addToCart( Product product) {
-        try {
+        
+        
+        /*try {
             ObjectInputStream ois=new ObjectInputStream(new FileInputStream(fichE));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         
         
     }
