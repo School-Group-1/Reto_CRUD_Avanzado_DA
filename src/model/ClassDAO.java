@@ -8,6 +8,7 @@ package model;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import javafx.collections.ObservableList;
 
 /**
  * Data Access Object interface for database operations.
@@ -37,10 +38,14 @@ public interface ClassDAO {
     void deleteSize(Size size);
     
     List<Company> findAllCompanies();
+    ObservableList<User> findAll();
+    void saveUser(User user);
     Company findCompanyByName(String name);
-    
+    void updateUser(User user);
+    void updateCompany(Company company);
+    void saveCompany(Company company);
+    void deleteCompany(Company company);
+    List<User> findAllUsers();
     List<Purchase> findSizePurchases(Size size);
     List<Purchase> findProductPurchases(Product product);
-    
-    void deleteUser(User user);
 }

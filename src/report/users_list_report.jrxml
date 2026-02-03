@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC
+    "-//JasperReports//DTD JasperReport//EN"
+    "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport
+    name="users_list_report"
+    pageWidth="595"
+    pageHeight="842"
+    columnWidth="555"
+    leftMargin="20"
+    rightMargin="20"
+    topMargin="20"
+    bottomMargin="20">
+
+    <!-- CAMPOS -->
+    <field name="username" class="java.lang.String"/>
+    <field name="name" class="java.lang.String"/>
+    <field name="surname" class="java.lang.String"/>
+    <field name="email" class="java.lang.String"/>
+    <field name="telephone" class="java.lang.String"/>
+    <field name="gender" class="java.lang.String"/>
+
+    <!-- TÍTULO SIMPLE -->
+    <title>
+        <band height="40">
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="30"/>
+                <textElement textAlignment="Center">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Users Report]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <!-- CABECERA -->
+    <columnHeader>
+        <band height="25">
+            <staticText>
+                <reportElement x="0" y="0" width="100" height="25" backcolor="#CCCCCC"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Username]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="100" y="0" width="120" height="25" backcolor="#CCCCCC"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="220" y="0" width="150" height="25" backcolor="#CCCCCC"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Email]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="370" y="0" width="100" height="25" backcolor="#CCCCCC"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Phone]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="470" y="0" width="85" height="25" backcolor="#CCCCCC"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Gender]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <!-- FILAS -->
+    <detail>
+        <band height="25">
+            <textField>
+                <reportElement x="0" y="0" width="100" height="25"/>
+                <textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="0" width="120" height="25"/>
+                <textFieldExpression><![CDATA[$F{name} + " " + $F{surname}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="220" y="0" width="150" height="25"/>
+                <textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="370" y="0" width="100" height="25"/>
+                <textFieldExpression><![CDATA[$F{telephone}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="470" y="0" width="85" height="25"/>
+                <textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+</jasperReport>
