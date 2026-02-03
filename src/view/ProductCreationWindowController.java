@@ -204,8 +204,8 @@ public class ProductCreationWindowController implements Initializable {
         ImageView imageView = new ImageView(image);
 
         imageView.setPreserveRatio(true);
-        imageView.setFitWidth(50);
-        imageView.setFitHeight(50);
+        imageView.setFitWidth(200);
+        imageView.setFitHeight(200);
 
         insertImageButton.setGraphic(imageView);
         insertImageButton.setText("");
@@ -301,13 +301,13 @@ public class ProductCreationWindowController implements Initializable {
                 + "-fx-border-width: 1;"
         );
 
-        sizeButton.setMinHeight(50);
-        sizeButton.setPrefHeight(50);
-        sizeButton.setMaxHeight(50);
+        sizeButton.setMinHeight(100);
+        sizeButton.setPrefHeight(100);
+        sizeButton.setMaxHeight(100);
 
-        sizeButton.setMinWidth(50);
-        sizeButton.setPrefWidth(50);
-        sizeButton.setMaxWidth(50);
+        sizeButton.setMinWidth(100);
+        sizeButton.setPrefWidth(100);
+        sizeButton.setMaxWidth(100);
 
         // Center the label
         sizeButton.setAlignment(Pos.CENTER);

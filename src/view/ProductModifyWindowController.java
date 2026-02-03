@@ -6,6 +6,7 @@
 package view;
 
 import controller.Controller;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -570,6 +573,21 @@ public class ProductModifyWindowController implements Initializable {
         }
 
         return new Image(filePath.toUri().toString());
+    }
+
+    @FXML
+    private void openUserManual(ActionEvent event) {
+        try {
+            File pdf = new File("pdfs/User_Manual.pdf");
+            if (!pdf.exists()) {
+                System.out.println("No exist el PDF.");
+                return;
+            }
+
+            Desktop.getDesktop().open(pdf);
+        } catch (IOException ex) {
+            Logger.getLogger(ProductModifyWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
