@@ -7,7 +7,11 @@ package view;
 
 import controller.Controller;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -36,11 +40,16 @@ import model.Size;
 public class CompanyProductsController implements Initializable {
 
     // Componentes FXML
-    @FXML private VBox productContainer;
-    @FXML private Label titleLabel;
-    @FXML private ImageView bigImage;
-    @FXML private HBox sizesContainer;
-    @FXML private Button selectedSize;
+    @FXML
+    private VBox productContainer;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private ImageView bigImage;
+    @FXML
+    private HBox sizesContainer;
+    @FXML
+    private Button selectedSize;
 
     // Datos de la aplicación
     private Company company;
@@ -48,14 +57,13 @@ public class CompanyProductsController implements Initializable {
     private List<Product> products;
     private Profile profile;
     private Controller cont;
-    
+
     // Flags de estado
     private boolean isDataInitialized = false;
     private boolean isSizeSelected = false;
     private String selectedSizeLabel = "";
 
     // ==================== MÉTODOS DE INICIALIZACIÓN ====================
-
     public void initData(Company company, List<Product> products, Profile profile, Controller cont) {
         this.company = company;
         this.products = products;
@@ -83,25 +91,24 @@ public class CompanyProductsController implements Initializable {
     }
 
     // ==================== VALIDACIONES ====================
-
     private boolean areEssentialComponentsValid() {
         boolean areComponentsValid = true;
-        
+
         if (titleLabel == null) {
             System.err.println("ERROR: titleLabel es null");
             areComponentsValid = false;
         }
-        
+
         if (productContainer == null) {
             System.err.println("ERROR: productContainer es null");
             areComponentsValid = false;
         }
-        
+
         if (company == null) {
             System.err.println("ERROR: company es null");
             areComponentsValid = false;
         }
-        
+
         return areComponentsValid;
     }
 
@@ -110,25 +117,24 @@ public class CompanyProductsController implements Initializable {
             System.err.println("ERROR: No hay producto seleccionado");
             return false;
         }
-        
+
         if (!isSizeSelected) {
             System.err.println("ERROR: No se ha seleccionado una talla");
             return false;
         }
-        
+
         return true;
     }
 
     // ==================== GESTIÓN DE PRODUCTOS ====================
-
     private void loadProducts() {
         clearProductContainer();
-        
+
         if (hasNoProducts()) {
             displayNoProductsMessage();
             return;
         }
-        
+
         displayProducts();
     }
 
@@ -149,19 +155,19 @@ public class CompanyProductsController implements Initializable {
     private void displayProducts() {
         for (Product product : products) {
             HBox productCard = createProductCard(product);
-            
+
             VBox.setMargin(productCard, new Insets(0, 0, 10, 0));
-            
+
             productContainer.getChildren().add(productCard);
         }
     }
 
     private HBox createProductCard(Product product) {
         HBox card = createCardBase();
-        
+
         ImageView productImage = createProductImageView(product);
         VBox infoBox = createProductInfoBox(product);
-        
+
         card.getChildren().addAll(productImage, infoBox);
         return card;
     }
@@ -170,12 +176,12 @@ public class CompanyProductsController implements Initializable {
         HBox card = new HBox(15);
         card.setPadding(new Insets(15));
         card.setStyle(
-            "-fx-background-color: white;" +
-            "-fx-background-radius: 10;" +
-            "-fx-border-color: #e0e0e0;" +
-            "-fx-border-radius: 10;" +
-            "-fx-border-width: 1;" +
-            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
+                "-fx-background-color: white;"
+                + "-fx-background-radius: 10;"
+                + "-fx-border-color: #e0e0e0;"
+                + "-fx-border-radius: 10;"
+                + "-fx-border-width: 1;"
+                + "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
         );
         card.setPrefWidth(350);
         card.setMaxWidth(350);
@@ -183,24 +189,15 @@ public class CompanyProductsController implements Initializable {
     }
 
     private ImageView createProductImageView(Product product) {
-        ImageView productImage = new ImageView();
-        
-        try {
-            Image image = loadProductImage(product.getImage());
-            productImage.setImage(image);
-        } catch (Exception e) {
-            productImage.setImage(loadDefaultImage());
-        }
-        
+        ImageView productImage = new ImageView(
+                loadProductImage(product.getImage())
+        );
+
         productImage.setFitWidth(120);
         productImage.setFitHeight(120);
         productImage.setPreserveRatio(true);
-        
-        return productImage;
-    }
 
-    private Image loadProductImage(String imagePath) {
-        return new Image(getClass().getResourceAsStream(imagePath));
+        return productImage;
     }
 
     private Image loadDefaultImage() {
@@ -242,7 +239,9 @@ public class CompanyProductsController implements Initializable {
     }
 
     private String formatProductDescription(String description) {
-        if (description == null) return "Sin descripción";
+        if (description == null) {
+            return "Sin descripción";
+        }
         if (description.length() > 80) {
             return description.substring(0, 77) + "...";
         }
@@ -270,22 +269,21 @@ public class CompanyProductsController implements Initializable {
     private Button createViewButton(Product product) {
         Button viewButton = new Button("View");
         viewButton.setStyle(
-            "-fx-background-color: #0f954a;" +
-            "-fx-text-fill: white;" +
-            "-fx-font-weight: bold;" +
-            "-fx-background-radius: 5;" +
-            "-fx-padding: 8 15 8 15;"
+                "-fx-background-color: #0f954a;"
+                + "-fx-text-fill: white;"
+                + "-fx-font-weight: bold;"
+                + "-fx-background-radius: 5;"
+                + "-fx-padding: 8 15 8 15;"
         );
         viewButton.setOnAction(e -> showProductDetail(product));
         return viewButton;
     }
 
     // ==================== DETALLES DEL PRODUCTO ====================
-
     private void showProductDetail(Product product) {
         this.selectedProduct = product;
         resetSizeSelection();
-        
+
         displayProductImage(product);
         loadSizes(product);
     }
@@ -314,7 +312,6 @@ public class CompanyProductsController implements Initializable {
     }
 
     // ==================== GESTIÓN DE TALLAS ====================
-
     private void loadSizes(Product product) {
         if (sizesContainer == null) {
             System.err.println("sizesContainer es null!");
@@ -322,7 +319,7 @@ public class CompanyProductsController implements Initializable {
         }
 
         clearSizesContainer();
-        
+
         List<Size> sizes = product.getSizes();
         if (sizes == null || sizes.isEmpty()) {
             System.out.println("No hay tallas disponibles para este producto");
@@ -346,10 +343,10 @@ public class CompanyProductsController implements Initializable {
     private Button createSizeButton(Size size) {
         Button sizeButton = new Button(size.getLabel());
         applySizeButtonStyle(sizeButton, false);
-        
+
         sizeButton.setTooltip(createSizeTooltip(size));
         sizeButton.setOnAction(e -> handleSizeSelection(sizeButton, size));
-        
+
         return sizeButton;
     }
 
@@ -379,21 +376,21 @@ public class CompanyProductsController implements Initializable {
     private void applySizeButtonStyle(Button button, boolean isSelected) {
         if (isSelected) {
             button.setStyle(
-                "-fx-background-color: #0f954a;" +
-                "-fx-border-color: #0f954a;" +
-                "-fx-border-radius: 5;" +
-                "-fx-text-fill: white;" +
-                "-fx-font-weight: bold;" +
-                "-fx-padding: 8 15 8 15;"
+                    "-fx-background-color: #0f954a;"
+                    + "-fx-border-color: #0f954a;"
+                    + "-fx-border-radius: 5;"
+                    + "-fx-text-fill: white;"
+                    + "-fx-font-weight: bold;"
+                    + "-fx-padding: 8 15 8 15;"
             );
         } else {
             button.setStyle(
-                "-fx-background-color: white;" +
-                "-fx-border-color: #0f954a;" +
-                "-fx-border-radius: 5;" +
-                "-fx-text-fill: #0f954a;" +
-                "-fx-font-weight: bold;" +
-                "-fx-padding: 8 15 8 15;"
+                    "-fx-background-color: white;"
+                    + "-fx-border-color: #0f954a;"
+                    + "-fx-border-radius: 5;"
+                    + "-fx-text-fill: #0f954a;"
+                    + "-fx-font-weight: bold;"
+                    + "-fx-padding: 8 15 8 15;"
             );
         }
     }
@@ -405,13 +402,12 @@ public class CompanyProductsController implements Initializable {
     }
 
     // ==================== GESTIÓN DEL BOTÓN ADD TO CART ====================
-
     private void disableAddToCartButton() {
         if (selectedSize != null) {
             selectedSize.setDisable(true);
             selectedSize.setStyle(
-                "-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; " +
-                "-fx-text-fill: #0f954a; -fx-font-weight: bold;"
+                    "-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; "
+                    + "-fx-text-fill: #0f954a; -fx-font-weight: bold;"
             );
         }
     }
@@ -420,8 +416,8 @@ public class CompanyProductsController implements Initializable {
         if (selectedSize != null) {
             selectedSize.setDisable(false);
             selectedSize.setStyle(
-                "-fx-background-color: #0f954a; -fx-text-fill: white; " +
-                "-fx-font-weight: bold; -fx-background-radius: 5;"
+                    "-fx-background-color: #0f954a; -fx-text-fill: white; "
+                    + "-fx-font-weight: bold; -fx-background-radius: 5;"
             );
         }
     }
@@ -441,7 +437,7 @@ public class CompanyProductsController implements Initializable {
         System.out.println("Producto: " + selectedProduct.getName());
         System.out.println("Talla: " + selectedSizeLabel);
         System.out.println("Precio: €" + selectedProduct.getPrice());
-        
+
         // Aquí implementar la lógica para añadir al carrito
         // Ejemplo: cont.addToCart(selectedProduct, selectedSizeLabel);
     }
@@ -451,15 +447,14 @@ public class CompanyProductsController implements Initializable {
         alert.setTitle("Producto añadido");
         alert.setHeaderText(null);
         alert.setContentText(
-            selectedProduct.getName() + 
-            " (Talla: " + selectedSizeLabel + 
-            ") añadido al carrito"
+                selectedProduct.getName()
+                + " (Talla: " + selectedSizeLabel
+                + ") añadido al carrito"
         );
         alert.showAndWait();
     }
 
     // ==================== NAVEGACIÓN ====================
-
     @FXML
     private void goBackToCompanies(ActionEvent event) {
         navigateToWindow("/view/CompanyWindow.fxml", event, CompanyWindowController.class);
@@ -479,7 +474,7 @@ public class CompanyProductsController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
-            
+
             T controller = loader.getController();
             if (controller instanceof CompanyWindowController) {
                 ((CompanyWindowController) controller).initData(profile, cont);
@@ -488,13 +483,13 @@ public class CompanyProductsController implements Initializable {
             } else if (controller instanceof view.ProfileWindowController) {
                 ((view.ProfileWindowController) controller).initData(profile, cont);
             }
-            
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
-            
+
             closeCurrentWindow(event);
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -503,5 +498,26 @@ public class CompanyProductsController implements Initializable {
     private void closeCurrentWindow(ActionEvent event) {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
+    }
+    
+    public static Image loadProductImage(String path) {
+
+        // 1) Classpath resource (starts with /)
+        if (path.startsWith("/")) {
+            InputStream is = Product.class.getResourceAsStream(path);
+            if (is == null) {
+                throw new IllegalArgumentException("Classpath image not found: " + path);
+            }
+            return new Image(is);
+        }
+
+        // 2) File system path (relative or absolute)
+        Path filePath = Paths.get(path);
+
+        if (!Files.exists(filePath)) {
+            throw new IllegalArgumentException("File image not found: " + path);
+        }
+
+        return new Image(filePath.toUri().toString());
     }
 }

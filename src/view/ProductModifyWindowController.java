@@ -204,9 +204,8 @@ public class ProductModifyWindowController implements Initializable {
         );
 
         // Image
-        System.out.println(product.getImage());
         ImageView imageView = new ImageView(
-                loadImage(product.getImage())
+                loadProductImage(product.getImage())
         );
         imageView.setFitWidth(90);
         imageView.setFitHeight(90);
@@ -554,7 +553,7 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
 
-    public static Image loadImage(String path) {
+    public static Image loadProductImage(String path) {
 
         // 1) Classpath resource (starts with /)
         if (path.startsWith("/")) {

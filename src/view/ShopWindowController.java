@@ -10,9 +10,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import static java.lang.String.valueOf;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -195,7 +199,7 @@ public class ShopWindowController implements Initializable {
 
         // Image
         ImageView imageView = new ImageView(
-                new Image(getClass().getResourceAsStream(product.getImage()))
+                loadImage(product.getImage())
         );
         imageView.setFitWidth(90);
         imageView.setFitHeight(90);
@@ -249,7 +253,26 @@ public class ShopWindowController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+    }
+    
+    public static Image loadImage(String path) {
+
+        // 1) Classpath resource (starts with /)
+        if (path.startsWith("/")) {
+            InputStream is = Product.class.getResourceAsStream(path);
+            if (is == null) {
+                throw new IllegalArgumentException("Classpath image not found: " + path);
+            }
+            return new Image(is);
+        }
+
+        // 2) File system path (relative or absolute)
+        Path filePath = Paths.get(path);
+
+        if (!Files.exists(filePath)) {
+            throw new IllegalArgumentException("File image not found: " + path);
+        }
+
+        return new Image(filePath.toUri().toString());
     }
 }
