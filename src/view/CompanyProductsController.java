@@ -32,10 +32,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.stage.Stage;
 import model.Company;
 import model.Profile;
 import model.Size;
+import report.ReportService;
 
 public class CompanyProductsController implements Initializable {
 
@@ -62,6 +66,8 @@ public class CompanyProductsController implements Initializable {
     private boolean isDataInitialized = false;
     private boolean isSizeSelected = false;
     private String selectedSizeLabel = "";
+    private ContextMenu contextMenu;
+    private MenuItem reportItem;
 
     // ==================== MÉTODOS DE INICIALIZACIÓN ====================
     public void initData(Company company, List<Product> products, Profile profile, Controller cont) {
@@ -70,6 +76,14 @@ public class CompanyProductsController implements Initializable {
         this.profile = profile;
         this.cont = cont;
         this.isDataInitialized = true;
+        
+        contextMenu = new ContextMenu();
+
+        reportItem = new MenuItem("Report");
+        reportItem.setOnAction(e -> handleImprimirAction());
+
+        contextMenu.getItems().add(reportItem);
+        productContainer.setOnContextMenuRequested(this::showContextMenu);
 
         updateUI();
     }
@@ -519,5 +533,25 @@ public class CompanyProductsController implements Initializable {
         }
 
         return new Image(filePath.toUri().toString());
+    }
+    
+    @FXML
+    private void showContextMenu(ContextMenuEvent event) {
+        contextMenu.show(productContainer, event.getScreenX(), event.getScreenY());
+        event.consume();
+    }
+    
+    private void handleImprimirAction() {
+        if (company != null && products != null && !products.isEmpty()) {
+            ReportService reportService = new ReportService();
+            reportService.generateCompanyProductsReport(company, products);
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Data");
+            alert.setHeaderText(null);
+            alert.setContentText("No products available to generate report.");
+            alert.showAndWait();
+        }
     }
 }

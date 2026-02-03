@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.Company;
+import model.Product;
 import model.Profile;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -77,19 +78,16 @@ public class ReportService {
 
     public void generateUsersReport(List<Profile> users) {
         try {
-            // 1. Cargar el diseño jrxml
+
             InputStream reportStream = getClass()
                     .getResourceAsStream("/report/users_list_report.jrxml");
 
-            // 2. Compilar el reporte
             JasperReport jasperReport
                     = JasperCompileManager.compileReport(reportStream);
 
-            // 3. Pasar los datos (lista completa)
             JRBeanCollectionDataSource dataSource
                     = new JRBeanCollectionDataSource(users);
 
-            // 4. Rellenar el reporte
             JasperPrint jasperPrint
                     = JasperFillManager.fillReport(
                             jasperReport,
@@ -97,7 +95,30 @@ public class ReportService {
                             dataSource
                     );
 
-            // 5. Mostrar el PDF
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void generateCompanyProductsReport(Company company, List<Product> products) {
+        try {
+            InputStream reportStream = getClass()
+                    .getResourceAsStream("/report/company_products_report.jrxml");
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+
+            HashMap<String, Object> parameters = new HashMap<>();
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(products);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    parameters, 
+                    dataSource
+            );
+
             JasperViewer.viewReport(jasperPrint, false);
 
         } catch (Exception e) {

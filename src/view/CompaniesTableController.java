@@ -33,7 +33,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Admin;
 import model.Company;
-import model.DBImplementation;
 import model.Profile;
 import report.ReportService;
 
