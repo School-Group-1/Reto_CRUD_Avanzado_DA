@@ -34,6 +34,8 @@ import model.Profile;
  */
 public class SignUpWindowController implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger(SignUpWindowController.class.getName());
+
     @FXML
     private TextField textFieldEmail, textFieldName, textFieldSurname, textFieldTelephone;
     @FXML
@@ -49,41 +51,42 @@ public class SignUpWindowController implements Initializable {
 
     private Controller cont;
     private ToggleGroup grupOp;
-    
     private Profile profile;
-    
+
     public void initData(Controller cont) {
-        //Hacer que Items muestre Productos de la base de datos en la vista
         this.cont = cont;
-        System.out.println("Controller: " + cont);
-    }  
+        LOGGER.info("**SignUpWindow** Initialized with controller: " + cont);
+    }
 
     /**
      * Navigates back to login window.
      */
     @FXML
     private void login() {
+        LOGGER.info("**SignUpWindow** User clicked Log In");
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/LogInWindow.fxml"));
             Parent root = fxmlLoader.load();
-            
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
 
-            // Close current window
-            Stage currentStage = (Stage) buttonSignUp.getScene().getWindow();
-            currentStage.close();
+            ((Stage) buttonSignUp.getScene().getWindow()).close();
+
         } catch (IOException ex) {
-            Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, "**SignUpWindow** Error opening LogIn window", ex);
         }
     }
 
     /**
-     * Signs up a new user and navigates to ProfileWindow if successful.
+     * Signs up a new user and navigates to next window if successful.
      */
     @FXML
     private void signup() throws passwordequalspassword {
+
+        LOGGER.info("**SignUpWindow** SignUp process started");
 
         String email = textFieldEmail.getText();
         String name = textFieldName.getText();
@@ -98,81 +101,90 @@ public class SignUpWindowController implements Initializable {
         else if (rButtonW.isSelected()) gender = "Woman";
         else if (rButtonO.isSelected()) gender = "Other";
 
-        // Limpiamos el label de error
         errorLbl.setText("");
 
-        // 1. Campos obligatorios
+        // 1. Mandatory fields
         if (email.isEmpty() || name.isEmpty() || surname.isEmpty() || telephone.isEmpty() || cardN.isEmpty() || pass.isEmpty() || username.isEmpty()) {
             errorLbl.setText("All fields must be filled");
+            LOGGER.warning("**SignUpWindow** Validation failed: empty fields");
             return;
         }
 
-        // 2. Género obligatorio
+        // 2. Gender required
         if (gender == null) {
             errorLbl.setText("You must select a gender");
+            LOGGER.warning("**SignUpWindow** Validation failed: gender not selected");
             return;
         }
 
-        // 4. Validación de email completa
+        // 3. Email format
         String emailRegex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
         if (!email.matches(emailRegex)) {
             errorLbl.setText("Invalid email format");
+            LOGGER.warning("**SignUpWindow** Invalid email format: " + email);
             return;
         }
 
-        // 5. Teléfono: solo números y 9 dígitos
+        // 4. Telephone validation
         if (!telephone.matches("\\d{9}")) {
             errorLbl.setText("Telephone must have exactly 9 digits");
+            LOGGER.warning("**SignUpWindow** Invalid telephone number: " + telephone);
             return;
         }
 
-        // 6. Card number: solo números y 16 dígitos
+        // 5. Card number validation
         if (!cardN.matches("\\d{16}")) {
             errorLbl.setText("Card number must have exactly 16 digits");
+            LOGGER.warning("**SignUpWindow** Invalid card number length");
             return;
         }
 
         // ---- SIGN UP ----
-        if (cont.signUp(gender, cardN, username, pass, email, name, telephone, surname)) {
+        LOGGER.info("**SignUpWindow** Attempting sign up for username: " + username);
 
-            profile = cont.logIn(username, pass);
+        try {
+            if (cont.signUp(gender, cardN, username, pass, email, name, telephone, surname)) {
 
-            try {
+                LOGGER.info("**SignUpWindow** SignUp successful for user: " + username);
+
+                profile = cont.logIn(username, pass);
+
                 FXMLLoader fxmlLoader;
 
                 if (profile instanceof Admin) {
+                    LOGGER.info("**SignUpWindow** User is Admin, opening ProductModifyWindow");
                     fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProductModifyWindow.fxml"));
-                    Parent root = fxmlLoader.load();
-
-                    ProductModifyWindowController controllerWindow = fxmlLoader.getController();
-                    controllerWindow.initData(profile, cont);
-
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root));
-                    stage.show();
                 } else {
+                    LOGGER.info("**SignUpWindow** User is regular profile, opening ShopWindow");
                     fxmlLoader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
-                    Parent root = fxmlLoader.load();
-
-                    ShopWindowController controllerWindow = fxmlLoader.getController();
-                    controllerWindow.initData(profile, cont);
-
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root));
-                    stage.show();
                 }
 
-                Stage currentStage = (Stage) buttonSignUp.getScene().getWindow();
-                currentStage.close();
+                Parent root = fxmlLoader.load();
 
-            } catch (IOException ex) {
-                Logger.getLogger(LogInWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                if (profile instanceof Admin) {
+                    ProductModifyWindowController controllerWindow = fxmlLoader.getController();
+                    controllerWindow.initData(profile, cont);
+                } else {
+                    ShopWindowController controllerWindow = fxmlLoader.getController();
+                    controllerWindow.initData(profile, cont);
+                }
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                ((Stage) buttonSignUp.getScene().getWindow()).close();
+            } else {
+                LOGGER.warning("**SignUpWindow** SignUp failed for username: " + username);
             }
+
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, "**SignUpWindow** Error during sign up navigation", ex);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        LOGGER.info("**SignUpWindow** Controller initialized");
     }
 }

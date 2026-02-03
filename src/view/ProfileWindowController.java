@@ -6,10 +6,14 @@
 package view;
 
 import controller.Controller;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,38 +31,45 @@ import model.Profile;
 import report.ReportService;
 
 /**
- * Controller for the main Menu window.
- * Handles navigation to modify, delete, and logout actions.
+ * Controller for the main Menu window. Handles navigation to modify, delete,
+ * and logout actions.
  */
 public class ProfileWindowController implements Initializable {
 
-    @FXML 
+    private static final Logger LOGGER = Logger.getLogger(ProfileWindowController.class.getName());
+
+    @FXML
     private Label label_Username;
-    @FXML 
+    @FXML
     private GridPane gridPane;
-    
+
     private ContextMenu contextMenu;
     private MenuItem reportItem;
 
     private Profile profile;
     private Controller cont;
-    
+
     public void initData(Profile profile, Controller cont) {
         this.profile = profile;
         this.cont = cont;
 
-        System.out.println("Perfil: " + profile);
-        System.out.println("Controller: " + cont);
-        
+        if (profile == null || cont == null) {
+            LOGGER.warning("**ProfileWindow** initData called with null values");
+            return;
+        }
+
         label_Username.setText(profile.getUsername());
+        LOGGER.info("**ProfileWindow** Initialized for user: " + profile.getUsername());
     }
-    
+
     @FXML
     private void goToStore(ActionEvent event) {
+        LOGGER.info("**ProfileWindow** Navigating to Store");
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
             Parent root = loader.load();
-            
+
             view.ShopWindowController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -66,91 +77,87 @@ public class ProfileWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
 
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
-            currentStage.close();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**ProfileWindow** Error opening Store window", e);
         }
     }
 
     @FXML
     private void goToCompanies(ActionEvent event) {
+        LOGGER.info("**ProfileWindow** Navigating to Companies");
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompanyWindow.fxml"));
             Parent root = loader.load();
-            
-            CompanyWindowController viewController = loader.getController();
 
+            CompanyWindowController viewController = loader.getController();
             viewController.initData(profile, cont);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setTitle("Companies");
             stage.show();
 
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
-            currentStage.close();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**ProfileWindow** Error opening Companies window", e);
         }
     }
-    
+
     @FXML
-    private void logout (ActionEvent event){
+    private void logout(ActionEvent event) {
+        LOGGER.info("**ProfileWindow** User logging out: " + profile.getUsername());
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LogInWindow.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setTitle("LogIn");
             stage.show();
 
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
-            currentStage.close();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**ProfileWindow** Error during logout", e);
         }
     }
-    
-    /**
-     * Opens the Modify window.
-     */
+
     @FXML
     private void openModifyUser(ActionEvent event) {
+        LOGGER.info("**ProfileWindow** Opening Modify User window");
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ModifyUserAdmin.fxml"));
             Parent root = loader.load();
-            
-            ModifyUserAdminController viewController = loader.getController();
 
+            ModifyUserAdminController viewController = loader.getController();
             viewController.initData(profile, cont);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
 
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
-            currentStage.close();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**ProfileWindow** Error opening Modify User window", e);
         }
     }
 
     @FXML
     private void openDeletePopup(ActionEvent event) {
+        LOGGER.warning("**ProfileWindow** Delete account popup opened for user: " + profile.getUsername());
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DeleteConfirmationView.fxml"));
             Parent root = loader.load();
-            
-            DeleteConfirmationViewController viewController = loader.getController();
 
+            DeleteConfirmationViewController viewController = loader.getController();
             viewController.initData(profile, cont);
 
             Stage modal = new Stage();
@@ -160,32 +167,60 @@ public class ProfileWindowController implements Initializable {
             modal.showAndWait();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**ProfileWindow** Error opening delete confirmation popup", e);
         }
     }
 
     @FXML
     private void showContextMenu(ContextMenuEvent event) {
+        LOGGER.info("**ProfileWindow** Context menu opened");
         contextMenu.show(gridPane, event.getScreenX(), event.getScreenY());
         event.consume();
     }
 
     private void handleImprimirAction() {
-        ReportService reportService = new ReportService();
-        reportService.generateUserReport(profile);
+        LOGGER.info("**ProfileWindow** Generating user report for: " + profile.getUsername());
 
-        System.out.println("Reporte generado correctamente");
+        try {
+            ReportService reportService = new ReportService();
+            reportService.generateUserReport(profile);
+            LOGGER.info("**ProfileWindow** User report generated successfully");
+
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "**ProfileWindow** Error generating user report", e);
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        contextMenu = new ContextMenu();
+        LOGGER.info("**ProfileWindow** Initializing controller");
 
+        contextMenu = new ContextMenu();
         reportItem = new MenuItem("Report");
         reportItem.setOnAction(e -> handleImprimirAction());
-
         contextMenu.getItems().add(reportItem);
 
         gridPane.setOnContextMenuRequested(this::showContextMenu);
     }
+
+    @FXML
+    private void openUserManual(ActionEvent event) {
+        LOGGER.info("**ProfileWindow** Opening user manual");
+
+        try {
+            File pdf = new File("pdfs/User_Manual.pdf");
+            if (!pdf.exists()) {
+                LOGGER.warning("**ProfileWindow** User manual not found: pdfs/User_Manual.pdf");
+                return;
+            }
+
+            Desktop.getDesktop().open(pdf);
+            LOGGER.info("**ProfileWindow** User manual opened successfully");
+
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, "**ProfileWindow** Error opening user manual", ex);
+        }
+    }
+
+    //Level.SEVERE, "**ProfileWindow** Error opening user manual", ex ESTO ESTA BIEN?
 }

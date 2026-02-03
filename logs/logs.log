@@ -118,3 +118,35 @@ feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.xml.JRBandFactory createObj
 ADVERTENCIA: The 'isSplitAllowed' attribute is deprecated. Use the 'splitType' attribute instead.
 feb 03, 2026 12:20:57 PM view.CompanyWindowController handleImprimirAction
 INFORMACIÓN: **CompanyWindow** Companies report generated successfully
+feb 03, 2026 5:59:29 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 5:59:40 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 5:59:41 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 5:59:41 PM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 03, 2026 5:59:41 PM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 03, 2026 5:59:44 PM view.ProfileWindowController openUserManual
+INFORMACIÓN: **ProfileWindow** Opening user manual
+feb 03, 2026 5:59:44 PM view.ProfileWindowController openUserManual
+INFORMACIÓN: **ProfileWindow** User manual opened successfully
+feb 03, 2026 5:59:53 PM view.ProfileWindowController logout
+INFORMACIÓN: **ProfileWindow** User logging out: username1
+feb 03, 2026 5:59:53 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 6:15:30 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 6:15:38 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 6:15:40 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 6:15:40 PM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 03, 2026 6:15:40 PM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 03, 2026 6:15:41 PM view.ProfileWindowController logout
+INFORMACIÓN: **ProfileWindow** User logging out: username1
+feb 03, 2026 6:15:41 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
