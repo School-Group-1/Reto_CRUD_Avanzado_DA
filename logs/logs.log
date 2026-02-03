@@ -74,3 +74,47 @@ feb 03, 2026 10:29:49 AM view.ProductModifyWindowController createItem
 INFORMACIÓN: **ProductModifyWindow** Switching to create item window
 feb 03, 2026 10:29:49 AM javafx.fxml.FXMLLoader$ValueElement processValue
 ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:02:38 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:02:49 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:02:50 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:02:53 PM view.CompanyWindowController openUserManual
+INFORMACIÓN: **ProductModifyWindow** Opening user manual
+feb 03, 2026 12:02:53 PM view.CompanyWindowController openUserManual
+INFORMACIÓN: **ProductModifyWindow** User manual opened successfully
+feb 03, 2026 12:03:09 PM view.CompanyWindowController openUserManual
+INFORMACIÓN: **ProductModifyWindow** Opening user manual
+feb 03, 2026 12:03:09 PM view.CompanyWindowController openUserManual
+INFORMACIÓN: **ProductModifyWindow** User manual opened successfully
+feb 03, 2026 12:19:51 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:20:24 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:20:48 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:20:48 PM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 03, 2026 12:20:48 PM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 03, 2026 12:20:56 PM view.CompanyWindowController handleImprimirAction
+INFORMACIÓN: **CompanyWindow** Generating companies report
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.xml.JRBandFactory createObject
+ADVERTENCIA: The 'isSplitAllowed' attribute is deprecated. Use the 'splitType' attribute instead.
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.xml.JRBandFactory createObject
+ADVERTENCIA: The 'isSplitAllowed' attribute is deprecated. Use the 'splitType' attribute instead.
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.xml.JRBandFactory createObject
+ADVERTENCIA: The 'isSplitAllowed' attribute is deprecated. Use the 'splitType' attribute instead.
+feb 03, 2026 12:20:57 PM view.CompanyWindowController handleImprimirAction
+INFORMACIÓN: **CompanyWindow** Companies report generated successfully

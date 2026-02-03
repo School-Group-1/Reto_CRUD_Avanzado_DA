@@ -6,11 +6,15 @@
 package view;
 
 import controller.Controller;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +43,8 @@ import report.ReportService;
  */
 public class CompanyWindowController implements Initializable {
     
+    private static final Logger LOGGER = Logger.getLogger(CompanyWindowController.class.getName());
+    
     @FXML
     private TilePane PaneButtons;
     
@@ -56,11 +62,13 @@ public class CompanyWindowController implements Initializable {
         this.cont = cont;
         System.out.println("Perfil: " + profile);
         System.out.println("Controller: " + cont);
+        LOGGER.info("**CompanyWindow** Initialized for user: " + profile.getUsername());
         loadCompanies();
     }
     
     @FXML
     private void goToStore(ActionEvent event) {
+        LOGGER.info("**CompanyWindow** Navigating to Store");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
             Parent root = loader.load();
@@ -77,12 +85,13 @@ public class CompanyWindowController implements Initializable {
             currentStage.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**CompanyWindow** Error opening Store window", e);
         }
     }
 
     @FXML
     private void goToProfile(ActionEvent event) {
+        LOGGER.info("**CompanyWindow** Navigating to Profile");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
             Parent root = loader.load();
@@ -99,17 +108,19 @@ public class CompanyWindowController implements Initializable {
             currentStage.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**CompanyWindow** Error opening Profile window", e);
         }
     }
     
     private void selectCompany(Company company) {
         System.out.println("Empresa seleccionada: " + company.getName());
+        LOGGER.info("**CompanyWindow** Company selected: " + company.getName());
         openCompanyProductsWindow(company);
     }
     
     @FXML
     private void openCompanyProductsWindow(Company company) {
+        LOGGER.info("**CompanyWindow** Opening products for company: " + company.getName());
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompanyProducts.fxml"));
             Parent root = loader.load();
@@ -117,6 +128,9 @@ public class CompanyWindowController implements Initializable {
             CompanyProductsController controller = loader.getController();
             
             List<Product> companyProducts = cont.findProductsByCompany(company);
+            
+            LOGGER.info("**CompanyWindow** Products loaded: " + companyProducts.size());
+            
             controller.initData(
                 company, 
                 companyProducts, 
@@ -133,7 +147,7 @@ public class CompanyWindowController implements Initializable {
             currentStage.close();
             
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**CompanyWindow** Error opening CompanyProducts window", e);
         }
     }
     
@@ -142,6 +156,8 @@ public class CompanyWindowController implements Initializable {
         PaneButtons.getChildren().clear();
 
         List<Company> companies = cont.findAllCompanies();
+        
+        LOGGER.info("**CompanyWindow** Loading companies: " + companies.size());
 
         for (Company c : companies) {
             Button companyButton = createCompanyButton(c);
@@ -184,12 +200,14 @@ public class CompanyWindowController implements Initializable {
     }
 
     private void handleImprimirAction() {
-        List<Company> companies = cont.findAllCompanies();
-
-        ReportService reportService = new ReportService();
-        reportService.generateCompaniesReport(companies);
-
-        System.out.println("Reporte generado correctamente");
+        LOGGER.info("**CompanyWindow** Generating companies report");
+        try {
+            List<Company> companies = cont.findAllCompanies();
+            new ReportService().generateCompaniesReport(companies);
+            LOGGER.info("**CompanyWindow** Companies report generated successfully");
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "**CompanyWindow** Error generating companies report", e);
+        }
     }
 
     @Override
@@ -202,5 +220,23 @@ public class CompanyWindowController implements Initializable {
         contextMenu.getItems().add(reportItem);
 
         ScrollPaneCompanies.setOnContextMenuRequested(this::showContextMenu);
+    }
+    
+    @FXML
+    private void openUserManual(ActionEvent event) {
+        LOGGER.info("**CompanyWindow** Opening user manual");
+        
+        try {
+            File pdf = new File("pdfs/User_Manual.pdf");
+            if (!pdf.exists()) {
+                LOGGER.warning("**CompanyWindow** User manual file not found: pdfs/User_Manual.pdf");
+                return;
+            }
+
+            Desktop.getDesktop().open(pdf);
+            LOGGER.info("**CompanyWindow** User manual opened successfully");
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, "**CompanyWindow** error opening user manual", ex);
+        }
     }
 }
