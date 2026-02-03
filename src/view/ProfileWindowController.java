@@ -7,7 +7,6 @@ package view;
 
 import controller.Controller;
 import java.io.IOException;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
