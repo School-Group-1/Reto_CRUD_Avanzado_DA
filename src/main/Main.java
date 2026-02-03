@@ -1,10 +1,8 @@
 package main;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.HibernateUtil;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -12,14 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.Admin;
-import model.Company;
-import model.Product;
-import model.Purchase;
-import model.Size;
-import model.User;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import utilidades.LogConfig;
 
 public class Main extends Application {
 
@@ -46,6 +37,11 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         HibernateUtil.initializeData();
+        try {
+            LogConfig.setup();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         try {
             launch(args);

@@ -1,0 +1,76 @@
+feb 03, 2026 10:29:27 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 10:29:34 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 10:29:34 AM view.ProductModifyWindowController initialize
+INFORMACIÓN: **ProductModifyWindow** Initializing Product Modify Window Controller
+feb 03, 2026 10:29:34 AM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Finished loading window data
+feb 03, 2026 10:29:37 AM view.ProductModifyWindowController selectCompany
+INFORMACIÓN: **ProductModifyWindow** Selecting a company...
+feb 03, 2026 10:29:37 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Resetting data...
+feb 03, 2026 10:29:37 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Data has been reset
+feb 03, 2026 10:29:37 AM view.ProductModifyWindowController createProductCard
+INFORMACIÓN: **ProductModifyWindow** Creating card for product: 
+feb 03, 2026 10:29:37 AM view.ProductModifyWindowController loadProductImage
+INFORMACIÓN: **ProductModifyWindow** Loading product image
+feb 03, 2026 10:29:37 AM view.ProductModifyWindowController createProductCard
+INFORMACIÓN: **ProductModifyWindow** Card successfully created for product: 
+feb 03, 2026 10:29:37 AM view.ProductModifyWindowController createProductCard
+INFORMACIÓN: **ProductModifyWindow** Creating card for product: 
+feb 03, 2026 10:29:37 AM view.ProductModifyWindowController loadProductImage
+INFORMACIÓN: **ProductModifyWindow** Loading product image
+feb 03, 2026 10:29:37 AM view.ProductModifyWindowController createProductCard
+INFORMACIÓN: **ProductModifyWindow** Card successfully created for product: 
+feb 03, 2026 10:29:37 AM view.ProductModifyWindowController selectCompany
+INFORMACIÓN: **ProductModifyWindow** Company selected: 
+feb 03, 2026 10:29:38 AM view.ProductModifyWindowController selectProduct
+INFORMACIÓN: **ProductModifyWindow** Selecting product: 
+feb 03, 2026 10:29:38 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Resetting data...
+feb 03, 2026 10:29:38 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Data has been reset
+feb 03, 2026 10:29:39 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Loading purchase data onto chart: 
+feb 03, 2026 10:29:39 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Purchase data loaded to chart: 
+feb 03, 2026 10:29:39 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: 
+feb 03, 2026 10:29:39 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Button successfully created for size: 
+feb 03, 2026 10:29:39 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: 
+feb 03, 2026 10:29:39 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Button successfully created for size: 
+feb 03, 2026 10:29:39 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: 
+feb 03, 2026 10:29:39 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Button successfully created for size: 
+feb 03, 2026 10:29:39 AM view.ProductModifyWindowController selectProduct
+INFORMACIÓN: **ProductModifyWindow** Product selected: 
+feb 03, 2026 10:29:41 AM view.ProductModifyWindowController selectSize
+INFORMACIÓN: **ProductModifyWindow** Selecting size: 
+feb 03, 2026 10:29:41 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Loading purchase data onto chart: 
+feb 03, 2026 10:29:41 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Purchase data loaded to chart: 
+feb 03, 2026 10:29:41 AM view.ProductModifyWindowController selectSize
+INFORMACIÓN: **ProductModifyWindow** Size selected: 
+feb 03, 2026 10:29:43 AM view.ProductModifyWindowController selectSize
+INFORMACIÓN: **ProductModifyWindow** Selecting size: 
+feb 03, 2026 10:29:43 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Loading purchase data onto chart: 
+feb 03, 2026 10:29:43 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Purchase data loaded to chart: 
+feb 03, 2026 10:29:43 AM view.ProductModifyWindowController selectSize
+INFORMACIÓN: **ProductModifyWindow** Size selected: 
+feb 03, 2026 10:29:46 AM view.ProductModifyWindowController updateCreateSize
+INFORMACIÓN: **ProductModifyWindow** Updating or creating size...
+feb 03, 2026 10:29:48 AM view.ProductModifyWindowController updateCreateSize
+INFORMACIÓN: **ProductModifyWindow** Size modified: 
+feb 03, 2026 10:29:49 AM view.ProductModifyWindowController createItem
+INFORMACIÓN: **ProductModifyWindow** Switching to create item window
+feb 03, 2026 10:29:49 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
