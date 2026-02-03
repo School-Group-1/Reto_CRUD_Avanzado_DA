@@ -144,9 +144,9 @@
       </VBox>
       <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: transparent;" GridPane.columnIndex="8" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS">
          <menus>
-            <Menu mnemonicParsing="false" text="Help">
+            <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem fx:id="viewManualItem" mnemonicParsing="false" onAction="#openUserManual" text="View Manual" />
                </items>
             </Menu>
          </menus>

@@ -9,8 +9,6 @@ import controller.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,15 +18,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Profile;
 import model.User;
+import report.ReportService;
 
 public class ModifyUserAdminController implements Initializable {
 
     // Campos FXML
+    @FXML
+    private GridPane gridpane;
     @FXML
     private TextField nameText;
     @FXML
@@ -60,6 +65,8 @@ public class ModifyUserAdminController implements Initializable {
     private String originalName;
     private String originalSurname;
     private String originalTelephone;
+    private ContextMenu contextMenu;
+    private MenuItem reportItem;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,6 +74,14 @@ public class ModifyUserAdminController implements Initializable {
         this.originalName = "";
         this.originalSurname = "";
         this.originalTelephone = "";
+        
+        contextMenu = new ContextMenu();
+
+        reportItem = new MenuItem("Report");
+        reportItem.setOnAction(e -> handleImprimirAction());
+
+        contextMenu.getItems().add(reportItem);
+        gridpane.setOnContextMenuRequested(this::showContextMenu);
     }
 
     public void initData(Profile profile, Controller cont) {
@@ -386,4 +401,24 @@ public class ModifyUserAdminController implements Initializable {
             showAlert("Error", "Could not open " + title + " window", Alert.AlertType.ERROR);
         }
     }
+    
+    @FXML
+    private void showContextMenu(ContextMenuEvent event) {
+        contextMenu.show(
+                gridpane.getScene().getWindow(),
+                event.getScreenX(),
+                event.getScreenY()
+        );
+        event.consume();
+    }
+
+    private void handleImprimirAction() {
+        Profile user = this.profile;
+
+        ReportService reportService = new ReportService();
+        reportService.generateUserReport(user);
+
+        System.out.println("Reporte generado correctamente");
+    }
+    
 }

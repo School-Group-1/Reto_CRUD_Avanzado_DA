@@ -85,7 +85,7 @@
         
         <Region prefHeight="400.0" prefWidth="186.0" VBox.vgrow="ALWAYS" />
         
-        <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToProfile" prefHeight="22.0" prefWidth="208.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Profile" VBox.vgrow="ALWAYS">
+        <Button fx:id="profileButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToProfile" prefHeight="22.0" prefWidth="208.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Profile" VBox.vgrow="ALWAYS">
           <VBox.margin>
             <Insets bottom="5.0" />
           </VBox.margin>
@@ -156,7 +156,7 @@
           <menus>
             <Menu mnemonicParsing="false" text="Help">
               <items>
-                <MenuItem mnemonicParsing="false" text="Close" />
+                <MenuItem mnemonicParsing="false" onAction="#openUserManual" text="View Manual" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false">

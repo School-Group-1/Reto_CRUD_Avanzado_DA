@@ -18,6 +18,7 @@ import controller.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.control.Button;
 
 public class DeleteConfirmationViewController implements Initializable {
     
@@ -25,6 +26,9 @@ public class DeleteConfirmationViewController implements Initializable {
     private Label lblMessage;
     @FXML
     private PasswordField passwordField;
+    
+    @FXML
+    private Button deleteButton;
 
     private Stage stage;
     private User userToDelete;

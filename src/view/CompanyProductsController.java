@@ -6,6 +6,8 @@
 package view;
 
 import controller.Controller;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -14,6 +16,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,29 +58,33 @@ public class CompanyProductsController implements Initializable {
     private HBox sizesContainer;
     @FXML
     private Button selectedSize;
+    @FXML
+    private Button profileButton;
 
-    // Datos de la aplicación
+    private static final Logger LOGGER = Logger.getLogger(CompanyProductsController.class.getName());
+
     private Company company;
     private Product selectedProduct;
     private List<Product> products;
     private Profile profile;
     private Controller cont;
 
-    // Flags de estado
     private boolean isDataInitialized = false;
     private boolean isSizeSelected = false;
     private String selectedSizeLabel = "";
     private ContextMenu contextMenu;
     private MenuItem reportItem;
 
-    // ==================== MÉTODOS DE INICIALIZACIÓN ====================
     public void initData(Company company, List<Product> products, Profile profile, Controller cont) {
         this.company = company;
         this.products = products;
         this.profile = profile;
         this.cont = cont;
         this.isDataInitialized = true;
-        
+
+        LOGGER.log(Level.INFO, "**CompanyProducts** Initializing data. Company: {0}, Products: {1}",
+                new Object[]{company != null ? company.getName() : "null", products != null ? products.size() : 0});
+
         contextMenu = new ContextMenu();
 
         reportItem = new MenuItem("Report");
@@ -90,6 +98,7 @@ public class CompanyProductsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        LOGGER.info("**CompanyProducts** Initializing Company Products Window Controller");
         if (isDataInitialized && company != null) {
             updateUI();
         }
@@ -102,45 +111,30 @@ public class CompanyProductsController implements Initializable {
 
         titleLabel.setText(company.getName() + " - Products");
         loadProducts();
+        LOGGER.log(Level.INFO, "**CompanyProducts** UI updated for company: {0}", company.getName());
     }
 
-    // ==================== VALIDACIONES ====================
     private boolean areEssentialComponentsValid() {
         boolean areComponentsValid = true;
 
         if (titleLabel == null) {
-            System.err.println("ERROR: titleLabel es null");
+            LOGGER.warning("**CompanyProducts** ERROR: titleLabel es null");
             areComponentsValid = false;
         }
 
         if (productContainer == null) {
-            System.err.println("ERROR: productContainer es null");
+            LOGGER.warning("**CompanyProducts** ERROR: productContainer es null");
             areComponentsValid = false;
         }
 
         if (company == null) {
-            System.err.println("ERROR: company es null");
+            LOGGER.warning("**CompanyProducts** ERROR: company es null");
             areComponentsValid = false;
         }
 
         return areComponentsValid;
     }
 
-    private boolean isProductSelectionValid() {
-        if (selectedProduct == null) {
-            System.err.println("ERROR: No hay producto seleccionado");
-            return false;
-        }
-
-        if (!isSizeSelected) {
-            System.err.println("ERROR: No se ha seleccionado una talla");
-            return false;
-        }
-
-        return true;
-    }
-
-    // ==================== GESTIÓN DE PRODUCTOS ====================
     private void loadProducts() {
         clearProductContainer();
 
@@ -150,33 +144,40 @@ public class CompanyProductsController implements Initializable {
         }
 
         displayProducts();
+        LOGGER.log(Level.INFO, "**CompanyProducts** Loaded {0} products", products.size());
     }
 
     private void clearProductContainer() {
+        LOGGER.fine("**CompanyProducts** Clearing product container");
         productContainer.getChildren().clear();
     }
 
     private boolean hasNoProducts() {
-        return products == null || products.isEmpty();
+        boolean noProducts = products == null || products.isEmpty();
+        if (noProducts) {
+            LOGGER.info("**CompanyProducts** No products available");
+        }
+        return noProducts;
     }
 
     private void displayNoProductsMessage() {
+        LOGGER.info("**CompanyProducts** Displaying 'no products' message");
         Label emptyLabel = new Label("No hay productos disponibles");
         emptyLabel.setStyle("-fx-text-fill: gray; -fx-font-size: 14px;");
         productContainer.getChildren().add(emptyLabel);
     }
 
     private void displayProducts() {
+        LOGGER.log(Level.FINE, "**CompanyProducts** Displaying {0} products", products.size());
         for (Product product : products) {
             HBox productCard = createProductCard(product);
-
             VBox.setMargin(productCard, new Insets(0, 0, 10, 0));
-
             productContainer.getChildren().add(productCard);
         }
     }
 
     private HBox createProductCard(Product product) {
+        LOGGER.log(Level.FINE, "**CompanyProducts** Creating card for product: {0}", product.getName());
         HBox card = createCardBase();
 
         ImageView productImage = createProductImageView(product);
@@ -187,30 +188,14 @@ public class CompanyProductsController implements Initializable {
     }
 
     private HBox createCardBase() {
-        HBox card = new HBox(15);
-        card.setPadding(new Insets(15));
-        card.setStyle(
-                "-fx-background-color: white;"
-                + "-fx-background-radius: 10;"
-                + "-fx-border-color: #e0e0e0;"
-                + "-fx-border-radius: 10;"
-                + "-fx-border-width: 1;"
-                + "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
-        );
-        card.setPrefWidth(350);
-        card.setMaxWidth(350);
-        return card;
+        return new HBox(15);
     }
 
     private ImageView createProductImageView(Product product) {
-        ImageView productImage = new ImageView(
-                loadProductImage(product.getImage())
-        );
-
+        ImageView productImage = new ImageView(loadProductImage(product.getImage()));
         productImage.setFitWidth(120);
         productImage.setFitHeight(120);
         productImage.setPreserveRatio(true);
-
         return productImage;
     }
 
@@ -218,7 +203,7 @@ public class CompanyProductsController implements Initializable {
         try {
             return new Image(getClass().getResourceAsStream("/images/default-product.png"));
         } catch (Exception e) {
-            System.err.println("No se pudo cargar imagen por defecto");
+            LOGGER.log(Level.WARNING, "**CompanyProducts** Could not load default image", e);
             return null;
         }
     }
@@ -295,14 +280,15 @@ public class CompanyProductsController implements Initializable {
 
     // ==================== DETALLES DEL PRODUCTO ====================
     private void showProductDetail(Product product) {
+        LOGGER.log(Level.INFO, "**CompanyProducts** Showing details for product: {0}", product.getName());
         this.selectedProduct = product;
         resetSizeSelection();
-
         displayProductImage(product);
         loadSizes(product);
     }
 
     private void resetSizeSelection() {
+        LOGGER.fine("**CompanyProducts** Resetting size selection");
         isSizeSelected = false;
         selectedSizeLabel = "";
         disableAddToCartButton();
@@ -310,7 +296,7 @@ public class CompanyProductsController implements Initializable {
 
     private void displayProductImage(Product product) {
         if (bigImage == null) {
-            System.err.println("bigImage es null!");
+            LOGGER.warning("**CompanyProducts** bigImage is null!");
             return;
         }
 
@@ -320,7 +306,9 @@ public class CompanyProductsController implements Initializable {
             bigImage.setFitWidth(300);
             bigImage.setFitHeight(300);
             bigImage.setPreserveRatio(true);
+            LOGGER.fine("**CompanyProducts** Product image displayed");
         } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "**CompanyProducts** Error loading product image, using default", e);
             bigImage.setImage(loadDefaultImage());
         }
     }
@@ -328,22 +316,25 @@ public class CompanyProductsController implements Initializable {
     // ==================== GESTIÓN DE TALLAS ====================
     private void loadSizes(Product product) {
         if (sizesContainer == null) {
-            System.err.println("sizesContainer es null!");
+            LOGGER.warning("**CompanyProducts** sizesContainer is null!");
             return;
         }
 
         clearSizesContainer();
-
         List<Size> sizes = product.getSizes();
+
         if (sizes == null || sizes.isEmpty()) {
-            System.out.println("No hay tallas disponibles para este producto");
+            LOGGER.info("**CompanyProducts** No sizes available for this product");
             return;
         }
 
         displaySizes(sizes);
+        LOGGER.log(Level.INFO, "**CompanyProducts** Loaded {0} sizes for product: {1}",
+                new Object[]{sizes.size(), product.getName()});
     }
 
     private void clearSizesContainer() {
+        LOGGER.fine("**CompanyProducts** Clearing sizes container");
         sizesContainer.getChildren().clear();
     }
 
@@ -355,12 +346,11 @@ public class CompanyProductsController implements Initializable {
     }
 
     private Button createSizeButton(Size size) {
+        LOGGER.log(Level.FINE, "**CompanyProducts** Creating button for size: {0}", size.getLabel());
         Button sizeButton = new Button(size.getLabel());
         applySizeButtonStyle(sizeButton, false);
-
         sizeButton.setTooltip(createSizeTooltip(size));
         sizeButton.setOnAction(e -> handleSizeSelection(sizeButton, size));
-
         return sizeButton;
     }
 
@@ -369,6 +359,7 @@ public class CompanyProductsController implements Initializable {
     }
 
     private void handleSizeSelection(Button selectedButton, Size size) {
+        LOGGER.log(Level.INFO, "**CompanyProducts** Size selected: {0}", size.getLabel());
         resetAllSizeButtons();
         selectSizeButton(selectedButton);
         updateSizeSelection(size);
@@ -376,6 +367,7 @@ public class CompanyProductsController implements Initializable {
     }
 
     private void resetAllSizeButtons() {
+        LOGGER.fine("**CompanyProducts** Resetting all size buttons");
         for (Node node : sizesContainer.getChildren()) {
             if (node instanceof Button) {
                 applySizeButtonStyle((Button) node, false);
@@ -412,7 +404,8 @@ public class CompanyProductsController implements Initializable {
     private void updateSizeSelection(Size size) {
         isSizeSelected = true;
         selectedSizeLabel = size.getLabel();
-        System.out.println("Talla seleccionada: " + size.getLabel() + " - Stock: " + size.getStock());
+        LOGGER.log(Level.INFO, "**CompanyProducts** Size selected: {0} - Stock: {1}",
+                new Object[]{size.getLabel(), size.getStock()});
     }
 
     // ==================== GESTIÓN DEL BOTÓN ADD TO CART ====================
@@ -423,6 +416,7 @@ public class CompanyProductsController implements Initializable {
                     "-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; "
                     + "-fx-text-fill: #0f954a; -fx-font-weight: bold;"
             );
+            LOGGER.fine("**CompanyProducts** Add to cart button disabled");
         }
     }
 
@@ -433,30 +427,28 @@ public class CompanyProductsController implements Initializable {
                     "-fx-background-color: #0f954a; -fx-text-fill: white; "
                     + "-fx-font-weight: bold; -fx-background-radius: 5;"
             );
+            LOGGER.fine("**CompanyProducts** Add to cart button enabled");
         }
     }
 
     @FXML
     private void addToCart() {
-        if (!isProductSelectionValid()) {
-            return;
-        }
+        LOGGER.info("**CompanyProducts** Adding product to cart");
 
         addProductToCart();
         showConfirmationMessage();
     }
 
     private void addProductToCart() {
-        System.out.println("=== AÑADIENDO AL CARRITO ===");
-        System.out.println("Producto: " + selectedProduct.getName());
-        System.out.println("Talla: " + selectedSizeLabel);
-        System.out.println("Precio: €" + selectedProduct.getPrice());
+        LOGGER.log(Level.INFO, "**CompanyProducts** === ADDING TO CART === Product: {0}, Size: {1}, Price: €{2}",
+                new Object[]{selectedProduct.getName(), selectedSizeLabel, selectedProduct.getPrice()});
 
         // Aquí implementar la lógica para añadir al carrito
         // Ejemplo: cont.addToCart(selectedProduct, selectedSizeLabel);
     }
 
     private void showConfirmationMessage() {
+        LOGGER.info("**CompanyProducts** Showing confirmation message");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Producto añadido");
         alert.setHeaderText(null);
@@ -468,58 +460,93 @@ public class CompanyProductsController implements Initializable {
         alert.showAndWait();
     }
 
-    // ==================== NAVEGACIÓN ====================
     @FXML
     private void goBackToCompanies(ActionEvent event) {
-        navigateToWindow("/view/CompanyWindow.fxml", event, CompanyWindowController.class);
-    }
-
-    @FXML
-    private void goToStore(ActionEvent event) {
-        navigateToWindow("/view/ShopWindow.fxml", event, view.ShopWindowController.class);
-    }
-
-    @FXML
-    private void goToProfile(ActionEvent event) {
-        navigateToWindow("/view/ProfileWindow.fxml", event, view.ProfileWindowController.class);
-    }
-
-    private <T> void navigateToWindow(String fxmlPath, ActionEvent event, Class<T> controllerClass) {
+        LOGGER.info("**CompanyProducts** Switching back to companies window");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompanyWindow.fxml"));
             Parent root = loader.load();
 
-            T controller = loader.getController();
-            if (controller instanceof CompanyWindowController) {
-                ((CompanyWindowController) controller).initData(profile, cont);
-            } else if (controller instanceof view.ShopWindowController) {
-                ((view.ShopWindowController) controller).initData(profile, cont);
-            } else if (controller instanceof view.ProfileWindowController) {
-                ((view.ProfileWindowController) controller).initData(profile, cont);
+            CompanyWindowController controller = loader.getController();
+            if (controller != null) {
+                controller.initData(profile, cont);
             }
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
 
-            closeCurrentWindow(event);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+            LOGGER.info("**CompanyProducts** Successfully switched to companies window");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**CompanyProducts** Error switching to companies window: ", e);
         }
     }
 
-    private void closeCurrentWindow(ActionEvent event) {
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.close();
+    @FXML
+    private void goToStore(ActionEvent event) {
+        LOGGER.info("**CompanyProducts** Switching to store window");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
+            Parent root = loader.load();
+
+            view.ShopWindowController controller = loader.getController();
+            if (controller != null) {
+                controller.initData(profile, cont);
+            }
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+            LOGGER.info("**CompanyProducts** Successfully switched to store window");
+
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "**CompanyProducts** Error switching to store window: ", e);
+        }
     }
-    
+
+    @FXML
+    private void goToProfile(ActionEvent event) {
+        LOGGER.info("**CompanyProducts** Switching to profile window");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
+            Parent root = loader.load();
+
+            view.ProfileWindowController controller = loader.getController();
+            if (controller != null) {
+                controller.initData(profile, cont);
+            }
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+            LOGGER.info("**CompanyProducts** Successfully switched to profile window");
+
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "**CompanyProducts** Error switching to profile window: ", e);
+        }
+    }
+
+
     public static Image loadProductImage(String path) {
+        LOGGER.log(Level.INFO, "**CompanyProducts** Loading product image from: {0}", path);
 
         // 1) Classpath resource (starts with /)
         if (path.startsWith("/")) {
             InputStream is = Product.class.getResourceAsStream(path);
             if (is == null) {
+                LOGGER.log(Level.SEVERE, "**CompanyProducts** Classpath image not found: {0}", path);
                 throw new IllegalArgumentException("Classpath image not found: " + path);
             }
             return new Image(is);
@@ -529,29 +556,53 @@ public class CompanyProductsController implements Initializable {
         Path filePath = Paths.get(path);
 
         if (!Files.exists(filePath)) {
+            LOGGER.log(Level.SEVERE, "**CompanyProducts** File image not found: {0}", path);
             throw new IllegalArgumentException("File image not found: " + path);
         }
 
+        LOGGER.info("**CompanyProducts** Image loaded successfully");
         return new Image(filePath.toUri().toString());
     }
-    
+
     @FXML
     private void showContextMenu(ContextMenuEvent event) {
+        LOGGER.fine("**CompanyProducts** Showing context menu");
         contextMenu.show(productContainer, event.getScreenX(), event.getScreenY());
         event.consume();
     }
-    
+
     private void handleImprimirAction() {
+        LOGGER.info("**CompanyProducts** Generating company products report");
         if (company != null && products != null && !products.isEmpty()) {
+            LOGGER.log(Level.INFO, "**CompanyProducts** Generating report for {0} products", products.size());
             ReportService reportService = new ReportService();
             reportService.generateCompanyProductsReport(company, products);
-
+            LOGGER.info("**CompanyProducts** Report generated successfully");
         } else {
+            LOGGER.warning("**CompanyProducts** No products available to generate report");
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("No Data");
             alert.setHeaderText(null);
             alert.setContentText("No products available to generate report.");
             alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void openUserManual(ActionEvent event) {
+        LOGGER.info("**CompanyProducts** Opening user manual");
+
+        try {
+            File pdf = new File("pdfs/User_Manual.pdf");
+            if (!pdf.exists()) {
+                LOGGER.warning("**CompanyProducts** User manual not found at: pdfs/User_Manual.pdf");
+                return;
+            }
+
+            Desktop.getDesktop().open(pdf);
+            LOGGER.info("**CompanyProducts** User manual opened successfully");
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, "**CompanyProducts** Error opening user manual: ", ex);
         }
     }
 }

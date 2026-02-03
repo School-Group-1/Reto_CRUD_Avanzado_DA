@@ -91,6 +91,9 @@ public class ProductModifyWindowController implements Initializable {
     private TextField sizeTextField;
     @FXML
     private Button users;
+    
+    @FXML
+    private Button companies;
 
     /**
      * Initializes the controller class.

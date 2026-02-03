@@ -12,15 +12,16 @@ import javafx.scene.control.TableView;
 import model.HibernateUtil;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.testfx.api.FxAssert.verifyThat;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
-import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.base.NodeMatchers.isVisible;
 
 /**
- * Test completo para UserTableController
+ *
+ * @author acer
  */
-public class UserTableControllerTest extends ApplicationTest {
+public class CompaniesTableControllerTest extends ApplicationTest {
 
     @Override
     public void stop() {
@@ -35,16 +36,16 @@ public class UserTableControllerTest extends ApplicationTest {
     }
     
     @Test 
-    public void test_CompleteUserTableFlow() {
-        System.out.println("=== TEST COMPLETO DE USERTABLE ===");
+    public void test_CompleteCompaniesTableFlow() {
+        System.out.println("=== TEST COMPLETO DE COMPANIES TABLE ===");
         
         // ===== 1. LOGIN =====
         System.out.println("\nPASO 1: Login como admin...");
         doLogin();
         
-        // ===== 2. NAVEGAR A USERTABLE =====
-        System.out.println("\nPASO 2: Navegando a UserTable...");
-        navigateToUserTable();
+        // ===== 2. NAVEGAR A COMPANIES TABLE =====
+        System.out.println("\nPASO 2: Navegando a Companies Table...");
+        navigateToCompaniesTable();
         
         // ===== 3. ACTIVAR MODO EDICIÓN =====
         System.out.println("\nPASO 3: Activando modo edición...");
@@ -97,25 +98,16 @@ public class UserTableControllerTest extends ApplicationTest {
         System.out.println("Login exitoso");
     }
 
-    private void navigateToUserTable() {
-        try {
-            clickOn("#users");
-            System.out.println("Navegación por #users exitosa");
-        } catch (Exception e1) {
-            try {
-                clickOn("Users");
-                System.out.println("Navegación por texto 'Users' exitosa");
-            } catch (Exception e2) {
-                clickOn("Usuarios");
-                System.out.println("Navegación por texto 'Usuarios' exitosa");
-            }
-        }
+    private void navigateToCompaniesTable() {
+        clickOn("#companies");
+        System.out.println("Navegación por #companies exitosa");
+
         sleep(3000);
 
         verifyThat("#tableView", isVisible());
-        System.out.println("UserTable cargado correctamente");
+        System.out.println("CompaniesTable cargado correctamente");
     }
-
+    
     private void activateEditMode() {
         verifyThat("#editCheckBox", isVisible());
 
@@ -144,35 +136,33 @@ public class UserTableControllerTest extends ApplicationTest {
             if (table.getItems().size() > 0) {
                 System.out.println("Tabla tiene " + table.getItems().size() + " filas");
 
-                System.out.println("Intentando modificar email...");
+                System.out.println("Intentando modificar name...");
 
-                Node emailCell = lookup(".table-cell").nth(2).query(); 
+                Node nameCol = lookup(".table-cell").nth(1).query(); 
 
-                doubleClickOn(emailCell);
+                doubleClickOn(nameCol);
                 sleep(500);
 
-                // Modificar el email
                 push(javafx.scene.input.KeyCode.CONTROL, javafx.scene.input.KeyCode.A);
                 push(javafx.scene.input.KeyCode.DELETE);
-                write("modified@example.com");
+                write("example");
                 push(javafx.scene.input.KeyCode.ENTER);
                 sleep(1000);
 
-                System.out.println("Email modificado exitosamente ✓");
+                System.out.println("Name modificado exitosamente ✓");
 
-                // También probar modificar otra columna (nombre)
                 System.out.println("Intentando modificar nombre...");
-                Node nameCell = lookup(".table-cell").nth(3).query(); // Columna name (4ta columna, índice 3)
-                doubleClickOn(nameCell);
+                Node locationCell = lookup(".table-cell").nth(3).query();
+                doubleClickOn(locationCell);
                 sleep(500);
 
                 push(javafx.scene.input.KeyCode.CONTROL, javafx.scene.input.KeyCode.A);
                 push(javafx.scene.input.KeyCode.DELETE);
-                write("NombreModificado");
+                write("DondeSea");
                 push(javafx.scene.input.KeyCode.ENTER);
                 sleep(1000);
 
-                System.out.println("Nombre modificado exitosamente ✓");
+                System.out.println("Location modificado exitosamente ✓");
 
             } else {
                 System.out.println("Tabla vacía, no se puede modificar fila");
@@ -189,34 +179,28 @@ public class UserTableControllerTest extends ApplicationTest {
 
             System.out.println("Creando nueva fila con botón + ...");
 
-            // Hacer click en el botón +
             clickOn("#addButton");
             sleep(1500);
 
             System.out.println("Nueva fila creada ✓");
 
-            // Verificar que se añadió una fila
             TableView<?> table = lookup("#tableView").queryAs(TableView.class);
             System.out.println("Total filas después de añadir: " + table.getItems().size());
 
-            // Ahora editar algunos campos de la nueva fila (excepto username)
             System.out.println("Editando campos de la nueva fila...");
 
-            // Editar email de la última fila
             int totalRows = table.getItems().size();
             int lastRowIndex = totalRows - 1;
 
-            // Calcular índice de la celda de email en la última fila
-            // Si hay 8 columnas, el email está en: (lastRowIndex * 8) + 2
-            int emailCellIndex = (lastRowIndex * 8) + 2;
+            int nameCellIndex = (lastRowIndex * 8) + 2;
 
             try {
-                Node emailCell = lookup(".table-cell").nth(emailCellIndex).query();
+                Node emailCell = lookup(".table-cell").nth(nameCellIndex).query();
                 doubleClickOn(emailCell);
                 sleep(500);
                 push(javafx.scene.input.KeyCode.CONTROL, javafx.scene.input.KeyCode.A);
                 push(javafx.scene.input.KeyCode.DELETE);
-                write("nuevo@test.com");
+                write("sep");
                 push(javafx.scene.input.KeyCode.ENTER);
                 sleep(1000);
                 System.out.println("Email de nueva fila editado ✓");
@@ -234,7 +218,6 @@ public class UserTableControllerTest extends ApplicationTest {
         try {
             System.out.println("Intentando borrar una fila...");
 
-            // Buscar todos los botones Delete
             int deleteButtonCount = lookup(".button").queryAll().size();
             System.out.println("Botones encontrados: " + deleteButtonCount);
 
@@ -269,14 +252,11 @@ public class UserTableControllerTest extends ApplicationTest {
         try {
             System.out.println("Probando menú contextual...");
 
-            // Obtener la tabla como Node
             TableView<?> tableView = lookup("#tableView").queryAs(TableView.class);
 
-            // Hacer click derecho en la tabla
             rightClickOn(tableView);
             sleep(1000);
 
-            // Seleccionar Report
             clickOn("Report");
             sleep(2000);
 
@@ -343,4 +323,5 @@ public class UserTableControllerTest extends ApplicationTest {
         } catch (InterruptedException e) {
         }
     }
+
 }
