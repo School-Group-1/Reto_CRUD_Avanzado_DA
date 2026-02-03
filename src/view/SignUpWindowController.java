@@ -45,7 +45,7 @@ public class SignUpWindowController implements Initializable {
     @FXML
     private Button buttonSignUp, buttonLogIn;
     @FXML
-    private Label errorLbl;
+    public Label errorLbl;
 
     private Controller cont;
     private ToggleGroup grupOp;

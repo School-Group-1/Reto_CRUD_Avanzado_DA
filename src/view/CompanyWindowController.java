@@ -11,8 +11,6 @@ import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,16 +20,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Modality;
-import model.Admin;
 import model.Company;
 import model.Profile;
-import model.User;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
@@ -49,8 +42,8 @@ public class CompanyWindowController implements Initializable {
     @FXML
     private TilePane PaneButtons;
     
-   @FXML
-   private ScrollPane ScrollPaneCompanies;
+    @FXML
+    private ScrollPane ScrollPaneCompanies;
     
     private ContextMenu contextMenu;
     private MenuItem reportItem;
@@ -175,15 +168,6 @@ public class CompanyWindowController implements Initializable {
 
         Label nameLabel = new Label(company.getName());
         nameLabel.setStyle("-fx-font-size: 14; -fx-font-weight: bold;");
-
-        /*ImageView imageView = new ImageView(
-            new Image(getClass().getResourceAsStream(
-                "/images/Captura de pantalla 2026-01-26 085933.png"
-            ))
-        );
-        imageView.setFitWidth(140);
-        imageView.setFitHeight(120);
-        imageView.setPreserveRatio(true);*/
 
         content.getChildren().addAll(nameLabel );
         button.setGraphic(content);
