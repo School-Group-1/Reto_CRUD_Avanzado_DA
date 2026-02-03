@@ -113,7 +113,29 @@ public class ShopWindowController implements Initializable {
         List<Product> products = cont.findAllProducts();
         /*if(fichE.exists()){
             if (fichE.getName().contains(uname)){
-            
+                try {
+			ois=new ObjectInputStream(new FileInputStream(fichE));
+                } catch (FileNotFoundException e) { //Excepcion no se ha encontrado el Fichero
+				e.printStackTrace();
+		} catch (IOException e) { // Excepcion error al acceder al fichero
+				e.printStackTrace();
+		}
+                try {
+			System.out.println("\n[MULTIMEDIA: PELICULAS]");
+			for (int i=0;i<Utilidades.calculoFichero(fichE);i++) {
+			Media peli=(Media)ois.readObject();
+			if(peli instanceof Pelicula) {
+                            System.out.println(peli.toString());A
+                        }
+                    }
+                    ois.close();
+		try {
+			ois=new ObjectInputStream(new FileInputStream(ficheroMedia));
+    		} catch (FileNotFoundException e) { //Excepcion no se ha encontrado el Fichero
+			e.printStackTrace();
+		} catch (IOException e) { // Excepcion error al acceder al fichero
+			e.printStackTrace();
+		}
             carrito=FXCollections.observableList(products);
             tcAmout.setCellValueFactory(new PropertyValueFactory<>("atributoClase"));
             tcItem.setCellValueFactory(new PropertyValueFactory<>("atributoClase"));

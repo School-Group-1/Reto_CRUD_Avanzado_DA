@@ -15,11 +15,48 @@ public class CartItem {
     private double price;
     private Size size;
 
-    public CartItem(int amount, String productName, double price, Size size) {
+    public CartItem(int amount, Product product, Size size) {
         this.amount = amount;
-        this.productName = productName;
-        this.price = price;
+        this.productName = product.getName();
+        this.price = product.getPrice();
         this.size = size;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return "CartItem{" + "amount=" + amount + ", productName=" + productName + ", price=" + price + ", size=" + size + '}';
     }
     
     
