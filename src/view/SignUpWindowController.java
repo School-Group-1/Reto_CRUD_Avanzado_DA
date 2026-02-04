@@ -29,8 +29,9 @@ import model.Admin;
 import model.Profile;
 
 /**
- * Controller for the SignUp window.
- * Handles user registration and navigation to login or main menu.
+ * Controller class for the Sign Up window.
+ * 
+ * Handles user registration, validation of input fields, and navigation to the login window or main menu depending on the profile type (Admin or User).
  */
 public class SignUpWindowController implements Initializable {
 
@@ -53,13 +54,19 @@ public class SignUpWindowController implements Initializable {
     private ToggleGroup grupOp;
     private Profile profile;
 
+    /**
+     * Initializes the controller with the main application controller.
+     * This method should be called after the FXML is loaded.
+     *
+     * @param cont the main application controller
+     */
     public void initData(Controller cont) {
         this.cont = cont;
         LOGGER.info("**SignUpWindow** Initialized with controller: " + cont);
     }
 
     /**
-     * Navigates back to login window.
+     * Navigates back to the login window and closes the current Sign Up window.
      */
     @FXML
     private void login() {
@@ -81,7 +88,10 @@ public class SignUpWindowController implements Initializable {
     }
 
     /**
-     * Signs up a new user and navigates to next window if successful.
+     * Handles the user registration process.
+     * Validates input fields, creates a new user profile, and navigates to the appropriate next window depending on the profile type.
+     *
+     * @throws passwordequalspassword if password validation fails
      */
     @FXML
     private void signup() throws passwordequalspassword {
@@ -103,21 +113,18 @@ public class SignUpWindowController implements Initializable {
 
         errorLbl.setText("");
 
-        // 1. Mandatory fields
         if (email.isEmpty() || name.isEmpty() || surname.isEmpty() || telephone.isEmpty() || cardN.isEmpty() || pass.isEmpty() || username.isEmpty()) {
             errorLbl.setText("All fields must be filled");
             LOGGER.warning("**SignUpWindow** Validation failed: empty fields");
             return;
         }
 
-        // 2. Gender required
         if (gender == null) {
             errorLbl.setText("You must select a gender");
             LOGGER.warning("**SignUpWindow** Validation failed: gender not selected");
             return;
         }
 
-        // 3. Email format
         String emailRegex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
         if (!email.matches(emailRegex)) {
             errorLbl.setText("Invalid email format");
@@ -125,21 +132,18 @@ public class SignUpWindowController implements Initializable {
             return;
         }
 
-        // 4. Telephone validation
         if (!telephone.matches("\\d{9}")) {
             errorLbl.setText("Telephone must have exactly 9 digits");
             LOGGER.warning("**SignUpWindow** Invalid telephone number: " + telephone);
             return;
         }
 
-        // 5. Card number validation
         if (!cardN.matches("\\d{16}")) {
             errorLbl.setText("Card number must have exactly 16 digits");
             LOGGER.warning("**SignUpWindow** Invalid card number length");
             return;
         }
 
-        // ---- SIGN UP ----
         LOGGER.info("**SignUpWindow** Attempting sign up for username: " + username);
 
         try {
@@ -183,6 +187,12 @@ public class SignUpWindowController implements Initializable {
         }
     }
 
+    /**
+     * Initializes the controller class after the FXML file has been loaded.
+     *
+     * @param url the location used to resolve relative paths, or null if unknown
+     * @param rb the resource bundle used for localization, or null if not used
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LOGGER.info("**SignUpWindow** Controller initialized");

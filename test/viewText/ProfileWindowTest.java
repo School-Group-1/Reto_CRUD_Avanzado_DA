@@ -52,32 +52,30 @@ public class ProfileWindowTest extends ApplicationTest {
     @Test
     public void storeButtonOpensShopWindow() {
         clickOn("#btnStore");
-        verifyThat(window("Shop"), WindowMatchers.isShowing());
+        verifyThat(window("ShopWindow"), WindowMatchers.isShowing());
     }
 
     @Test
     public void companiesButtonOpensCompaniesWindow() {
         clickOn("#btnCompanies");
-        verifyThat(window("Companies"), WindowMatchers.isShowing());
+        verifyThat(window("CompanyWindow"), WindowMatchers.isShowing());
     }
 
     @Test
     public void logoutButtonOpensLoginWindow() {
         clickOn("#btnLogout");
-        verifyThat(window("LogIn"), WindowMatchers.isShowing());
+        verifyThat(window("LogInWindow"), WindowMatchers.isShowing());
     }
 
     @Test
     public void modifyButtonOpensModifyWindow() {
         clickOn("#Button_Modify");
-        verifyThat(window("Modify User"), WindowMatchers.isShowing());
+        verifyThat(window("ModifyUserAdmin"), WindowMatchers.isShowing());
     }
 
     @Test
     public void deleteButtonOpensDeleteConfirmation() {
         clickOn("#Button_Delete");
-        verifyThat(window("Delete Confirmation"), WindowMatchers.isShowing());
+        verifyThat(window("DeleteConfirmationView"), WindowMatchers.isShowing());
     }
-    
-    //Añadir settitle al abrir ventanas
 }
