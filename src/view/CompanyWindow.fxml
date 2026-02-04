@@ -18,126 +18,121 @@
 <?import javafx.scene.text.Font?>
 
 <GridPane prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CompanyWindowController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" />
-    <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-    <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-  </rowConstraints>
-   <children>
-      <HBox GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS">
-         <children>
-            <MenuBar maxWidth="1.7976931348623157E308" prefWidth="419.0">
-              <menus>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" />
-              </menus>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" />
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+    </rowConstraints>
+    <children>
+        <HBox spacing="15" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 10;">
+            <Region HBox.hgrow="ALWAYS" />
+            <MenuBar style="-fx-background-color: transparent;">
+                <menus>
+                    <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="View Manual" onAction="#openUserManual" />
+                        </items>
+                    </Menu>
+                </menus>
             </MenuBar>
-            <Region maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="74.0" prefWidth="293.0" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="55.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="52.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/cart-59-xxl.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </HBox.margin>
+            <Button fx:id="btnCart" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                <graphic>
+                    <ImageView fitHeight="32" fitWidth="32" preserveRatio="true" pickOnBounds="true">
+                        <image>
+                            <Image url="@../images/cart-59-xxl.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
             </Button>
-         </children>
-      </HBox>
-      <VBox focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="0.0" spacing="20.0" style="-fx-border-color: transparent black transparent transparent;" GridPane.columnSpan="2" GridPane.rowSpan="2147483647">
-         <children>
-            <ImageView fitHeight="120.0" fitWidth="180.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/LogoProjectoDin.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </ImageView>
-            <Button id="btnStore" alignment="TOP_LEFT" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" onAction="#goToStore" style="-fx-background-color: transparent;" text="Store" textFill="#0f954a" VBox.vgrow="ALWAYS">
-               <graphic>
-                  <ImageView fitHeight="31.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/shop-16.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button id="btnCompanies" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" style="-fx-background-color: e2e2e2;" text="Companies" textFill="#0f954a" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="42.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/truck-2-24.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-            <Region maxWidth="1.7976931348623157E308" prefHeight="329.0" prefWidth="234.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin></Region>
-            <Button id="btnProfile" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" onAction="#goToProfile" style="-fx-background-color: transparent;" text="Profile" textFill="#0f954a" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="34.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/user-24.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </VBox>
-      <ScrollPane fx:id="ScrollPaneCompanies" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
-         <content>
-            <TilePane fx:id="PaneButtons" alignment="CENTER" hgap="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefTileHeight="200.0" prefTileWidth="200.0" vgap="60.0">
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-            </TilePane>
-         </content>
-      </ScrollPane>
-   </children>
+        </HBox>
+        <VBox focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="0.0" spacing="20.0" style="-fx-border-color: transparent black transparent transparent;" GridPane.columnSpan="2" GridPane.rowSpan="2147483647">
+            <children>
+                <ImageView fitHeight="120.0" fitWidth="180.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/LogoProjectoDin.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </VBox.margin>
+                </ImageView>
+                <Button id="btnStore" alignment="TOP_LEFT" graphicTextGap="8.0" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" onAction="#goToStore" style="-fx-background-color: transparent;" text="Store" textFill="#0f954a" VBox.vgrow="ALWAYS">
+                    <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/shop-16.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <Button id="btnCompanies" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" style="-fx-background-color: e2e2e2;" text="Companies" textFill="#0f954a" VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <graphic>
+                        <ImageView fitHeight="42.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/truck-2-24.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <Region maxWidth="1.7976931348623157E308" prefHeight="329.0" prefWidth="234.0">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </Region>
+                <Button id="btnProfile" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" mnemonicParsing="false" onAction="#goToProfile" style="-fx-background-color: transparent;" text="Profile" textFill="#0f954a" VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/user-24.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </VBox>
+        <ScrollPane fx:id="ScrollPaneCompanies" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
+            <content>
+                <TilePane fx:id="PaneButtons" alignment="CENTER" hgap="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefTileHeight="200.0" prefTileWidth="200.0" vgap="60.0">
+                    <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                    </padding>
+                </TilePane>
+            </content>
+        </ScrollPane>
+    </children>
 </GridPane>

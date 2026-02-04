@@ -6,6 +6,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
@@ -21,28 +24,28 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" style="-fx-background-color: #e2e2e2;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProductModifyWindowController">
   <columnConstraints>
-    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="11.11" prefWidth="100.0" />
+    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="11.11" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="11.11" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="11.11" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="11.11" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="11.11" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="11.11" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="11.11" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="11.11" prefWidth="100.0" />
       <ColumnConstraints />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+    <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+    <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
   </rowConstraints>
    <children>
       <VBox maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="400.0" prefWidth="140.0" spacing="20.0" style="-fx-background-color: #FFFFFF;" GridPane.columnSpan="2" GridPane.rowSpan="2147483647">
@@ -64,7 +67,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button onAction="#goToCompanies" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="239.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies" VBox.vgrow="ALWAYS">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToCompanies" prefHeight="40.0" prefWidth="239.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies" VBox.vgrow="ALWAYS">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -73,7 +76,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToUsers" prefHeight="37.0" prefWidth="236.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Users">
+            <Button fx:id="users" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToUsers" prefHeight="37.0" prefWidth="236.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Users">
                <graphic>
                   <ImageView fitHeight="49.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -97,7 +100,7 @@
             </Button>
          </children>
       </VBox>
-      <ComboBox fx:id="companyCombobox" maxWidth="1.7976931348623157E308" onAction="#selectCompany" prefHeight="26.0" promptText="Select a company..." style="-fx-background-color: white; -fx-background-radius: 100; -fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #0f954a; -fx-prompt-text-fill: #0f954a;" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS">
+      <ComboBox fx:id="companyCombobox" maxWidth="1.7976931348623157E308" onAction="#selectCompany" prefHeight="26.0" promptText="Select a company..." style="-fx-background-color: white; -fx-background-radius: 100; -fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #0f954a; -fx-prompt-text-fill: #0f954a;" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
@@ -105,7 +108,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="50.0" />
          </GridPane.margin>
       </ComboBox>
-      <LineChart fx:id="linechart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="210.0" GridPane.columnIndex="5" GridPane.columnSpan="5" GridPane.rowSpan="6">
+      <LineChart fx:id="linechart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="210.0" GridPane.columnIndex="5" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="6">
         <xAxis>
           <NumberAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>
@@ -116,7 +119,7 @@
             <Insets top="10.0" />
          </GridPane.margin>
       </LineChart>
-      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
          <GridPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </GridPane.margin>
@@ -127,7 +130,7 @@
                </padding></VBox>
          </content>
       </ScrollPane>
-      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createItem" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #0f954a;" text="Create new item" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="8">
+      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createItem" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #0f954a;" text="Create new item" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="9">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
@@ -135,7 +138,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteProduct" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #0f954a;" text="Delete item" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="8">
+      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteProduct" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #0f954a;" text="Delete item" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="9">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
@@ -143,7 +146,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff; -fx-background-radius: 12;" GridPane.columnIndex="5" GridPane.columnSpan="4" GridPane.rowIndex="6" GridPane.rowSpan="2">
+      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff; -fx-background-radius: 12;" GridPane.columnIndex="5" GridPane.columnSpan="4" GridPane.rowIndex="7" GridPane.rowSpan="2">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -209,5 +212,17 @@
             </Button>
          </children>
       </GridPane>
+      <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.columnSpan="2147483647">
+        <menus>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#openUserManual" text="View Manual" />
+            </items>
+          </Menu>
+        </menus>
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+      </MenuBar>
    </children>
 </GridPane>

@@ -23,7 +23,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.DBImplementation;
 import model.Profile;
 import model.User;
 
@@ -50,13 +49,10 @@ public class ModifyUserAdminController implements Initializable {
     private Button companiesButton;
     @FXML
     private Button profileButton;
-    private DBImplementation dao = new DBImplementation();
 
-    // Usuario actual (deberías obtenerlo del sistema de login)
     private Profile profile;
     private Controller cont;
 
-    // Para mostrar mensajes de error
     @FXML
     private Label errorLabel;
 
@@ -72,14 +68,14 @@ public class ModifyUserAdminController implements Initializable {
         this.originalSurname = "";
         this.originalTelephone = "";
     }
-    
+
     public void initData(Profile profile, Controller cont) {
         this.profile = profile;
         this.cont = cont;
 
         System.out.println("Perfil: " + profile);
         System.out.println("Controller: " + cont);
-        
+
         loadUserData();
     }
 
@@ -90,6 +86,10 @@ public class ModifyUserAdminController implements Initializable {
             surnameText.setText(profile.getSurname());
             telephoneText.setText(profile.getTelephone());
 
+            this.originalName = profile.getName();
+            this.originalSurname = profile.getSurname();
+            this.originalTelephone = profile.getTelephone();
+
             // Limpiar campos de contraseña
             passwordText.clear();
             confirmText.clear();
@@ -98,48 +98,76 @@ public class ModifyUserAdminController implements Initializable {
 
     @FXML
     private void goToShopWindow(ActionEvent event) {
-        changeWindow("/view/ShopWindow.fxml", event);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ShopWindow.fxml"));
+            Parent root = loader.load();
+            
+            Object controller = loader.getController();
+            try {
+                java.lang.reflect.Method initMethod = controller.getClass().getMethod("initData", Profile.class, Controller.class);
+                initMethod.invoke(controller, profile, cont);
+            } catch (Exception e) {
+                System.out.println("ShopWindowController doesn't have initData method");
+            }
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Shop");
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Could not open Shop window", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
     private void goToCompanyWindow(ActionEvent event) {
-        changeWindow("/view/CompanyWindow.fxml", event);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompanyWindow.fxml"));
+            Parent root = loader.load();
+            
+            Object controller = loader.getController();
+            try {
+                java.lang.reflect.Method initMethod = controller.getClass().getMethod("initData", Profile.class, Controller.class);
+                initMethod.invoke(controller, profile, cont);
+            } catch (Exception e) {
+                System.out.println("CompanyWindowController doesn't have initData method");
+            }
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Companies");
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Could not open Companies window", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
     private void goToProfileWindow(ActionEvent event) {
-        changeWindow("/view/ProfileWindow.fxml", event);
-    }
-
-    private void changeWindow(String fxml, ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
-            currentStage.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void cancel(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
             Parent root = loader.load();
             
-            view.ProfileWindowController viewController = loader.getController();
-            viewController.initData(profile, cont);
-
+            view.ProfileWindowController controller = loader.getController();
+            if (controller != null) {
+                controller.initData(profile, cont);
+            }
+            
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setTitle("Profile");
             stage.show();
 
             Node source = (Node) event.getSource();
@@ -148,7 +176,15 @@ public class ModifyUserAdminController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+            showAlert("Error", "Could not open Profile window", Alert.AlertType.ERROR);
         }
+    }
+
+
+
+    @FXML
+    private void cancel(ActionEvent event) {
+        openProfileWindow();
     }
 
     @FXML
@@ -226,11 +262,6 @@ public class ModifyUserAdminController implements Initializable {
                     showError("New password cannot be the same as current password");
                     return !correct;
                 }
-
-                if (newPassword.length() < 6) {
-                    showError("Password must be at least 6 characters long");
-                    return !correct;
-                }
             }
         }
 
@@ -276,7 +307,7 @@ public class ModifyUserAdminController implements Initializable {
             profile.setPassword(passwordText.getText().trim());
         }
 
-        dao.updateUser((User) profile);
+        cont.updateUser((User) profile);
 
         originalName = profile.getName();
         originalSurname = profile.getSurname();
@@ -317,11 +348,18 @@ public class ModifyUserAdminController implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ProfileWindow.fxml"));
             Parent root = loader.load();
+            
+            ProfileWindowController controller = loader.getController();
+            if (controller != null) {
+                controller.initData(profile, cont);
+            }
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Profile");
             stage.show();
+            
+            currentStage.close();
 
         } catch (IOException e) {
             e.printStackTrace();

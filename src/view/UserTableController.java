@@ -8,6 +8,8 @@ package view;
 import controller.Controller;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,18 +22,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Admin;
+import model.Company;
 import model.DBImplementation;
 import model.Profile;
 import model.User;
+import report.ReportService;
 
 /**
  * FXML Controller class
@@ -82,44 +89,51 @@ public class UserTableController implements Initializable {
     private TableColumn<User, Void> deleteCol;
 
     private Admin loggedAdmin;
-    
+
     private Profile profile;
-    
+
     private Controller cont;
-    
+
     private ObservableList<User> userList = FXCollections.observableArrayList();
 
-    private DBImplementation dao = new DBImplementation();
+    private ContextMenu contextMenu;
+    private MenuItem reportItem;
+    @FXML
+    private Button addButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /*
-            HAY QUE QUITAR ESTO?
-        */
-        
-        /*checkbox();
-        setupColumns();
-        setupEditableColumns();
-        setupDeleteColumn();
-        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        userList = dao.findAll();
-        tableView.setItems(userList);*/
+        contextMenu = new ContextMenu();
+
+        reportItem = new MenuItem("Report");
+        reportItem.setOnAction(e -> handleImprimirAction());
+
+        contextMenu.getItems().add(reportItem);
+        tableView.setOnContextMenuRequested(event -> {
+            // Mostrar el menú en la ventana, no en la tabla
+            contextMenu.show(
+                    tableView.getScene().getWindow(),
+                    event.getScreenX(),
+                    event.getScreenY()
+            );
+            event.consume();
+        });
     }
-    
-    public void initData(Profile profile, Controller cont){
-        this.profile=profile;
-        this.cont=cont;
+
+    public void initData(Profile profile, Controller cont) {
+        this.profile = profile;
+        this.cont = cont;
         System.out.println("Perfil: " + profile);
         System.out.println("Controller: " + cont);
         checkbox();
         setupColumns();
-        setupEditableColumns(); 
+        setupEditableColumns();
         setupDeleteColumn();
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        userList = dao.findAll();
+        userList = cont.findAll();
         tableView.setItems(userList);
     }
-    
+
     public void checkbox() {
         tableView.setEditable(editCheckBox.isSelected());
 
@@ -154,7 +168,7 @@ public class UserTableController implements Initializable {
             User user = event.getRowValue();
             System.out.println("Usuario: " + user.getUsername() + ", Email nuevo: " + event.getNewValue());
             user.setEmail(event.getNewValue());
-            dao.updateUser(user);
+            cont.updateUser(user);
             refreshTable();
         });
 
@@ -162,7 +176,7 @@ public class UserTableController implements Initializable {
             System.out.println("DEBUG: Editando nombre");
             User user = event.getRowValue();
             user.setName(event.getNewValue());
-            dao.updateUser(user);
+            cont.updateUser(user);
             refreshTable();
         });
 
@@ -170,7 +184,7 @@ public class UserTableController implements Initializable {
             System.out.println("DEBUG: Editando apellido");
             User user = event.getRowValue();
             user.setSurname(event.getNewValue());
-            dao.updateUser(user);
+            cont.updateUser(user);
             refreshTable();
         });
 
@@ -178,7 +192,7 @@ public class UserTableController implements Initializable {
             System.out.println("DEBUG: Editando teléfono");
             User user = event.getRowValue();
             user.setTelephone(event.getNewValue());
-            dao.updateUser(user);
+            cont.updateUser(user);
             refreshTable();
         });
 
@@ -186,7 +200,7 @@ public class UserTableController implements Initializable {
             System.out.println("DEBUG: Editando género");
             User user = event.getRowValue();
             user.setGender(event.getNewValue());
-            dao.updateUser(user);
+            cont.updateUser(user);
             refreshTable();
         });
 
@@ -194,7 +208,7 @@ public class UserTableController implements Initializable {
             System.out.println("DEBUG: Editando contraseña");
             User user = event.getRowValue();
             user.setPassword(event.getNewValue());
-            dao.updateUser(user);
+            cont.updateUser(user);
             refreshTable();
         });
 
@@ -233,7 +247,7 @@ public class UserTableController implements Initializable {
                 "" // card number
         );
 
-        dao.saveUser(newUser);
+        cont.saveUser(newUser);
         userList.add(newUser);
     }
 
@@ -257,11 +271,10 @@ public class UserTableController implements Initializable {
             }
         });
     }
-    
+
     /*
         SE PUEDE SUSTITUIR POR LOGOUT?
-    */
-
+     */
     @FXML
     private void goToLogin() {
         try {
@@ -289,13 +302,12 @@ public class UserTableController implements Initializable {
             Parent root = loader.load();
 
             DeleteConfirmationViewController controller = loader.getController();
+
             controller.initData(profile, cont);
-            
-            controller.setUser(user);
-            controller.setAdminPassword(loggedAdmin.getPassword());
+
+            controller.setUserToDelete(user);
 
             Stage popupStage = new Stage();
-            popupStage.setTitle("Confirmar eliminación");
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.setScene(new Scene(root));
             controller.setStage(popupStage);
@@ -303,8 +315,11 @@ public class UserTableController implements Initializable {
             popupStage.showAndWait();
 
             if (controller.isConfirmed()) {
-                deleteUser(user);
-                goToLogin();
+                cont.dropOutAdmin(user.getUsername(),
+                        controller.getAdminUsername(),
+                        controller.getEnteredPassword());
+                userList.remove(user);
+                tableView.refresh();
             }
 
         } catch (IOException e) {
@@ -312,21 +327,16 @@ public class UserTableController implements Initializable {
         }
     }
 
-    private void deleteUser(User user) {
-        dao.deleteUser(user);
-        userList.remove(user);
+    private void refreshTable() {
+        userList.setAll(cont.findAll());
     }
 
-    private void refreshTable() {
-        userList.setAll(dao.findAll());
-    }
-    
     @FXML
     private void goToCompanies(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompaniesTable.fxml"));
             Parent root = loader.load();
-            
+
             CompaniesTableController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -342,13 +352,13 @@ public class UserTableController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void goToProducts(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProductModifyWindow.fxml"));
             Parent root = loader.load();
-            
+
             ProductModifyWindowController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -364,9 +374,9 @@ public class UserTableController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
-    private void logout(ActionEvent event){
+    private void logout(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LogInWindow.fxml"));
             Parent root = loader.load();
@@ -382,5 +392,26 @@ public class UserTableController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void showContextMenu(ContextMenuEvent event) {
+        contextMenu.show(
+                tableView.getScene().getWindow(),
+                event.getScreenX(),
+                event.getScreenY()
+        );
+        event.consume();
+    }
+
+    private void handleImprimirAction() {
+        List<User> users = cont.findAll();
+
+        List<Profile> profiles = new ArrayList<>(users);
+
+        ReportService reportService = new ReportService();
+        reportService.generateUsersReport((List<Profile>) profiles);
+
+        System.out.println("Reporte generado correctamente");
     }
 }

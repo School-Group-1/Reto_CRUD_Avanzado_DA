@@ -63,14 +63,19 @@ public class CompanyWindowTest extends ApplicationTest{
         TilePane pane = lookup("#PaneButtons").queryAs(TilePane.class);
 
         assertNotNull(pane);
-        assertTrue(pane.getChildren().size() > 0);
+
+        // comprobamos que existen botones concretos
+        assertNotNull(lookup("#companyBtn_123").query());
+        assertNotNull(lookup("#companyBtn_456").query());
+        assertNotNull(lookup("#companyBtn_789").query());
     }
+
+
     
     @Test
     public void clickingCompanyButtonWorks() {
-        clickOn("Nike");
+        clickOn("Company 1");
 
-        verifyThat(window("CompanyProducts"), WindowMatchers.isShowing());
-        verifyThat("#selectedCompanyLabel", hasText("Nike"));
+        verifyThat(window("Company 1 - Products"), WindowMatchers.isShowing());
     }
 }

@@ -12,16 +12,17 @@ package model;
 public class CartItem {
     private int amount;
     private String productName;
-    private double price;
-    private Size size;
+    private String price;
+    private String size;
 
-    public CartItem(int amount, Product product, Size size) {
-        this.amount = amount;
+    public CartItem( Product product, String size) {
+        this.amount = 1;
         this.productName = product.getName();
-        this.price = product.getPrice();
+        this.price = product.getPrice()+" €";
         this.size = size;
-    }
 
+    }
+    
     public int getAmount() {
         return amount;
     }
@@ -30,11 +31,11 @@ public class CartItem {
         return productName;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public Size getSize() {
+    public String getSize() {
         return size;
     }
 
@@ -46,11 +47,11 @@ public class CartItem {
         this.productName = productName;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public void setSize(Size size) {
+    public void setSize(String size) {
         this.size = size;
     }
 

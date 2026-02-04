@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javax.persistence.PersistenceException;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -211,15 +212,26 @@ public class DBImplementation implements ClassDAO {
     }
 
     public void updateUser(User user) {
-        Transaction tx = session.beginTransaction();
-        session.update(user);
-        tx.commit();
-    }
+        Session session = null;
+        Transaction tx = null;
 
-    public void deleteUser(User user) {
-        Transaction tx = session.beginTransaction();
-        session.delete(user);
-        tx.commit();
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+
+            User mergedUser = (User) session.merge(user);
+
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
     }
 
     public void saveUser(User user) {
@@ -267,52 +279,62 @@ public class DBImplementation implements ClassDAO {
         tx.commit();
     }
 
+    public void saveProductSizes(Product product, List<String> sizeLabels, int initialStock) {
+        Transaction tx = session.beginTransaction();
+        session.save(product);
+
+        for (String label : sizeLabels) {
+            Size size = new Size(label, initialStock, product);
+            session.save(size);
+        }
+
+        tx.commit();
+    }
+
     public void updateProduct(Product product) {
         Transaction tx = session.beginTransaction();
         session.update(product);
         tx.commit();
     }
-    
+
     public void deleteProduct(Product product) {
         Transaction tx = session.beginTransaction();
         session.delete(product);
         tx.commit();
     }
-    
-    
+
     public void saveCompany(Company company) {
         Transaction tx = session.beginTransaction();
         session.save(company);
         tx.commit();
     }
-    
-     public void updateCompany(Company company) {
+
+    public void updateCompany(Company company) {
         Transaction tx = session.beginTransaction();
         session.update(company);
         tx.commit();
     }
-     
+
     public void deleteCompany(Company company) {
         Transaction tx = session.beginTransaction();
         session.delete(company);
         tx.commit();
     }
 
-    
     public List<Product> findProductsByCompany(Company company) {
         Query query = session.createQuery(
-            "from Product p where p.company = :company"
+                "from Product p where p.company = :company"
         );
         query.setParameter("company", company);
         return query.list();
     }
-    
+
     public List<Size> findProductSizes(Product product) {
         Query query = session.createQuery("from Size s WHERE s.product = :product");
         query.setParameter("product", product);
         return query.list();
     }
-    
+
     public Size modifySize(Size size, String newLabel, int newStock) {
         Transaction tx = session.beginTransaction();
         size.setLabel(newLabel);
@@ -321,7 +343,7 @@ public class DBImplementation implements ClassDAO {
         tx.commit();
         return size;
     }
-    
+
     public Size createSize(String label, int stock, Product product) {
         Transaction tx = session.beginTransaction();
         Size size = new Size(label, stock, product);
@@ -329,7 +351,7 @@ public class DBImplementation implements ClassDAO {
         tx.commit();
         return size;
     }
-    
+
     public void deleteSize(Size size) {
         Transaction tx = session.beginTransaction();
         session.delete(size);
@@ -340,28 +362,39 @@ public class DBImplementation implements ClassDAO {
         Query query = session.createQuery("FROM Company");
         return query.list();
     }
-    
+
+    public List<User> findAllUsers() {
+        Query query = session.createQuery("FROM User");
+        return query.list();
+    }
+
+    public Company findCompanyByName(String name) {
+        Query query = session.createQuery("FROM Company c WHERE c.name = :name");
+        query.setParameter("name", name);
+        return (Company) query.list().get(0);
+    }
+
     public List<Purchase> findSizePurchases(Size size) {
         Query query = session.createQuery("FROM Purchase p WHERE p.size = :size");
         query.setParameter("size", size);
         return query.list();
     }
-    
+
     public List<Purchase> findProductPurchases(Product product) {
         List<Purchase> size_purchases = new ArrayList<>();
-        
+
         Query query = session.createQuery("FROM Size s WHERE s.product = :product");
         query.setParameter("product", product);
         List<Size> sizes = query.list();
-        
-        for(Size s:sizes) {
+
+        for (Size s : sizes) {
             query = session.createQuery("FROM Purchase p WHERE p.size = :size");
             query.setParameter("size", s);
             List<Purchase> purchases = query.list();
-            
+
             size_purchases.addAll(purchases);
         }
-        
+
         return size_purchases;
     }
 }

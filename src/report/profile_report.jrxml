@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC
+    "-//JasperReports//DTD JasperReport//EN"
+    "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport
+    name="user_report"
+    pageWidth="595"
+    pageHeight="842"
+    columnWidth="555"
+    leftMargin="20"
+    rightMargin="20"
+    topMargin="20"
+    bottomMargin="20">
+
+    <!-- CAMPOS -->
+    <field name="username" class="java.lang.String"/>
+    <field name="password" class="java.lang.String"/>
+    <field name="email" class="java.lang.String"/>
+    <field name="name" class="java.lang.String"/>
+    <field name="telephone" class="java.lang.String"/>
+    <field name="surname" class="java.lang.String"/>
+    <field name="gender" class="java.lang.String"/>
+    <field name="cardNumber" class="java.lang.String"/>
+
+    <!-- TÍTULO -->
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="30"/>
+                <textElement textAlignment="Center">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[User Report]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <!-- DETALLE -->
+    <detail>
+        <band height="240">
+
+            <!-- USERNAME -->
+            <staticText>
+                <reportElement x="0" y="0" width="150" height="20"/>
+                <text><![CDATA[Username:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="160" y="0" width="395" height="20"/>
+                <textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
+            </textField>
+
+            <!-- PASSWORD -->
+            <staticText>
+                <reportElement x="0" y="25" width="150" height="20"/>
+                <text><![CDATA[Password:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="160" y="25" width="395" height="20"/>
+                <textFieldExpression><![CDATA[$F{password}]]></textFieldExpression>
+            </textField>
+
+            <!-- EMAIL -->
+            <staticText>
+                <reportElement x="0" y="50" width="150" height="20"/>
+                <text><![CDATA[Email:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="160" y="50" width="395" height="20"/>
+                <textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+            </textField>
+
+            <!-- NAME -->
+            <staticText>
+                <reportElement x="0" y="75" width="150" height="20"/>
+                <text><![CDATA[Name:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="160" y="75" width="395" height="20"/>
+                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+            </textField>
+
+            <!-- SURNAME -->
+            <staticText>
+                <reportElement x="0" y="100" width="150" height="20"/>
+                <text><![CDATA[Surname:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="160" y="100" width="395" height="20"/>
+                <textFieldExpression><![CDATA[$F{surname}]]></textFieldExpression>
+            </textField>
+
+            <!-- TELEPHONE -->
+            <staticText>
+                <reportElement x="0" y="125" width="150" height="20"/>
+                <text><![CDATA[Telephone:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="160" y="125" width="395" height="20"/>
+                <textFieldExpression><![CDATA[$F{telephone}]]></textFieldExpression>
+            </textField>
+
+            <!-- GENDER -->
+            <staticText>
+                <reportElement x="0" y="150" width="150" height="20"/>
+                <text><![CDATA[Gender:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="160" y="150" width="395" height="20"/>
+                <textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+            </textField>
+
+            <!-- CARD NUMBER -->
+            <staticText>
+                <reportElement x="0" y="175" width="150" height="20"/>
+                <text><![CDATA[Card Number:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="160" y="175" width="395" height="20"/>
+                <textFieldExpression><![CDATA[$F{cardNumber}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

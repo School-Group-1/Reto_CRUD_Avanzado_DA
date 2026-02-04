@@ -10,9 +10,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import static java.lang.String.valueOf;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,15 +38,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.CartItem;
 import model.Company;
 import model.DBImplementation;
 import model.Product;
@@ -54,37 +61,35 @@ import model.Profile;
  * @author 2dami
  */
 public class ShopWindowController implements Initializable {
-
+    private ArrayList<CartItem> talis;
     @FXML
-    private TableView<Product> CartTable;
+    private TableView<CartItem> CartTable;
     @FXML
     private Button btnEmptyCart;
     @FXML
     private Button btnBuy;
-    @FXML
-    private Button btnaddToCart;
     
-    private File fichE;
+    private File fichC;
     private ArrayList<Product> Items;
     
     public ArrayList Cart;
     
     @FXML
     private Button btnCompanies;
-    public ObservableList<Product> carrito;
+    public ObservableList<CartItem> carrito;
     @FXML
     private Button btnUser;
     @FXML
     private Button btnStore;
     @FXML
     private VBox productcardList;
-  
+    
     @FXML
-    private TableColumn<?, ?> tcAmout;
+    private TableColumn<CartItem, Integer> tcAmout;
     @FXML
-    private TableColumn<?, ?> tcItem;
+    private TableColumn<CartItem, String> tcItem;
     @FXML
-    private TableColumn<?, ?> tcPrice;
+    private TableColumn<CartItem, String> tcPrice;
 
     private String uname;
     /**
@@ -93,6 +98,8 @@ public class ShopWindowController implements Initializable {
     private Profile profile;
     
     private Controller cont;
+    @FXML
+    private MenuItem manual_open;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -104,17 +111,25 @@ public class ShopWindowController implements Initializable {
         this.profile = profile;
         this.cont = cont;
 
+    
+        
+        tcAmout.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        tcItem.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        tcPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        CartTable.getColumns().addAll(tcAmout, tcItem, tcPrice);
+        CartTable.setItems(carrito);
         System.out.println("Perfil: " + profile);
         System.out.println("Controller: " + cont);
-
+        talis =new ArrayList<CartItem>();
         //Hacer que Items muestre Productos de la base de datos en la vista 
         // System.out.println(cont);
         uname = profile.getName();
         List<Product> products = cont.findAllProducts();
-        /*if(fichE.exists()){
-            if (fichE.getName().contains(uname)){
+        /*if(fichC.exists()){
+            if (fichC.getName().contains(uname)){
                 try {
-			ois=new ObjectInputStream(new FileInputStream(fichE));
+			ois=new ObjectInputStream(new FileInputStream(fichC));
                 } catch (FileNotFoundException e) { //Excepcion no se ha encontrado el Fichero
 				e.printStackTrace();
 		} catch (IOException e) { // Excepcion error al acceder al fichero
@@ -122,7 +137,7 @@ public class ShopWindowController implements Initializable {
 		}
                 try {
 			System.out.println("\n[MULTIMEDIA: PELICULAS]");
-			for (int i=0;i<Utilidades.calculoFichero(fichE);i++) {
+			for (int i=0;i<Utilidades.calculoFichero(fichC);i++) {
 			Media peli=(Media)ois.readObject();
 			if(peli instanceof Pelicula) {
                             System.out.println(peli.toString());A
@@ -130,7 +145,7 @@ public class ShopWindowController implements Initializable {
                     }
                     ois.close();
 		try {
-			ois=new ObjectInputStream(new FileInputStream(ficheroMedia));
+			ois=new ObjectInputStream(new FileInputStream(fichC));
     		} catch (FileNotFoundException e) { //Excepcion no se ha encontrado el Fichero
 			e.printStackTrace();
 		} catch (IOException e) { // Excepcion error al acceder al fichero
@@ -144,7 +159,7 @@ public class ShopWindowController implements Initializable {
             CartTable.setItems(carrito);
             }
         }else{
-            fichE=new File("Carrito"+uname+".dat");
+            fichC=new File("Carrito"+uname+".dat");
         }*/
         for (Product prod : products) {
             Node card = createProductCard(prod);
@@ -154,6 +169,9 @@ public class ShopWindowController implements Initializable {
   
     @FXML
     private void emptyList(ActionEvent event) {
+        talis.clear();
+        carrito = FXCollections.observableArrayList(talis);
+        CartTable.setItems(carrito);
     }
 
     @FXML
@@ -217,7 +235,7 @@ public class ShopWindowController implements Initializable {
 
         // Image
         ImageView imageView = new ImageView(
-                new Image(getClass().getResourceAsStream(product.getImage()))
+                loadImage(product.getImage())
         );
         imageView.setFitWidth(90);
         imageView.setFitHeight(90);
@@ -265,7 +283,14 @@ public class ShopWindowController implements Initializable {
 
     private void addToCart( Product product) {
         
+        System.out.println("añadiendo a carrito");
+        CartItem nuevoItem= new CartItem(product,"xl");
+        talis.add(nuevoItem);
         
+        carrito = FXCollections.observableArrayList(talis);
+        CartTable.setItems(carrito);
+        System.out.println("añadido a carrito\n "+carrito);
+        System.out.println("añadido a carrito\n ");
         /*try {
             ObjectInputStream ois=new ObjectInputStream(new FileInputStream(fichE));
         } catch (FileNotFoundException ex) {
@@ -276,4 +301,30 @@ public class ShopWindowController implements Initializable {
         
         
     }
+    
+    public static Image loadImage(String path) {
+
+        // 1) Classpath resource (starts with /)
+        if (path.startsWith("/")) {
+            InputStream is = Product.class.getResourceAsStream(path);
+            if (is == null) {
+                throw new IllegalArgumentException("Classpath image not found: " + path);
+            }
+            return new Image(is);
+        }
+
+        // 2) File system path (relative or absolute)
+        Path filePath = Paths.get(path);
+
+        if (!Files.exists(filePath)) {
+            throw new IllegalArgumentException("File image not found: " + path);
+        }
+
+        return new Image(filePath.toUri().toString());
+    }
+
+    @FXML
+    private void searcher(KeyEvent event) {
+    }
+
 }

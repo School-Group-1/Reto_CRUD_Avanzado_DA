@@ -6,12 +6,14 @@
 package controller;
 
 import java.util.List;
+import javafx.collections.ObservableList;
 import model.ClassDAO;
 import model.Company;
 import model.Product;
 import model.Profile;
 import model.Purchase;
 import model.Size;
+import model.User;
 
 /**
  * Controller class that handles interaction between the GUI and the database.
@@ -86,6 +88,10 @@ public class Controller {
         dao.saveProduct(product);
     }
     
+    public void saveProductSizes(Product product, List<String> sizeLabels, int initialStock) {
+        dao.saveProductSizes(product, sizeLabels, initialStock);
+    }
+    
     public void deleteProduct(Product product) {
         dao.deleteProduct(product);
     }
@@ -104,6 +110,38 @@ public class Controller {
     
     public List<Company> findAllCompanies() {
         return dao.findAllCompanies();
+    }
+    
+    public ObservableList<User> findAll() {
+        return dao.findAll();
+    }
+    
+    public void saveUser(User user) {
+        dao.saveUser(user);
+    }
+    
+    public void updateUser(User user) {
+        dao.updateUser(user);
+    }
+    
+    public void updateCompany(Company company) {
+        dao.updateCompany(company);
+    }
+    
+    public void saveCompany(Company company) {
+        dao.saveCompany(company);
+    }
+    
+    public void deleteCompany(Company company) {
+        dao.deleteCompany(company);
+    }
+    
+    public List<User> findAllUsers() {
+        return dao.findAllUsers();
+    }
+    
+    public Company findCompanyByName(String name) {
+        return dao.findCompanyByName(name);
     }
     
     public List<Purchase> findSizePurchases(Size size) {
@@ -125,4 +163,5 @@ public class Controller {
     public List<Purchase> findProductPurchases(Product product) {
         return dao.findProductPurchases(product);
     }
+
 }

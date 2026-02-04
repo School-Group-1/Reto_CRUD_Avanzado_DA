@@ -6,8 +6,14 @@
 package view;
 
 import controller.Controller;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -16,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -61,6 +69,9 @@ public class ProductModifyWindowController implements Initializable {
     private Company selectedCompany = null;
     private Product selectedProduct = null;
     private Size selectedSize = null;
+    private Profile profile;
+
+    private static final Logger LOGGER = Logger.getLogger(ProductModifyWindowController.class.getName());
 
     @FXML
     private ComboBox<String> companyCombobox;
@@ -74,32 +85,29 @@ public class ProductModifyWindowController implements Initializable {
     private NumberAxis xAxis;
     @FXML
     private NumberAxis yAxis;
-    
-    private Profile profile;
     @FXML
     private Spinner<Integer> stockCountSpinner;
     @FXML
     private TextField sizeTextField;
+    @FXML
+    private Button users;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        LOGGER.info("**ProductModifyWindow** Initializing Product Modify Window Controller");
     }
-    
+
     //method to receive profile, controller and data
-    public void initData(Profile profile, Controller cont){
-        this.profile=profile;
-        this.cont=cont;
-        
-        System.out.println("Perfil: " + profile);
-        System.out.println("Controller: " + cont);
-        
+    public void initData(Profile profile, Controller cont) {
+        this.profile = profile;
+        this.cont = cont;
+
         // Add companies to the combobox
         List<Company> companies = cont.findAllCompanies();
-        System.out.println(companies);
+        LOGGER.log(Level.INFO, "**ProductModifyWindow** Loaded {0} companies", companies.size());
 
         for (Company comp : companies) {
             companyCombobox.getItems().add(comp.getName());
@@ -107,22 +115,24 @@ public class ProductModifyWindowController implements Initializable {
 
         // Prepare the line chart (https://youtu.be/HWfZPiPu1sI?si=KFfRQ06_IlluRXsj good luck)
         xAxis.setLabel("Days");
-        // Automatically sets the ranges aka size of the x axis
         xAxis.setAutoRanging(true);
 
         yAxis.setLabel("Sales");
-        // Automatically sets the ranges aka size of the x axis
         yAxis.setAutoRanging(true);
 
         linechart.setTitle("Product Sales");
+
+        LOGGER.info("**ProductModifyWindow** Finished loading window data");
     }
-    
+
     @FXML
     private void goToCompanies(ActionEvent event) {
+        LOGGER.info("**ProductModifyWindow** Switching to company window");
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompaniesTable.fxml"));
             Parent root = loader.load();
-            
+
             CompaniesTableController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -133,18 +143,21 @@ public class ProductModifyWindowController implements Initializable {
             Node source = (Node) event.getSource();
             Stage currentStage = (Stage) source.getScene().getWindow();
             currentStage.close();
-
+            
+            LOGGER.info("**ProductModifyWindow** Company window opened successfully");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**ProductModifyWindow** error switching to company window", e);
         }
     }
 
     @FXML
     private void goToUsers(ActionEvent event) {
+        LOGGER.info("**ProductModifyWindow** Switching to users window");
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UserTable.fxml"));
             Parent root = loader.load();
-            
+
             UserTableController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -155,41 +168,47 @@ public class ProductModifyWindowController implements Initializable {
             Node source = (Node) event.getSource();
             Stage currentStage = (Stage) source.getScene().getWindow();
             currentStage.close();
-
+            
+            LOGGER.info("**ProductModifyWindow** Users window opened successfully");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**ProductModifyWindow** error switching to users window", e);
         }
     }
 
     @FXML
     private void selectCompany() {
-        // Resets linechart, sizes, and stock count to be empty
-        // This is becuase no product is selected when a company is first selected
+        LOGGER.info("**ProductModifyWindow** Selecting a company...");
         resetData();
 
         List<Company> companies = cont.findAllCompanies();
         List<Product> products = null;
-        List<Purchase> purchases = null;
         String companyName = companyCombobox.getValue();
         productsVbox.getChildren().clear();
 
         for (Company comp : companies) {
             if (comp.getName().equals(companyName)) {
                 selectedCompany = comp;
+                break;
             }
         }
 
         if (selectedCompany != null) {
             products = cont.findProductsByCompany(selectedCompany);
+            LOGGER.log(Level.INFO, "**ProductModifyWindow** Found {0} products for company {1}", 
+                      new Object[]{products.size(), selectedCompany.getName()});
 
             for (Product prod : products) {
                 Node card = createProductCard(prod);
                 productsVbox.getChildren().add(card);
             }
         }
+
+        LOGGER.log(Level.INFO, "**ProductModifyWindow** Company selected: {0}", selectedCompany != null ? selectedCompany.getName() : "null");
     }
 
     private Node createProductCard(Product product) {
+        LOGGER.log(Level.INFO, "**ProductModifyWindow** Creating card for product: {0}", product.getName());
+
         HBox card = new HBox(15);
         card.setPadding(new Insets(15));
         card.setAlignment(Pos.CENTER_LEFT);
@@ -202,7 +221,7 @@ public class ProductModifyWindowController implements Initializable {
 
         // Image
         ImageView imageView = new ImageView(
-                new Image(getClass().getResourceAsStream(product.getImage()))
+                loadProductImage(product.getImage())
         );
         imageView.setFitWidth(90);
         imageView.setFitHeight(90);
@@ -250,11 +269,13 @@ public class ProductModifyWindowController implements Initializable {
         card.getChildren().addAll(imageView, textBox, rightBox);
         card.setOnMouseClicked(e -> selectProduct(product));
         editButton.setOnMouseClicked(e -> editProductPrice(product, priceSpinner.getValue()));
-        
+
+        LOGGER.info("**ProductModifyWindow** Card successfully created for product");
         return card;
     }
 
     private Button createSizeButton(Size size) {
+        LOGGER.log(Level.INFO, "**ProductModifyWindow** Creating size button for size: {0}", size.getLabel());
         Button sizeButton = new Button(size.getLabel());
 
         sizeButton.setStyle(
@@ -265,20 +286,17 @@ public class ProductModifyWindowController implements Initializable {
                 + "-fx-border-width: 1;"
         );
 
-        // Make the button perfectly circular
         sizeButton.setMaxHeight(Double.MAX_VALUE);
         sizeButton.maxWidthProperty().bind(sizeButton.maxHeightProperty());
-
-        // Center the label
         sizeButton.setAlignment(Pos.CENTER);
-
-        // Optional click event
         sizeButton.setOnAction(e -> selectSize(size));
 
+        LOGGER.info("**ProductModifyWindow** Size button created successfully");
         return sizeButton;
     }
 
     private void selectSize(Size size) {
+        LOGGER.log(Level.INFO, "**ProductModifyWindow** Selecting size: {0}", size.getLabel());
         this.selectedSize = size;
         List<Purchase> purchases = cont.findSizePurchases(size);
 
@@ -286,25 +304,21 @@ public class ProductModifyWindowController implements Initializable {
 
         SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, size.getStock());
         stockCountSpinner.setValueFactory(factory);
-
         factory.setValue(size.getStock());
-        stockCountSpinner.getEditor().setText(
-                String.valueOf(factory.getValue())
-        );
-
+        stockCountSpinner.getEditor().setText(String.valueOf(factory.getValue()));
         sizeTextField.setText(size.getLabel());
+        
+        LOGGER.info("**ProductModifyWindow** Size selected successfully");
     }
 
     private void selectProduct(Product product) {
-        // Resets data from the previous selected product
+        LOGGER.log(Level.INFO, "**ProductModifyWindow** Selecting product: {0}", product.getName());
         resetData();
 
         this.selectedProduct = product;
-
         List<Purchase> purchases = cont.findProductPurchases(product);
         linechart.setData(getPurchasesData(purchases));
 
-        // Add the available sizes
         List<Size> sizes = cont.findProductSizes(product);
         sizesHbox.getChildren().clear();
 
@@ -313,51 +327,45 @@ public class ProductModifyWindowController implements Initializable {
             sizesHbox.getChildren().add(btn);
         }
 
-        // Makes a button to allow the user to add a size and adds it to the end of the list
         Button addSizeButton = new Button("+");
-
         addSizeButton.setStyle(
-                "-fx-background-color: white;"
-                + "-fx-background-radius: 100%;"
-                + "-fx-border-radius: 100%;"
-                + "-fx-border-color: green;"
-                + "-fx-border-width: 1;"
+                "-fx-background-color: white;" +
+                "-fx-background-radius: 100%;" +
+                "-fx-border-radius: 100%;" +
+                "-fx-border-color: green;" +
+                "-fx-border-width: 1;"
         );
-
         addSizeButton.setMaxHeight(Double.MAX_VALUE);
         addSizeButton.maxWidthProperty().bind(addSizeButton.maxHeightProperty());
-
         addSizeButton.setAlignment(Pos.CENTER);
 
         addSizeButton.setOnAction(e -> {
             selectedSize = null;
-
-            // Reset the fields to let the user fill them in and add a size
             sizeTextField.setText("");
             stockCountSpinner.getEditor().clear();
-
             SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 1);
             stockCountSpinner.setValueFactory(factory);
-
             factory.setValue(1);
-            stockCountSpinner.getEditor().setText(
-                    String.valueOf(factory.getValue())
-            );
+            stockCountSpinner.getEditor().setText("1");
         });
 
         sizesHbox.getChildren().add(addSizeButton);
+        LOGGER.info("**ProductModifyWindow** Product selected successfully");
     }
-    
 
     private void resetData() {
+        LOGGER.info("**ProductModifyWindow** Resetting data...");
         linechart.getData().clear();
         sizesHbox.getChildren().clear();
         stockCountSpinner.getEditor().clear();
         sizeTextField.setText("");
+        LOGGER.info("**ProductModifyWindow** Data reset complete");
     }
 
     @FXML
-    private void logout(ActionEvent event){
+    private void logout(ActionEvent event) {
+        LOGGER.info("**ProductModifyWindow** Switching to login window");
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LogInWindow.fxml"));
             Parent root = loader.load();
@@ -370,48 +378,27 @@ public class ProductModifyWindowController implements Initializable {
             Stage currentStage = (Stage) source.getScene().getWindow();
             currentStage.close();
 
+            LOGGER.info("**ProductModifyWindow** Login window opened successfully");
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void changeWindow(String fxml, ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
-            currentStage.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "**ProductModifyWindow** error switching to login window", e);
         }
     }
 
     private ObservableList<XYChart.Series<Number, Number>> getPurchasesData(List<Purchase> purchases) {
+        LOGGER.log(Level.INFO, "**ProductModifyWindow** Loading chart data for {0} purchases", purchases.size());
+
         ObservableList<XYChart.Series<Number, Number>> data = FXCollections.observableArrayList();
         HashMap<Size, ArrayList<Purchase>> sizes = new HashMap<>();
 
-        // Gets all of the sizes purchased
         for (Purchase p : purchases) {
             Size size = p.getSize();
             sizes.putIfAbsent(size, new ArrayList<>());
             sizes.get(size).add(p);
         }
 
-        // Maps points, for every product the first date of purchase will always be the first point
-        // The last date will be the last point
-        // Any days in between the first and last will include the amount purchased, wether its above 0 or not
         for (Map.Entry<Size, ArrayList<Purchase>> entry : sizes.entrySet()) {
             Size size = entry.getKey();
             ArrayList<Purchase> size_purchases = entry.getValue();
-
-            // Sorts by date of purchase
             size_purchases.sort(Comparator.comparing(Purchase::getTimeOfPurchase));
 
             LocalDate firstDate = purchases.get(0).getTimeOfPurchase();
@@ -420,31 +407,27 @@ public class ProductModifyWindowController implements Initializable {
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
             series.setName(size.getProduct().getName() + "-" + size.getLabel());
 
-            // Adds all the days between the first and last purchase
             long totalDays = ChronoUnit.DAYS.between(firstDate, lastDate);
-
             for (long day = 0; day <= totalDays; day++) {
-                // Gets the current date in the loop
                 LocalDate currentDate = firstDate.plusDays(day);
-
                 int counter = 0;
                 for (Purchase p : size_purchases) {
                     if (p.getTimeOfPurchase().equals(currentDate)) {
                         counter += 1;
                     }
                 }
-
                 series.getData().add(new XYChart.Data<>(day, counter));
             }
-
             data.add(series);
         }
 
+        LOGGER.info("**ProductModifyWindow** Chart data loaded successfully");
         return data;
     }
 
     @FXML
     private void updateCreateSize(ActionEvent event) {
+        LOGGER.info("**ProductModifyWindow** Updating or creating size...");
         int newStock = stockCountSpinner.getValue();
         String newLabel = sizeTextField.getText().trim();
 
@@ -454,10 +437,13 @@ public class ProductModifyWindowController implements Initializable {
             alert.setContentText("Please insert valid data for the new size.");
             alert.setHeaderText("Insert valid data");
             alert.showAndWait();
+
+            LOGGER.info("**ProductModifyWindow** Invalid size data provided");
         } else {
-            //Updates size one is selected, creates it if not
             if (selectedSize != null) {
                 cont.modifySize(selectedSize, newLabel, newStock);
+                LOGGER.log(Level.INFO, "**ProductModifyWindow** Size modified: {0} stock={1}", 
+                          new Object[]{newLabel, newStock});
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Size stock modification confirmation");
@@ -466,14 +452,15 @@ public class ProductModifyWindowController implements Initializable {
                 alert.showAndWait();
             } else if (selectedProduct != null) {
                 selectedSize = cont.createSize(newLabel, newStock, selectedProduct);
+                LOGGER.log(Level.INFO, "**ProductModifyWindow** Size created: {0} stock={1}", 
+                          new Object[]{newLabel, newStock});
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Size has been created");
                 alert.setContentText("The new size has been added to the product.");
-                alert.setHeaderText("Select a size");
+                alert.setHeaderText("Size created");
                 alert.showAndWait();
 
-                // Refreshes data to update the size list
                 resetData();
                 selectProduct(selectedProduct);
                 selectSize(selectedSize);
@@ -483,9 +470,12 @@ public class ProductModifyWindowController implements Initializable {
 
     @FXML
     private void deleteProduct(ActionEvent event) {
+        LOGGER.info("**ProductModifyWindow** Deleting product...");
+
         if (selectedProduct != null) {
             cont.deleteProduct(selectedProduct);
-
+            LOGGER.log(Level.INFO, "**ProductModifyWindow** Product deleted: {0}", selectedProduct.getName());
+            
             selectedProduct = null;
             selectedSize = null;
 
@@ -495,7 +485,6 @@ public class ProductModifyWindowController implements Initializable {
             alert.setHeaderText("Product deletion");
             alert.showAndWait();
 
-            // Refreshes the product list and resets linechart, size list, etc.
             selectCompany();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -503,18 +492,43 @@ public class ProductModifyWindowController implements Initializable {
             alert.setContentText("Please select a product to delete.");
             alert.setHeaderText("No product selected");
             alert.showAndWait();
+            
+            LOGGER.info("**ProductModifyWindow** No product selected to delete");
         }
     }
 
-    // TODO: REDIRECT TO CREATE PRODUCT FORM ONCE FINISHED
     @FXML
     private void createItem(ActionEvent event) {
+        LOGGER.info("**ProductModifyWindow** Switching to create item window");
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProductCreationWindow.fxml"));
+            Parent root = loader.load();
+
+            ProductCreationWindowController viewController = loader.getController();
+            viewController.initData(profile, cont);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Node source = (Node) event.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
+            
+            LOGGER.info("**ProductCreationWindow** Create item window opened successfully");
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "**ProductModifyWindow** error switching to create item window", e);
+        }
     }
 
     @FXML
     private void deleteSize(ActionEvent event) {
+        LOGGER.info("**ProductModifyWindow** Deleting size...");
+
         if (selectedSize != null) {
             cont.deleteSize(selectedSize);
+            LOGGER.log(Level.INFO, "**ProductModifyWindow** Size deleted: {0}", selectedSize.getLabel());
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Size deletion confirmation");
@@ -531,25 +545,72 @@ public class ProductModifyWindowController implements Initializable {
             alert.setContentText("No size has been selected to delete.");
             alert.setHeaderText("Select a size to delete.");
             alert.showAndWait();
+            
+            LOGGER.info("**ProductModifyWindow** No size selected to delete");
         }
     }
 
     private void editProductPrice(Product product, double newPrice) {
-        if(product.getPrice() == newPrice) {
+        LOGGER.log(Level.INFO, "**ProductModifyWindow** Editing price for product: {0} new price={1}", 
+                  new Object[]{product.getName(), newPrice});
+
+        if (product.getPrice() == newPrice) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Product price change warning");
             alert.setContentText("The products price is the same as before");
             alert.setHeaderText("Same price as before");
             alert.showAndWait();
-        }else{
+
+            LOGGER.info("**ProductModifyWindow** Price unchanged for product");
+        } else {
             product.setPrice(newPrice);
             cont.updateProduct(product);
-            
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Products price modification");
             alert.setContentText("The products price has been modified");
             alert.setHeaderText("Product price modified");
             alert.showAndWait();
+
+            LOGGER.log(Level.INFO, "**ProductModifyWindow** Price updated: {0} -> {1}", 
+                      new Object[]{product.getName(), newPrice});
+        }
+    }
+
+    public static Image loadProductImage(String path) {
+        LOGGER.log(Level.INFO, "**ProductModifyWindow** Loading product image: {0}", path);
+
+        if (path.startsWith("/")) {
+            InputStream is = Product.class.getResourceAsStream(path);
+            if (is == null) {
+                LOGGER.log(Level.SEVERE, "**ProductModifyWindow** Image path not found: {0}", path);
+            }
+            return new Image(is);
+        }
+
+        Path filePath = Paths.get(path);
+        if (!Files.exists(filePath)) {
+            LOGGER.log(Level.SEVERE, "**ProductModifyWindow** Image file does not exist: {0}", path);
+        }
+
+        return new Image(filePath.toUri().toString());
+    }
+
+    @FXML
+    private void openUserManual(ActionEvent event) {
+        LOGGER.info("**ProductModifyWindow** Opening user manual");
+        
+        try {
+            File pdf = new File("pdfs/User_Manual.pdf");
+            if (!pdf.exists()) {
+                LOGGER.info("**ProductModifyWindow** User manual file not found: pdfs/User_Manual.pdf");
+                return;
+            }
+
+            Desktop.getDesktop().open(pdf);
+            LOGGER.info("**ProductModifyWindow** User manual opened successfully");
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, "**ProductModifyWindow** error opening user manual", ex);
         }
     }
 }
