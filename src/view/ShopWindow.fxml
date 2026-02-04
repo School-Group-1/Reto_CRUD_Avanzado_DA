@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ShopWindowController">
+<GridPane prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ShopWindowController">
    <columnConstraints>
       <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
       <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="230.0" />
@@ -46,7 +46,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="Help">
                <items>
-                  <MenuItem fx:id="manual_open" mnemonicParsing="false" text="Open manual" />
+                  <MenuItem mnemonicParsing="false" onAction="#manual_open" text="Open manual" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false">
@@ -73,7 +73,7 @@
                            </rowConstraints>
                            <children>
                               <Label text="Your Cart:" textFill="#0f954a" />
-                              <ScrollPane GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <ScrollPane maxWidth="1.7976931348623157E308" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <content>
                                     <TableView fx:id="CartTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0">
                                        <columns>

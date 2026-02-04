@@ -397,4 +397,9 @@ public class DBImplementation implements ClassDAO {
 
         return size_purchases;
     }
+
+    @Override
+    public void lowerStock(CartItem ci) {
+        Query query = session.createQuery("")
+    }
 }

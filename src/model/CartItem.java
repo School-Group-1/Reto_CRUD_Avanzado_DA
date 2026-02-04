@@ -14,13 +14,19 @@ public class CartItem {
     private String productName;
     private String price;
     private String size;
+    private final int id;
 
-    public CartItem( Product product, String size) {
+    public CartItem( Product product, Size size) {
         this.amount = 1;
         this.productName = product.getName();
         this.price = product.getPrice()+" €";
-        this.size = size;
+        this.size = size.getLabel();
+        this.id = size.getSizeId();
 
+    }
+
+    public int getId() {
+        return id;
     }
     
     public int getAmount() {

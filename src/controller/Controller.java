@@ -7,6 +7,7 @@ package controller;
 
 import java.util.List;
 import javafx.collections.ObservableList;
+import model.CartItem;
 import model.ClassDAO;
 import model.Company;
 import model.Product;
@@ -162,6 +163,10 @@ public class Controller {
     
     public List<Purchase> findProductPurchases(Product product) {
         return dao.findProductPurchases(product);
+    }
+
+    public void lowerStock(CartItem ci) {
+        dao.lowerStock(ci);
     }
 
 }
