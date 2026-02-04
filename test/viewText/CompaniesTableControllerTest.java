@@ -67,13 +67,21 @@ public class CompaniesTableControllerTest extends ApplicationTest {
         System.out.println("\nPASO 7: Probando menú contextual...");
         testContextMenu();
         
-        // ===== 8. MENÚ HELP =====
-        System.out.println("\nPASO 8: Probando menú Help...");
-        testHelpMenu();
-        
-        // ===== 9. LOGOUT =====
-        System.out.println("\nPASO 9: Haciendo logout...");
+        // ===== 8. LOGOUT =====
+        System.out.println("\nPASO 8: Haciendo logout...");
         doLogout();
+        
+        // ===== 9. LOGIN =====
+        System.out.println("\nPASO 9: Login como admin...");
+        doLogin();
+        
+        // ===== 10. NAVEGAR A COMPANIES TABLE =====
+        System.out.println("\nPASO 10: Navegando a Companies Table...");
+        navigateToCompaniesTable();
+        
+        // ===== 11. MENÚ HELP =====
+        System.out.println("\nPASO 11: Probando menú Help...");
+        testHelpMenu();
         
         System.out.println("\n=== TEST COMPLETADO EXITOSAMENTE ===");
     }

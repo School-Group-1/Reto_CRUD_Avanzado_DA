@@ -77,14 +77,25 @@ public class CompanyProductsControllerTest extends ApplicationTest{
         System.out.println("\nPASO 6: Probando menú contextual...");
         testContextMenu();
         
-        // ===== 7. MENÚ HELP =====
-        System.out.println("\nPASO 7: Probando menú Help...");
-       /* testHelpMenu();*/
-        
-        // ===== 8. LOGOUT =====
-        System.out.println("\nPASO 8: Haciendo logout...");
+        // ===== 7. LOGOUT =====
+        System.out.println("\nPASO 7: Haciendo logout...");
         doLogout();
         
+        System.out.println("\nPASO 8: Login como user....");
+        doLogin();
+        
+        // ===== 9. NAVEGAR A COMPANY WINDOW =====
+        System.out.println("\nPASO 9: Navegando a Company Window...");
+        navigateToCompanyWindow();
+        
+        // ===== 10. ENTRAR EN UNA COMPAÑÍA =====
+        System.out.println("\nPASO 10: Entrando en una compañía...");
+        clickInCompany();
+        
+        // ===== 11. MENÚ HELP =====
+        System.out.println("\nPASO 11: Probando menú Help...");
+       testHelpMenu();      
+                
         System.out.println("\n=== TEST COMPLETADO EXITOSAMENTE ===");
     }
 
@@ -356,7 +367,7 @@ public class CompanyProductsControllerTest extends ApplicationTest{
         }
     }
 
-    /*private void testHelpMenu() {
+    private void testHelpMenu() {
         System.out.println("\n--- Probando menú Help ---");
         
         // Hacer clic en el menú Help (está en la parte superior derecha)
@@ -373,7 +384,7 @@ public class CompanyProductsControllerTest extends ApplicationTest{
         
         // Si hay un diálogo de error porque no existe el PDF, manejarlo
         handleAlert();
-    }*/
+    }
 
     private void doLogout() {
         System.out.println("\n--- Haciendo logout ---");

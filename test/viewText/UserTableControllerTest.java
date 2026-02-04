@@ -64,15 +64,23 @@ public class UserTableControllerTest extends ApplicationTest {
         
         // ===== 7. MENÚ CONTEXTUAL =====
         System.out.println("\nPASO 7: Probando menú contextual...");
-        testContextMenu();
+        testContextMenu();      
         
-        // ===== 8. MENÚ HELP =====
-        System.out.println("\nPASO 8: Probando menú Help...");
-        testHelpMenu();
-        
-        // ===== 9. LOGOUT =====
-        System.out.println("\nPASO 9: Haciendo logout...");
+        // ===== 8. LOGOUT =====
+        System.out.println("\nPASO 8: Haciendo logout...");
         doLogout();
+        
+        // ===== 9. LOGIN =====
+        System.out.println("\nPASO 9: Login como admin...");
+        doLogin();
+        
+        // ===== 10. NAVEGAR A USERTABLE =====
+        System.out.println("\nPASO 10: Navegando a UserTable...");
+        navigateToUserTable();
+        
+        // ===== 11. MENÚ HELP =====
+        System.out.println("\nPASO 11: Probando menú Help...");
+        testHelpMenu();
         
         System.out.println("\n=== TEST COMPLETADO EXITOSAMENTE ===");
     }
