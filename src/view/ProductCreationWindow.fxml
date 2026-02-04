@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -61,6 +62,9 @@
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToCompanies" prefHeight="40.0" prefWidth="239.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies" VBox.vgrow="ALWAYS">
                <graphic>
@@ -70,15 +74,21 @@
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToUsers" prefHeight="37.0" prefWidth="236.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Users">
                <graphic>
                   <ImageView fitHeight="49.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/shop-xxl.png" />
+                        <Image url="@../images/group-24.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Region prefHeight="400.0" prefWidth="186.0" VBox.vgrow="ALWAYS" />
             <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="40.0" prefWidth="238.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Logout" VBox.vgrow="ALWAYS">
@@ -92,6 +102,9 @@
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </VBox>
@@ -105,6 +118,9 @@
          <font>
             <Font size="36.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <GridPane style="-fx-background-color: white; -fx-background-radius: 99;" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="6">
         <columnConstraints>
@@ -225,6 +241,9 @@
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="20.0" top="20.0" />
          </GridPane.margin>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <GridPane style="-fx-background-color: white; -fx-background-radius: 99;" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <columnConstraints>
@@ -240,6 +259,9 @@
                <GridPane.margin>
                   <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                </GridPane.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ComboBox>
          </children>
          <GridPane.margin>
@@ -324,6 +346,9 @@
          <GridPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </GridPane.margin>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
    </children>
 </GridPane>
