@@ -28,12 +28,15 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import model.Profile;
+import model.User;
 import report.ReportService;
 
 /**
  * Controller class for the Profile window.
- * 
- * Handles navigation to store, companies, profile modification, deletion, logout, and opening of user manual. Also manages context menu actions and user report generation.
+ *
+ * Handles navigation to store, companies, profile modification, deletion,
+ * logout, and opening of user manual. Also manages context menu actions and
+ * user report generation.
  */
 public class ProfileWindowController implements Initializable {
 
@@ -183,7 +186,10 @@ public class ProfileWindowController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DeleteConfirmationView.fxml"));
             Parent root = loader.load();
             DeleteConfirmationViewController viewController = loader.getController();
-            viewController.initData(profile, cont);
+            viewController.initData(null, cont);
+            viewController.setUserToDelete((User) profile);
+            Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            viewController.setParentStage(parentStage);
 
             Stage modal = new Stage();
             modal.initOwner(((Node) event.getSource()).getScene().getWindow());
@@ -260,5 +266,10 @@ public class ProfileWindowController implements Initializable {
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "**ProfileWindow** Error opening user manual", ex);
         }
+    }
+
+    private void onUserDeleted() {
+        LOGGER.info("**ProfileWindow** Usuario eliminado confirmado por modal, cerrando ventana padre");
+        ((Stage) label_Username.getScene().getWindow()).close();
     }
 }

@@ -42,7 +42,7 @@
         <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <VBox focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="0.0" spacing="20.0" style="-fx-border-color: transparent black transparent transparent;" GridPane.rowSpan="2147483647">
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="0.0" spacing="20.0" style="-fx-border-color: transparent black transparent transparent;" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
             <children>
                 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                     <children>
@@ -92,7 +92,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                 </Button>
-                <Region prefHeight="348.0" prefWidth="0.0">
+                <Region prefHeight="400.0" prefWidth="186.0" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
