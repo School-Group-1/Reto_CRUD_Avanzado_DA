@@ -518,19 +518,19 @@ public class ShopWindowController implements Initializable {
     private void addToCart(Product product) {
         Size sz = null;
 
-// Crear lista de opciones (strings)
+
         List<String> sizeLabels = new ArrayList<>();
         for (Size s : product.getSizes()) {
             sizeLabels.add(s.getLabel());
         }
 
-// Crear ChoiceDialog
+
         ChoiceDialog<String> dialog = new ChoiceDialog<>(sizeLabels.get(0), sizeLabels);
         dialog.setTitle("Choose Size");
         dialog.setHeaderText("What size do you want?");
         dialog.setContentText("Select a size:");
 
-// Mostrar y obtener resultado
+
         String selectedLabel = dialog.showAndWait().orElse(null);
 
         if (selectedLabel != null) {
@@ -545,7 +545,7 @@ public class ShopWindowController implements Initializable {
 
         System.out.println("añadiendo a carrito");
         CartItem nuevoItem = new CartItem(product, sz);
-
+        
         talis.add(nuevoItem);
         if (fichC.exists()) {
             try {
