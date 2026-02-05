@@ -48,4 +48,5 @@ public interface ClassDAO {
     List<User> findAllUsers();
     List<Purchase> findSizePurchases(Size size);
     List<Purchase> findProductPurchases(Product product);
+    User findUserByUsername(String username);
 }
