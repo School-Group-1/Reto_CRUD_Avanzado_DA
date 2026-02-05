@@ -5,111 +5,79 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" prefHeight="700.0" prefWidth="400.0" style="-fx-background-color: #0f954a;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SignUpWindowController">
+<GridPane alignment="CENTER" style="-fx-background-color: #0f954a;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SignUpWindowController">
     <columnConstraints>
-        <ColumnConstraints prefWidth="400.0" />
+        <ColumnConstraints hgrow="ALWAYS" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints />
-        <RowConstraints />
+        <RowConstraints vgrow="ALWAYS" />
     </rowConstraints>
-    <children>
-
-        <ImageView fitHeight="39.0" fitWidth="500.0" preserveRatio="true" GridPane.rowIndex="0">
+    <VBox alignment="CENTER" GridPane.rowIndex="0">
+        <ImageView fitHeight="40" preserveRatio="true" GridPane.rowIndex="0">
             <image>
                 <Image url="@../images/LogoRetoDinAlt.png" />
             </image>
             <GridPane.margin>
-                <Insets left="110.0" top="10.0" />
+                <Insets bottom="10" top="10" />
             </GridPane.margin>
         </ImageView>
-
-        <Pane prefHeight="620.0" prefWidth="360.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 35; -fx-border-color: black; -fx-background-radius: 35;" GridPane.rowIndex="1">
-            <children>
-
-                <Label alignment="CENTER" layoutY="20.0" prefWidth="360.0" text="Create your account" textFill="#0f954a">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
-
-                <Label alignment="CENTER" layoutY="65.0" prefWidth="360.0" text="Username">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="textFieldUsername" alignment="CENTER" layoutX="25.0" layoutY="90.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
-
-                <Label alignment="CENTER" layoutY="125.0" prefWidth="360.0" text="Name">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="textFieldName" alignment="CENTER" layoutX="25.0" layoutY="150.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
-
-                <Label alignment="CENTER" layoutY="185.0" prefWidth="360.0" text="Surname">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="textFieldSurname" alignment="CENTER" layoutX="25.0" layoutY="210.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
-
-                <Label alignment="CENTER" layoutY="245.0" prefWidth="360.0" text="Email">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="textFieldEmail" alignment="CENTER" layoutX="25.0" layoutY="270.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
-
-                <Label alignment="CENTER" layoutY="305.0" prefWidth="360.0" text="Telephone">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="textFieldTelephone" alignment="CENTER" layoutX="25.0" layoutY="330.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
-
-                <Label alignment="CENTER" layoutY="365.0" prefWidth="360.0" text="Card number">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="textFieldCardN" alignment="CENTER" layoutX="25.0" layoutY="390.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
-
-                <Label alignment="CENTER" layoutY="425.0" prefWidth="360.0" text="Password">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="textFieldPassword" alignment="CENTER" layoutX="25.0" layoutY="450.0" prefWidth="310.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: black;" />
-
-                <RadioButton fx:id="rButtonM" layoutX="70.0" layoutY="485.0" text="Man" />
-                <RadioButton fx:id="rButtonW" layoutX="150.0" layoutY="485.0" text="Woman" />
-                <RadioButton fx:id="rButtonO" layoutX="245.0" layoutY="485.0" text="Other" />
-                
-                <Label fx:id="errorLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="59.0" layoutY="514.0" prefHeight="17.0" prefWidth="253.0" textFill="RED" />
-
-                <Button fx:id="buttonSignUp" layoutX="115.0" layoutY="538.0" onAction="#signup" prefWidth="133.0" style="-fx-background-color: white; -fx-border-color: black; -fx-font-weight: bold;" text="Sign Up" />
-
-                <Label layoutX="77.0" layoutY="569.0" text="Already have an account?">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <Button fx:id="buttonLogIn" layoutX="221.0" layoutY="565.0" onAction="#login" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-text-fill: blue; -fx-cursor: hand;" text="Log In" />
-
-            </children>
-        </Pane>
-
-    </children>
+    </VBox>
+    <VBox alignment="CENTER" maxWidth="400" spacing="10" style="-fx-background-color: white; -fx-background-radius: 35; -fx-border-radius: 35; -fx-border-color: black;" GridPane.rowIndex="1">
+        <padding>
+            <Insets bottom="18" left="25" right="25" top="18" />
+        </padding>
+        <Label text="Create your account" textFill="#0f954a">
+            <font>
+                <Font name="System Bold" size="24" />
+            </font>
+        </Label>
+        <GridPane hgap="8" vgap="6">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            <Label text="Username" />
+            <TextField fx:id="textFieldUsername" maxWidth="Infinity" style="-fx-background-radius: 50;" GridPane.rowIndex="1" />
+            <Label text="Name" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldName" maxWidth="Infinity" style="-fx-background-radius: 50;" GridPane.rowIndex="3" />
+            <Label text="Surname" GridPane.rowIndex="4" />
+            <TextField fx:id="textFieldSurname" maxWidth="Infinity" style="-fx-background-radius: 50;" GridPane.rowIndex="5" />
+            <Label text="Email" GridPane.rowIndex="6" />
+            <TextField fx:id="textFieldEmail" maxWidth="Infinity" style="-fx-background-radius: 50;" GridPane.rowIndex="7" />
+            <Label text="Telephone" GridPane.rowIndex="8" />
+            <TextField fx:id="textFieldTelephone" maxWidth="Infinity" style="-fx-background-radius: 50;" GridPane.rowIndex="9" />
+            <Label text="Card number" GridPane.rowIndex="10" />
+            <TextField fx:id="textFieldCardN" maxWidth="Infinity" style="-fx-background-radius: 9;" GridPane.rowIndex="11" />
+            <Label text="Password" GridPane.rowIndex="12" />
+            <TextField fx:id="textFieldPassword" maxWidth="Infinity" style="-fx-background-radius: 50;" GridPane.rowIndex="13" />
+            <HBox alignment="CENTER" spacing="12" GridPane.rowIndex="14">
+                <RadioButton fx:id="rButtonM" text="Man">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="grupOp" />
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="rButtonW" text="Woman" toggleGroup="$grupOp" />
+                <RadioButton fx:id="rButtonO" text="Other" toggleGroup="$grupOp" />
+            </HBox>
+        </GridPane>
+        <Label fx:id="errorLbl" textFill="RED" />
+        <Button fx:id="buttonSignUp" maxWidth="Infinity" onAction="#signup" style="-fx-background-color: white; -fx-border-color: black; -fx-font-weight: bold;" text="Sign Up" />
+        <HBox alignment="CENTER">
+            <Label text="Already have an account?" />
+            <Button fx:id="buttonLogIn" onAction="#login" style="-fx-background-color: transparent; -fx-text-fill: blue; -fx-cursor: hand;" text="Log In" />
+        </HBox>
+    </VBox>
     <padding>
-        <Insets bottom="30.0" left="20.0" right="20.0" />
+        <Insets bottom="30" left="20" right="20" />
     </padding>
 </GridPane>

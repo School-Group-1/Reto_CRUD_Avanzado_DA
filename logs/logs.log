@@ -74,3 +74,575 @@ feb 03, 2026 10:29:49 AM view.ProductModifyWindowController createItem
 INFORMACIÓN: **ProductModifyWindow** Switching to create item window
 feb 03, 2026 10:29:49 AM javafx.fxml.FXMLLoader$ValueElement processValue
 ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:02:38 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:02:49 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:02:50 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:02:53 PM view.CompanyWindowController openUserManual
+INFORMACIÓN: **ProductModifyWindow** Opening user manual
+feb 03, 2026 12:02:53 PM view.CompanyWindowController openUserManual
+INFORMACIÓN: **ProductModifyWindow** User manual opened successfully
+feb 03, 2026 12:03:09 PM view.CompanyWindowController openUserManual
+INFORMACIÓN: **ProductModifyWindow** Opening user manual
+feb 03, 2026 12:03:09 PM view.CompanyWindowController openUserManual
+INFORMACIÓN: **ProductModifyWindow** User manual opened successfully
+feb 03, 2026 12:19:51 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:20:24 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:20:48 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 12:20:48 PM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 03, 2026 12:20:48 PM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 03, 2026 12:20:56 PM view.CompanyWindowController handleImprimirAction
+INFORMACIÓN: **CompanyWindow** Generating companies report
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.xml.JRBandFactory createObject
+ADVERTENCIA: The 'isSplitAllowed' attribute is deprecated. Use the 'splitType' attribute instead.
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.xml.JRBandFactory createObject
+ADVERTENCIA: The 'isSplitAllowed' attribute is deprecated. Use the 'splitType' attribute instead.
+feb 03, 2026 12:20:56 PM net.sf.jasperreports.engine.xml.JRBandFactory createObject
+ADVERTENCIA: The 'isSplitAllowed' attribute is deprecated. Use the 'splitType' attribute instead.
+feb 03, 2026 12:20:57 PM view.CompanyWindowController handleImprimirAction
+INFORMACIÓN: **CompanyWindow** Companies report generated successfully
+feb 03, 2026 5:59:29 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 5:59:40 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 5:59:41 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 5:59:41 PM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 03, 2026 5:59:41 PM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 03, 2026 5:59:44 PM view.ProfileWindowController openUserManual
+INFORMACIÓN: **ProfileWindow** Opening user manual
+feb 03, 2026 5:59:44 PM view.ProfileWindowController openUserManual
+INFORMACIÓN: **ProfileWindow** User manual opened successfully
+feb 03, 2026 5:59:53 PM view.ProfileWindowController logout
+INFORMACIÓN: **ProfileWindow** User logging out: username1
+feb 03, 2026 5:59:53 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 6:15:30 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 6:15:38 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 6:15:40 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 03, 2026 6:15:40 PM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 03, 2026 6:15:40 PM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 03, 2026 6:15:41 PM view.ProfileWindowController logout
+INFORMACIÓN: **ProfileWindow** User logging out: username1
+feb 03, 2026 6:15:41 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:07:00 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:08:18 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:08:23 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:08:23 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 9:08:23 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 9:08:27 AM view.CompanyWindowController openUserManual
+INFORMACIÓN: **CompanyWindow** Opening user manual
+feb 04, 2026 9:08:27 AM view.CompanyWindowController openUserManual
+INFORMACIÓN: **CompanyWindow** User manual opened successfully
+feb 04, 2026 9:08:32 AM view.CompanyWindowController selectCompany
+INFORMACIÓN: **CompanyWindow** Company selected: Company 1
+feb 04, 2026 9:08:32 AM view.CompanyWindowController openCompanyProductsWindow
+INFORMACIÓN: **CompanyWindow** Opening products for company: Company 1
+feb 04, 2026 9:08:32 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:08:32 AM view.CompanyWindowController openCompanyProductsWindow
+INFORMACIÓN: **CompanyWindow** Products loaded: 2
+feb 04, 2026 9:08:34 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:08:34 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 9:08:34 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 9:09:58 AM view.CompanyWindowController goToStore
+INFORMACIÓN: **CompanyWindow** Navigating to Store
+feb 04, 2026 9:09:58 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:09:59 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:09:59 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 9:09:59 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 9:22:36 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:22:44 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:22:46 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:22:46 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 9:22:46 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 9:23:53 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:00 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:20 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:20 AM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 04, 2026 9:24:20 AM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 04, 2026 9:24:21 AM view.ProfileWindowController logout
+INFORMACIÓN: **ProfileWindow** User logging out: username1
+feb 04, 2026 9:24:21 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:28 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:28 AM view.ProductModifyWindowController initialize
+INFORMACIÓN: **ProductModifyWindow** Initializing Product Modify Window Controller
+feb 04, 2026 9:24:28 AM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Loaded 3 companies
+feb 04, 2026 9:24:28 AM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Finished loading window data
+feb 04, 2026 9:24:30 AM view.ProductModifyWindowController selectCompany
+INFORMACIÓN: **ProductModifyWindow** Selecting a company...
+feb 04, 2026 9:24:30 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Resetting data...
+feb 04, 2026 9:24:30 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Data reset complete
+feb 04, 2026 9:24:30 AM view.ProductModifyWindowController selectCompany
+INFORMACIÓN: **ProductModifyWindow** Found 2 products for company Company 1
+feb 04, 2026 9:24:30 AM view.ProductModifyWindowController createProductCard
+INFORMACIÓN: **ProductModifyWindow** Creating card for product: Bald Shirt
+feb 04, 2026 9:24:30 AM view.ProductModifyWindowController loadProductImage
+INFORMACIÓN: **ProductModifyWindow** Loading product image: /images/baldinkent.png
+feb 04, 2026 9:24:30 AM view.ProductModifyWindowController createProductCard
+INFORMACIÓN: **ProductModifyWindow** Card successfully created for product
+feb 04, 2026 9:24:30 AM view.ProductModifyWindowController createProductCard
+INFORMACIÓN: **ProductModifyWindow** Creating card for product: Bald Shirt
+feb 04, 2026 9:24:30 AM view.ProductModifyWindowController loadProductImage
+INFORMACIÓN: **ProductModifyWindow** Loading product image: /images/baldinkent.png
+feb 04, 2026 9:24:30 AM view.ProductModifyWindowController createProductCard
+INFORMACIÓN: **ProductModifyWindow** Card successfully created for product
+feb 04, 2026 9:24:30 AM view.ProductModifyWindowController selectCompany
+INFORMACIÓN: **ProductModifyWindow** Company selected: Company 1
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController selectProduct
+INFORMACIÓN: **ProductModifyWindow** Selecting product: Bald Shirt
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Resetting data...
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Data reset complete
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Loading chart data for 129 purchases
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Chart data loaded successfully
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: SM
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Size button created successfully
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: MD
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Size button created successfully
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: LG
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Size button created successfully
+feb 04, 2026 9:24:31 AM view.ProductModifyWindowController selectProduct
+INFORMACIÓN: **ProductModifyWindow** Product selected successfully
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController selectProduct
+INFORMACIÓN: **ProductModifyWindow** Selecting product: Bald Shirt
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Resetting data...
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Data reset complete
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Loading chart data for 287 purchases
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Chart data loaded successfully
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: SM
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Size button created successfully
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: MD
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Size button created successfully
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: LG
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Size button created successfully
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController selectProduct
+INFORMACIÓN: **ProductModifyWindow** Product selected successfully
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController selectProduct
+INFORMACIÓN: **ProductModifyWindow** Selecting product: Bald Shirt
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Resetting data...
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController resetData
+INFORMACIÓN: **ProductModifyWindow** Data reset complete
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Loading chart data for 129 purchases
+feb 04, 2026 9:24:32 AM view.ProductModifyWindowController getPurchasesData
+INFORMACIÓN: **ProductModifyWindow** Chart data loaded successfully
+feb 04, 2026 9:24:33 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: SM
+feb 04, 2026 9:24:33 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Size button created successfully
+feb 04, 2026 9:24:33 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: MD
+feb 04, 2026 9:24:33 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Size button created successfully
+feb 04, 2026 9:24:33 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Creating size button for size: LG
+feb 04, 2026 9:24:33 AM view.ProductModifyWindowController createSizeButton
+INFORMACIÓN: **ProductModifyWindow** Size button created successfully
+feb 04, 2026 9:24:33 AM view.ProductModifyWindowController selectProduct
+INFORMACIÓN: **ProductModifyWindow** Product selected successfully
+feb 04, 2026 9:24:34 AM view.ProductModifyWindowController goToCompanies
+INFORMACIÓN: **ProductModifyWindow** Switching to company window
+feb 04, 2026 9:24:34 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:34 AM view.ProductModifyWindowController goToCompanies
+INFORMACIÓN: **ProductModifyWindow** Company window opened successfully
+feb 04, 2026 9:24:35 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:36 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:42 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:44 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:44 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 9:24:44 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 9:24:46 AM view.CompanyWindowController selectCompany
+INFORMACIÓN: **CompanyWindow** Company selected: Company 1
+feb 04, 2026 9:24:46 AM view.CompanyWindowController openCompanyProductsWindow
+INFORMACIÓN: **CompanyWindow** Opening products for company: Company 1
+feb 04, 2026 9:24:46 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:47 AM view.CompanyWindowController openCompanyProductsWindow
+INFORMACIÓN: **CompanyWindow** Products loaded: 2
+feb 04, 2026 9:24:52 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:52 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 9:24:52 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 9:24:53 AM view.CompanyWindowController selectCompany
+INFORMACIÓN: **CompanyWindow** Company selected: Company 2
+feb 04, 2026 9:24:53 AM view.CompanyWindowController openCompanyProductsWindow
+INFORMACIÓN: **CompanyWindow** Opening products for company: Company 2
+feb 04, 2026 9:24:53 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:24:53 AM view.CompanyWindowController openCompanyProductsWindow
+INFORMACIÓN: **CompanyWindow** Products loaded: 2
+feb 04, 2026 9:25:19 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:25:20 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:25:20 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 9:25:20 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 9:26:08 AM view.CompanyWindowController goToStore
+INFORMACIÓN: **CompanyWindow** Navigating to Store
+feb 04, 2026 9:26:08 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:26:10 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:26:10 AM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 04, 2026 9:26:10 AM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 04, 2026 9:26:14 AM view.ProfileWindowController goToStore
+INFORMACIÓN: **ProfileWindow** Navigating to Store
+feb 04, 2026 9:26:14 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:26:21 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:26:21 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 9:26:21 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 9:26:24 AM view.CompanyWindowController goToProfile
+INFORMACIÓN: **CompanyWindow** Navigating to Profile
+feb 04, 2026 9:26:24 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:26:24 AM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 04, 2026 9:26:24 AM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 04, 2026 9:27:49 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:27:58 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:28:08 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:28:08 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 9:28:08 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 9:29:52 AM view.CompanyWindowController goToProfile
+INFORMACIÓN: **CompanyWindow** Navigating to Profile
+feb 04, 2026 9:29:52 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:29:52 AM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 04, 2026 9:29:52 AM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 04, 2026 9:29:58 AM view.ProfileWindowController logout
+INFORMACIÓN: **ProfileWindow** User logging out: username1
+feb 04, 2026 9:29:58 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:36:15 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:36:22 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:36:24 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:36:24 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 9:36:24 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 9:36:30 AM view.CompanyWindowController goToProfile
+INFORMACIÓN: **CompanyWindow** Navigating to Profile
+feb 04, 2026 9:36:30 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:36:30 AM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 04, 2026 9:36:30 AM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 04, 2026 9:38:20 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:38:22 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 9:38:22 AM view.SignUpWindowController initialize
+INFORMACIÓN: **SignUpWindow** Controller initialized
+feb 04, 2026 9:38:22 AM view.SignUpWindowController initData
+INFORMACIÓN: **SignUpWindow** Initialized with controller: controller.Controller@2c91d3ac
+feb 04, 2026 10:02:13 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:02:15 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:02:15 AM view.SignUpWindowController initialize
+INFORMACIÓN: **SignUpWindow** Controller initialized
+feb 04, 2026 10:02:15 AM view.SignUpWindowController initData
+INFORMACIÓN: **SignUpWindow** Initialized with controller: controller.Controller@2bee78e5
+feb 04, 2026 10:05:47 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:05:49 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:05:49 AM view.SignUpWindowController initialize
+INFORMACIÓN: **SignUpWindow** Controller initialized
+feb 04, 2026 10:05:49 AM view.SignUpWindowController initData
+INFORMACIÓN: **SignUpWindow** Initialized with controller: controller.Controller@784f65f5
+feb 04, 2026 10:38:33 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:38:39 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:38:42 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:38:42 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 10:38:42 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 10:38:43 AM view.CompanyWindowController selectCompany
+INFORMACIÓN: **CompanyWindow** Company selected: Company 1
+feb 04, 2026 10:38:43 AM view.CompanyWindowController openCompanyProductsWindow
+INFORMACIÓN: **CompanyWindow** Opening products for company: Company 1
+feb 04, 2026 10:38:43 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:38:44 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:38:44 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 10:38:44 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 10:38:46 AM view.CompanyWindowController goToProfile
+INFORMACIÓN: **CompanyWindow** Navigating to Profile
+feb 04, 2026 10:38:46 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:38:46 AM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 04, 2026 10:38:46 AM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 04, 2026 10:38:47 AM view.ProfileWindowController goToCompanies
+INFORMACIÓN: **ProfileWindow** Navigating to Companies
+feb 04, 2026 10:38:47 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:38:47 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 10:38:47 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 10:38:49 AM view.CompanyWindowController handleImprimirAction
+INFORMACIÓN: **CompanyWindow** Generating companies report
+feb 04, 2026 10:38:49 AM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 04, 2026 10:38:49 AM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 04, 2026 10:38:49 AM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 04, 2026 10:38:49 AM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 04, 2026 10:38:49 AM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 04, 2026 10:38:49 AM net.sf.jasperreports.engine.xml.JRBandFactory createObject
+ADVERTENCIA: The 'isSplitAllowed' attribute is deprecated. Use the 'splitType' attribute instead.
+feb 04, 2026 10:38:49 AM net.sf.jasperreports.engine.xml.JRBandFactory createObject
+ADVERTENCIA: The 'isSplitAllowed' attribute is deprecated. Use the 'splitType' attribute instead.
+feb 04, 2026 10:38:49 AM net.sf.jasperreports.engine.xml.JRBandFactory createObject
+ADVERTENCIA: The 'isSplitAllowed' attribute is deprecated. Use the 'splitType' attribute instead.
+feb 04, 2026 10:38:57 AM view.CompanyWindowController openUserManual
+INFORMACIÓN: **CompanyWindow** Opening user manual
+feb 04, 2026 10:39:11 AM view.CompanyWindowController selectCompany
+INFORMACIÓN: **CompanyWindow** Company selected: Company 2
+feb 04, 2026 10:39:11 AM view.CompanyWindowController openCompanyProductsWindow
+INFORMACIÓN: **CompanyWindow** Opening products for company: Company 2
+feb 04, 2026 10:39:11 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:39:12 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:39:12 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 10:39:12 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 10:39:17 AM view.CompanyWindowController goToProfile
+INFORMACIÓN: **CompanyWindow** Navigating to Profile
+feb 04, 2026 10:39:17 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:39:17 AM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 04, 2026 10:39:17 AM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 04, 2026 10:39:18 AM view.ProfileWindowController goToStore
+INFORMACIÓN: **ProfileWindow** Navigating to Store
+feb 04, 2026 10:39:18 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:39:20 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:39:20 AM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 04, 2026 10:39:20 AM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 04, 2026 10:39:21 AM view.ProfileWindowController logout
+INFORMACIÓN: **ProfileWindow** User logging out: username1
+feb 04, 2026 10:39:21 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:39:27 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:39:28 AM view.ProductModifyWindowController initialize
+INFORMACIÓN: **ProductModifyWindow** Initializing Product Modify Window Controller
+feb 04, 2026 10:39:28 AM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Loaded 3 companies
+feb 04, 2026 10:39:28 AM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Finished loading window data
+feb 04, 2026 10:39:29 AM view.ProductModifyWindowController goToCompanies
+INFORMACIÓN: **ProductModifyWindow** Switching to company window
+feb 04, 2026 10:39:29 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:39:30 AM view.ProductModifyWindowController goToCompanies
+INFORMACIÓN: **ProductModifyWindow** Company window opened successfully
+feb 04, 2026 10:39:31 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:39:32 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:39:33 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:39:33 AM view.ProductModifyWindowController initialize
+INFORMACIÓN: **ProductModifyWindow** Initializing Product Modify Window Controller
+feb 04, 2026 10:39:33 AM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Loaded 3 companies
+feb 04, 2026 10:39:33 AM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Finished loading window data
+feb 04, 2026 10:40:24 AM view.ProductModifyWindowController logout
+INFORMACIÓN: **ProductModifyWindow** Switching to login window
+feb 04, 2026 10:40:24 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:40:24 AM view.ProductModifyWindowController logout
+INFORMACIÓN: **ProductModifyWindow** Login window opened successfully
+feb 04, 2026 10:40:43 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:40:46 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:40:46 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 10:40:46 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 10:40:51 AM view.CompanyWindowController goToProfile
+INFORMACIÓN: **CompanyWindow** Navigating to Profile
+feb 04, 2026 10:40:51 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:40:51 AM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 04, 2026 10:40:51 AM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 04, 2026 10:40:52 AM view.ProfileWindowController goToStore
+INFORMACIÓN: **ProfileWindow** Navigating to Store
+feb 04, 2026 10:40:52 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:40:53 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:40:53 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 10:40:53 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 10:40:54 AM view.CompanyWindowController goToProfile
+INFORMACIÓN: **CompanyWindow** Navigating to Profile
+feb 04, 2026 10:40:54 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:40:54 AM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 04, 2026 10:40:54 AM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 04, 2026 10:40:55 AM view.ProfileWindowController goToCompanies
+INFORMACIÓN: **ProfileWindow** Navigating to Companies
+feb 04, 2026 10:40:55 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:40:55 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 10:40:55 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 10:41:09 AM view.CompanyWindowController goToStore
+INFORMACIÓN: **CompanyWindow** Navigating to Store
+feb 04, 2026 10:41:09 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:41:13 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:41:13 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 10:41:13 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3
+feb 04, 2026 10:41:14 AM view.CompanyWindowController goToProfile
+INFORMACIÓN: **CompanyWindow** Navigating to Profile
+feb 04, 2026 10:41:14 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:41:14 AM view.ProfileWindowController initialize
+INFORMACIÓN: **ProfileWindow** Initializing controller
+feb 04, 2026 10:41:14 AM view.ProfileWindowController initData
+INFORMACIÓN: **ProfileWindow** Initialized for user: username1
+feb 04, 2026 10:41:15 AM view.ProfileWindowController goToCompanies
+INFORMACIÓN: **ProfileWindow** Navigating to Companies
+feb 04, 2026 10:41:15 AM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 04, 2026 10:41:15 AM view.CompanyWindowController initData
+INFORMACIÓN: **CompanyWindow** Initialized for user: username1
+feb 04, 2026 10:41:15 AM view.CompanyWindowController loadCompanies
+INFORMACIÓN: **CompanyWindow** Loading companies: 3

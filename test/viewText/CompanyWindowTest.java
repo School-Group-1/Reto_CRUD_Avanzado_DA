@@ -69,13 +69,23 @@ public class CompanyWindowTest extends ApplicationTest{
         assertNotNull(lookup("#companyBtn_456").query());
         assertNotNull(lookup("#companyBtn_789").query());
     }
-
-
     
     @Test
     public void clickingCompanyButtonWorks() {
         clickOn("Company 1");
 
         verifyThat(window("Company 1 - Products"), WindowMatchers.isShowing());
+    }
+    
+    @Test
+    public void storeButtonOpensShopWindow() {
+        clickOn("#btnStore");
+        verifyThat(window("ShopWindow"), WindowMatchers.isShowing());
+    }
+
+    @Test
+    public void deleteButtonOpensDeleteConfirmation() {
+        clickOn("#btnProfile");
+        verifyThat(window("ProfileWindow"), WindowMatchers.isShowing());
     }
 }
