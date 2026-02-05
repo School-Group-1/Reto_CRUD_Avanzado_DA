@@ -1,40 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="de3d5f3a-749c-4049-86ee-a69d21e3a82b">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<field name="label" class="java.lang.String"/>
-	<field name="stock" class="java.lang.Integer"/>
-	<field name="purchases" class="java.util.List"/>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<columnHeader>
-		<band height="61" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="555" height="61" uuid="1b3343a2-abd0-4e35-ba04-5b9d8f0b4ba4"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[TAMAÑO | STOCK"| COMPRAS]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="125" splitType="Stretch">
-			<textField>
-				<reportElement x="119" y="39" width="120" height="40" uuid="66452ac2-af6b-4498-a7f0-5966eea7d6b9"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="239" y="39" width="80" height="40" uuid="07f9a301-9898-4932-ac86-5d1011ee8efb"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{stock}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="319" y="39" width="80" height="40" uuid="1f7701d3-6267-4077-857a-599b592d7465"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{purchases}.size()]]></textFieldExpression>
-			</textField>
-		</band>
-	</detail>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+                        http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+    name="product_sizes_subreport"
+    pageWidth="595"
+    pageHeight="842"
+    columnWidth="535"
+    leftMargin="20"
+    rightMargin="20"
+    topMargin="20"
+    bottomMargin="20"
+    uuid="de3d5f3a-749c-4049-86ee-a69d21e3a82b">
+
+    <field name="label" class="java.lang.String"/>
+    <field name="stock" class="java.lang.Integer"/>
+    <field name="purchases" class="java.util.List"/>
+
+    <columnHeader>
+        <band height="25">
+            <staticText>
+                <reportElement x="0" y="0" width="150" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[TAMAÑO]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="0" width="100" height="25"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[STOCK]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="250" y="0" width="100" height="25"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[COMPRAS]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="40">
+            <textField>
+                <reportElement x="0" y="0" width="150" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="150" y="0" width="100" height="25"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{stock}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="250" y="0" width="100" height="25"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{purchases}.size()]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
 </jasperReport>

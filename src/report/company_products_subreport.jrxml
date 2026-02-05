@@ -1,49 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="company_products_subreport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="884eaf5d-6f10-4a59-9b71-4cff463c2c6c">
-	<property name="ireport.zoom" value="1.4641000000000006"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Mosi\\Desktop\\school-projects\\Reto_CRUD_Avanzado_DA\\src\\report\\"]]></defaultValueExpression>
-	</parameter>
-	<field name="name" class="java.lang.String"/>
-	<field name="productType" class="java.lang.String"/>
-	<field name="price" class="java.lang.Double"/>
-	<field name="sizes" class="java.util.List"/>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<columnHeader>
-		<band height="61" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="555" height="61" uuid="8f1d3f50-f4ec-4b4b-9e15-00ed329b5210"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[PRODUCTO | TIPO | PRECIO]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="125" splitType="Stretch">
-			<textField>
-				<reportElement x="78" y="-1" width="200" height="40" uuid="7159ab07-4add-4522-9f92-852406c9454e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="278" y="-1" width="100" height="40" uuid="6e548a68-c4b9-4a9b-86a8-2bb6a8a08836"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{productType}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="378" y="-1" width="80" height="40" uuid="d5d75419-4c02-4b57-aebd-e9f5fa34fa1d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
-			</textField>
-			<subreport>
-				<reportElement x="0" y="39" width="555" height="86" uuid="873f5b62-bddc-4781-b0fb-80236eeea210"/>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{sizes})]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "product_sizes_subreport.jasper"]]></subreportExpression>
-			</subreport>
-		</band>
-	</detail>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+                        http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+    name="company_products_subreport"
+    pageWidth="595"
+    pageHeight="842"
+    columnWidth="535"
+    leftMargin="20"
+    rightMargin="20"
+    topMargin="20"
+    bottomMargin="20"
+    uuid="884eaf5d-6f10-4a59-9b71-4cff463c2c6c">
+
+    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+        <defaultValueExpression><![CDATA["C:\\Users\\Mosi\\Desktop\\school-projects\\Reto_CRUD_Avanzado_DA\\src\\report\\"]]></defaultValueExpression>
+    </parameter>
+
+    <field name="name" class="java.lang.String"/>
+    <field name="productType" class="java.lang.String"/>
+    <field name="price" class="java.lang.Double"/>
+    <field name="sizes" class="java.util.List"/>
+
+    <columnHeader>
+        <band height="25">
+            <staticText>
+                <reportElement x="0" y="0" width="200" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[PRODUCTO]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="200" y="0" width="150" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[TIPO]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="350" y="0" width="100" height="25"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[PRECIO]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="60">
+            <textField>
+                <reportElement x="0" y="0" width="200" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="200" y="0" width="150" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{productType}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0.00">
+                <reportElement x="350" y="0" width="100" height="25"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+            </textField>
+
+            <subreport>
+                <reportElement x="0" y="30" width="535" height="30"/>
+                <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{sizes})]]></dataSourceExpression>
+                <subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "product_sizes_subreport.jasper"]]></subreportExpression>
+            </subreport>
+        </band>
+    </detail>
 </jasperReport>
