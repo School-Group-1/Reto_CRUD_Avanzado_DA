@@ -43,6 +43,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.Spinner;
@@ -52,6 +53,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -100,10 +102,25 @@ public class ProductModifyWindowController implements Initializable {
     @FXML
     private TextField sizeTextField;
     @FXML
-    private Button users;
-    
+    private GridPane mainGridPane;
     @FXML
     private Button companies;
+    @FXML
+    private Button users;
+    @FXML
+    private Button createItemButton;
+    @FXML
+    private Button deleteItemButton;
+    @FXML
+    private Button saveSizeButton;
+    @FXML
+    private Button deleteSizeButton;
+    @FXML
+    private Menu helpMenu;
+    @FXML
+    private MenuItem viewManualItem;
+    @FXML
+    private Button logout;
 
     /**
      * Initializes the controller class.
@@ -116,7 +133,7 @@ public class ProductModifyWindowController implements Initializable {
         reportItem.setOnAction(e -> handleImprimirAction());
 
         contextMenu.getItems().add(reportItem);
-        companyCombobox.setOnContextMenuRequested(this::showContextMenu);
+        mainGridPane.setOnContextMenuRequested(this::showContextMenu);
 
         LOGGER.info("**ProductModifyWindow** Initializing Product Modify Window Controller");
     }
@@ -233,6 +250,7 @@ public class ProductModifyWindowController implements Initializable {
         LOGGER.log(Level.INFO, "**ProductModifyWindow** Creating card for product: {0}", product.getName());
 
         HBox card = new HBox(15);
+        card.setId(product.getName()+"Card");
         card.setPadding(new Insets(15));
         card.setAlignment(Pos.CENTER_LEFT);
         card.setStyle(
@@ -246,6 +264,7 @@ public class ProductModifyWindowController implements Initializable {
         ImageView imageView = new ImageView(
                 loadProductImage(product.getImage())
         );
+        imageView.setId(product.getName()+"Image");
         imageView.setFitWidth(50);
         imageView.setFitHeight(50);
         imageView.setPreserveRatio(true);
@@ -254,12 +273,14 @@ public class ProductModifyWindowController implements Initializable {
         VBox textBox = new VBox(5);
 
         Label nameLabel = new Label(product.getName());
+        nameLabel.setId(product.getName()+"NameLabel");
         nameLabel.setStyle("-fx-font-size: 16; -fx-font-weight: bold;");
         // This is to show ... when the label is to small and hover over it to show the full name
         nameLabel.setTextOverrun(OverrunStyle.ELLIPSIS);
         nameLabel.setTooltip(new Tooltip(product.getName()));
 
         Label descLabel = new Label(product.getDescription());
+        nameLabel.setId(product.getName()+"DescLabel");
         descLabel.setWrapText(true);
         descLabel.maxWidthProperty().bind(textBox.widthProperty());
         descLabel.setMaxHeight(48);
@@ -276,6 +297,7 @@ public class ProductModifyWindowController implements Initializable {
         HBox.setHgrow(rightBox, Priority.NEVER);
 
         Spinner<Double> priceSpinner = new Spinner<>();
+        priceSpinner.setId(product.getName()+"Price");
         SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1000.0, product.getPrice(), 1);
         priceSpinner.setValueFactory(valueFactory);
         priceSpinner.setEditable(true);
@@ -292,6 +314,7 @@ public class ProductModifyWindowController implements Initializable {
         );
 
         Button editButton = new Button("Save price");
+        editButton.setId(product.getName()+"SavePriceButton");
         editButton.setStyle(
                 "-fx-background-color: transparent;"
                 + "-fx-border-color: green;"
@@ -316,6 +339,7 @@ public class ProductModifyWindowController implements Initializable {
     private Button createSizeButton(Size size) {
         LOGGER.log(Level.INFO, "**ProductModifyWindow** Creating size button for size: {0}", size.getLabel());
         Button sizeButton = new Button(size.getLabel());
+        sizeButton.setId(size.getLabel()+"Button");
         // Show size on hover of the button if the label is to big and shows...
         sizeButton.setTextOverrun(OverrunStyle.ELLIPSIS);
         Tooltip tooltip = new Tooltip(size.getLabel());
@@ -378,6 +402,7 @@ public class ProductModifyWindowController implements Initializable {
         }
 
         Button addSizeButton = new Button("+");
+        addSizeButton.setId("addSizeButton");
 
         double d = 40;
 
@@ -515,9 +540,9 @@ public class ProductModifyWindowController implements Initializable {
                         new Object[]{newLabel, newStock});
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Size stock modification confirmation");
+                alert.setTitle("Size modification confirmation");
                 alert.setContentText("Size information successfully modified!");
-                alert.setHeaderText("Size stock");
+                alert.setHeaderText("Size modification");
                 alert.showAndWait();
 
                 resetData();
@@ -704,9 +729,8 @@ public class ProductModifyWindowController implements Initializable {
      *
      * @param event the context menu event
      */
-    @FXML
     private void showContextMenu(ContextMenuEvent event) {
-        contextMenu.show(companyCombobox, event.getScreenX(), event.getScreenY());
+        contextMenu.show(mainGridPane, event.getScreenX(), event.getScreenY());
         event.consume();
     }
     
@@ -714,12 +738,13 @@ public class ProductModifyWindowController implements Initializable {
      * Generates a report with all companies in the system.
      */
     private void handleImprimirAction() {
-        LOGGER.info("**CompanyWindow** Generating companies report");
+        LOGGER.info("**CompanyWindow** Generating companies, products, and sizes report");
         try {
             List<Company> companies = cont.findAllCompanies();
+            System.out.println(companies);
             new ReportService().generateCompleteReport(companies);
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "**CompanyWindow** Error generating companies report", e);
+            LOGGER.log(Level.SEVERE, "**CompanyWindow** Error generating companies, products, and sizes report", e);
         }
     }
 }

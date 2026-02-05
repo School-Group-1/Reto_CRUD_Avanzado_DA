@@ -73,6 +73,12 @@ public class ProductCreationWindowController implements Initializable {
     private TextField sizeTextField;
     @FXML
     private FlowPane sizesFlowPane;
+    @FXML
+    private Button createProductButton;
+    @FXML
+    private Button createSizeButton;
+    @FXML
+    private Button backButton;
 
     /**
      * Initializes the controller class.
@@ -251,14 +257,9 @@ public class ProductCreationWindowController implements Initializable {
             return;
         }
 
+        // This sets a default image for the products
         if (selectedFilePath == null) {
-            LOGGER.info("**ProductCreationWindow** No image selected for product");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid image data");
-            alert.setContentText("Please upload an image.");
-            alert.setHeaderText("Insert valid data");
-            alert.showAndWait();
-            return;
+            selectedFilePath = "/images/exampleShoes.png";
         }
 
         String companyName = companyComboBox.getValue();
@@ -356,6 +357,7 @@ public class ProductCreationWindowController implements Initializable {
 
         // Center the label
         sizeButton.setAlignment(Pos.CENTER);
+        sizeButton.setId(size);
 
         return sizeButton;
     }

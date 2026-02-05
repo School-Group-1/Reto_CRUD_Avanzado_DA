@@ -128,29 +128,21 @@ public class ReportService {
 
     public void generateCompleteReport(List<Company> companies) {
         try {
-            // Cargar reporte principal
             InputStream reportStream = getClass()
                     .getResourceAsStream("/report/companies_complete_report.jrxml");
 
             JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
 
-            // Parámetros (opcional: fecha)
             HashMap<String, Object> parameters = new HashMap<>();
             parameters.put("REPORT_DATE", new java.util.Date());
 
-            // DATOS: Lista de Companies
             JRBeanCollectionDataSource dataSource
                     = new JRBeanCollectionDataSource(companies);
 
-            // GENERAR REPORTE
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperReport, parameters, dataSource);
 
-            // MOSTRAR
             JasperViewer.viewReport(jasperPrint, false);
-
-            System.out.println("✅ REPORTE GENERADO CORRECTAMENTE");
-
         } catch (Exception e) {
             e.printStackTrace();
         }

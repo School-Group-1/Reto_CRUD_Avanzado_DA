@@ -234,7 +234,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </GridPane>
-      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createProduct" style="-fx-background-radius: 99; -fx-background-color: white;" text="Create" textFill="#0f954a" GridPane.columnIndex="8">
+      <Button fx:id="createProductButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createProduct" style="-fx-background-radius: 99; -fx-background-color: white;" text="Create" textFill="#0f954a" GridPane.columnIndex="8">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -318,7 +318,7 @@
                   <Insets bottom="20.0" left="20.0" right="50.0" top="20.0" />
                </GridPane.margin>
             </TextField>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addSize" style="-fx-background-radius: 99; -fx-background-color: transparent;" text="+" textFill="#0f954a" GridPane.columnIndex="2">
+            <Button fx:id="createSizeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addSize" style="-fx-background-radius: 99; -fx-background-color: transparent;" text="+" textFill="#0f954a" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -339,7 +339,7 @@
             <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
          </GridPane.margin>
       </GridPane>
-      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToProducts" style="-fx-background-radius: 99; -fx-background-color: white;" text="Back" textFill="#0f954a" GridPane.columnIndex="2">
+      <Button fx:id="backButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToProducts" style="-fx-background-radius: 99; -fx-background-color: white;" text="Back" textFill="#0f954a" GridPane.columnIndex="2">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

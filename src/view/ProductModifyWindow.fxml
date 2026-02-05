@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" style="-fx-background-color: #e2e2e2;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProductModifyWindowController">
+<GridPane fx:id="mainGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" style="-fx-background-color: #e2e2e2;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProductModifyWindowController">
   <columnConstraints>
     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="11.11" prefWidth="100.0" />
     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="11.11" prefWidth="100.0" />
@@ -83,7 +83,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToUsers" prefHeight="37.0" prefWidth="236.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Users">
+            <Button fx:id="users" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToUsers" prefHeight="37.0" prefWidth="236.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Users">
                <graphic>
                   <ImageView fitHeight="49.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -96,7 +96,7 @@
                </cursor>
             </Button>
             <Region prefHeight="400.0" prefWidth="186.0" VBox.vgrow="ALWAYS" />
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="40.0" prefWidth="238.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Logout" VBox.vgrow="ALWAYS">
+            <Button fx:id="logout" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="40.0" prefWidth="238.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Logout" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
@@ -146,7 +146,7 @@
                </padding></VBox>
          </content>
       </ScrollPane>
-      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createItem" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #0f954a;" text="Create new item" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="9">
+      <Button fx:id="createItemButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createItem" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #0f954a;" text="Create new item" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="9">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
@@ -157,7 +157,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteProduct" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #0f954a;" text="Delete item" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="9">
+      <Button fx:id="deleteItemButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteProduct" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-border-width: 1; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #0f954a;" text="Delete item" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.rowIndex="9">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
@@ -198,7 +198,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </Label>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateCreateSize" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-background-radius: 7; -fx-border-radius: 7; -fx-text-fill: #0f954a;" text="Save size" GridPane.columnIndex="2">
+            <Button fx:id="saveSizeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateCreateSize" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-background-radius: 7; -fx-border-radius: 7; -fx-text-fill: #0f954a;" text="Save size" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets bottom="35.0" left="10.0" right="10.0" top="35.0" />
                </GridPane.margin>
@@ -227,7 +227,7 @@
                   <Insets left="50.0" right="20.0" />
                </GridPane.margin>
             </TextField>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteSize" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-background-radius: 7; -fx-border-radius: 7; -fx-text-fill: #0f954a;" text="Delete size" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="deleteSizeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteSize" style="-fx-background-color: white; -fx-border-color: #0f954a; -fx-background-radius: 7; -fx-border-radius: 7; -fx-text-fill: #0f954a;" text="Delete size" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -242,9 +242,9 @@
       </GridPane>
       <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.columnSpan="2147483647">
         <menus>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#openUserManual" text="View Manual" />
+              <MenuItem fx:id="viewManualItem" mnemonicParsing="false" onAction="#openUserManual" text="View Manual" />
             </items>
           </Menu>
         </menus>
