@@ -5,11 +5,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author 2dami
  */
-public class CartItem {
+public class CartItem implements Serializable{
     private int amount;
     private String productName;
     private String price;

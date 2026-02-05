@@ -37,6 +37,7 @@ public class DBImplementation implements ClassDAO {
     private final String HQL_GET_USER_USERNAME = "select u from User u where u.username = :username";
     private final String HQL_GET_USER_USERNAME_PASSWORD = "select u from User u where u.username = :username and u.password = :password";
     private final String HQL_GET_ADMIN_USERNAME_PASSWORD = "select a from Admin a where a.username = :username and a.password = :password";
+    private final String HQL_BUY_STOCK = "UPDATE Size s SET s.stock = s.stock - :amount WHERE s.id = :id";
 
     /**
      * Default constructor that loads DB configuration.
@@ -400,6 +401,12 @@ public class DBImplementation implements ClassDAO {
 
     @Override
     public void lowerStock(CartItem ci) {
-        Query query = session.createQuery("")
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery(HQL_BUY_STOCK);
+        query.setParameter("amount", ci.getAmount());
+        query.setParameter("id", ci.getId());
+        query.executeUpdate();
+        tx.commit();
     }
+    
 }
