@@ -141,7 +141,7 @@ public class ShopWindowController implements Initializable {
     /**
      * Observable list for the cart.
      */
-    public ObservableList<CartItem> carrito;
+    private ObservableList<CartItem> carrito;
     
     /**
      * Button to access user profile.
