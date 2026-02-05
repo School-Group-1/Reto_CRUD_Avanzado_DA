@@ -68,7 +68,7 @@ import model.Size;
 import report.ReportService;
 
 /**
- * FXML Controller class
+ * FXML Controller class for the product and size modify window
  *
  * @author Mosi
  */
@@ -123,27 +123,33 @@ public class ProductModifyWindowController implements Initializable {
     private Button logout;
 
     /**
-     * Initializes the controller class.
+     * Initializes the controller and sets up context menu, chart, and logger.
+     *
+     * @param url the location used to resolve relative paths
+     * @param rb the resource bundle used for localization
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         contextMenu = new ContextMenu();
-
         reportItem = new MenuItem("Report");
         reportItem.setOnAction(e -> handleImprimirAction());
-
         contextMenu.getItems().add(reportItem);
         mainGridPane.setOnContextMenuRequested(this::showContextMenu);
 
         LOGGER.info("**ProductModifyWindow** Initializing Product Modify Window Controller");
     }
 
-    //method to receive profile, controller and data
+    /**
+     * Initializes the controller with the current user profile and controller.
+     * Loads companies into the combobox and sets up the sales chart.
+     *
+     * @param profile the profile of the logged-in user
+     * @param cont the main application controller
+     */
     public void initData(Profile profile, Controller cont) {
         this.profile = profile;
         this.cont = cont;
 
-        // Add companies to the combobox
         List<Company> companies = cont.findAllCompanies();
         LOGGER.log(Level.INFO, "**ProductModifyWindow** Loaded {0} companies", companies.size());
 
@@ -151,24 +157,24 @@ public class ProductModifyWindowController implements Initializable {
             companyCombobox.getItems().add(comp.getName());
         }
 
-        // Prepare the line chart (https://youtu.be/HWfZPiPu1sI?si=KFfRQ06_IlluRXsj good luck)
         xAxis.setLabel("Days");
         xAxis.setAutoRanging(true);
-
         yAxis.setLabel("Sales");
         yAxis.setAutoRanging(true);
-
         linechart.setTitle("Product Sales");
 
         stockCountSpinner.disableProperty();
-
         LOGGER.info("**ProductModifyWindow** Finished loading window data");
     }
 
+    /**
+     * Opens the Companies window and closes the current window.
+     *
+     * @param event the action event triggered by the Companies button
+     */
     @FXML
     private void goToCompanies(ActionEvent event) {
         LOGGER.info("**ProductModifyWindow** Switching to company window");
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompaniesTable.fxml"));
             Parent root = loader.load();
@@ -180,8 +186,7 @@ public class ProductModifyWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
 
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
 
             LOGGER.info("**ProductModifyWindow** Company window opened successfully");
@@ -190,10 +195,14 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
 
+    /**
+     * Opens the Users window and closes the current window.
+     *
+     * @param event the action event triggered by the Users button
+     */
     @FXML
     private void goToUsers(ActionEvent event) {
         LOGGER.info("**ProductModifyWindow** Switching to users window");
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UserTable.fxml"));
             Parent root = loader.load();
@@ -205,8 +214,7 @@ public class ProductModifyWindowController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
 
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
 
             LOGGER.info("**ProductModifyWindow** Users window opened successfully");
@@ -215,13 +223,16 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
 
+    /**
+     * Handles the selection of a company from the combobox. Loads the products
+     * of the selected company.
+     */
     @FXML
     private void selectCompany() {
         LOGGER.info("**ProductModifyWindow** Selecting a company...");
         resetData();
 
         List<Company> companies = cont.findAllCompanies();
-        List<Product> products = null;
         String companyName = companyCombobox.getValue();
         productsVbox.getChildren().clear();
 
@@ -233,24 +244,30 @@ public class ProductModifyWindowController implements Initializable {
         }
 
         if (selectedCompany != null) {
-            products = cont.findProductsByCompany(selectedCompany);
+            List<Product> products = cont.findProductsByCompany(selectedCompany);
             LOGGER.log(Level.INFO, "**ProductModifyWindow** Found {0} products for company {1}",
                     new Object[]{products.size(), selectedCompany.getName()});
 
             for (Product prod : products) {
-                Node card = createProductCard(prod);
-                productsVbox.getChildren().add(card);
+                productsVbox.getChildren().add(createProductCard(prod));
             }
         }
 
         LOGGER.log(Level.INFO, "**ProductModifyWindow** Company selected: {0}", selectedCompany != null ? selectedCompany.getName() : "null");
     }
 
+    /**
+     * Creates a visual card for a product, including its image, description,
+     * and price spinner.
+     *
+     * @param product the product to create a card for
+     * @return a configured Node representing the product card
+     */
     private Node createProductCard(Product product) {
         LOGGER.log(Level.INFO, "**ProductModifyWindow** Creating card for product: {0}", product.getName());
 
         HBox card = new HBox(15);
-        card.setId(product.getName()+"Card");
+        card.setId(product.getName() + "Card");
         card.setPadding(new Insets(15));
         card.setAlignment(Pos.CENTER_LEFT);
         card.setStyle(
@@ -264,7 +281,7 @@ public class ProductModifyWindowController implements Initializable {
         ImageView imageView = new ImageView(
                 loadProductImage(product.getImage())
         );
-        imageView.setId(product.getName()+"Image");
+        imageView.setId(product.getName() + "Image");
         imageView.setFitWidth(50);
         imageView.setFitHeight(50);
         imageView.setPreserveRatio(true);
@@ -273,14 +290,14 @@ public class ProductModifyWindowController implements Initializable {
         VBox textBox = new VBox(5);
 
         Label nameLabel = new Label(product.getName());
-        nameLabel.setId(product.getName()+"NameLabel");
+        nameLabel.setId(product.getName() + "NameLabel");
         nameLabel.setStyle("-fx-font-size: 16; -fx-font-weight: bold;");
         // This is to show ... when the label is to small and hover over it to show the full name
         nameLabel.setTextOverrun(OverrunStyle.ELLIPSIS);
         nameLabel.setTooltip(new Tooltip(product.getName()));
 
         Label descLabel = new Label(product.getDescription());
-        nameLabel.setId(product.getName()+"DescLabel");
+        nameLabel.setId(product.getName() + "DescLabel");
         descLabel.setWrapText(true);
         descLabel.maxWidthProperty().bind(textBox.widthProperty());
         descLabel.setMaxHeight(48);
@@ -297,7 +314,7 @@ public class ProductModifyWindowController implements Initializable {
         HBox.setHgrow(rightBox, Priority.NEVER);
 
         Spinner<Double> priceSpinner = new Spinner<>();
-        priceSpinner.setId(product.getName()+"Price");
+        priceSpinner.setId(product.getName() + "Price");
         SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1000.0, product.getPrice(), 1);
         priceSpinner.setValueFactory(valueFactory);
         priceSpinner.setEditable(true);
@@ -314,7 +331,7 @@ public class ProductModifyWindowController implements Initializable {
         );
 
         Button editButton = new Button("Save price");
-        editButton.setId(product.getName()+"SavePriceButton");
+        editButton.setId(product.getName() + "SavePriceButton");
         editButton.setStyle(
                 "-fx-background-color: transparent;"
                 + "-fx-border-color: green;"
@@ -336,10 +353,17 @@ public class ProductModifyWindowController implements Initializable {
         return card;
     }
 
+    /**
+     * Creates a button for a product size with ellipsis and tooltip for long
+     * labels.
+     *
+     * @param size the size to create a button for
+     * @return a configured Button representing the size
+     */
     private Button createSizeButton(Size size) {
         LOGGER.log(Level.INFO, "**ProductModifyWindow** Creating size button for size: {0}", size.getLabel());
         Button sizeButton = new Button(size.getLabel());
-        sizeButton.setId(size.getLabel()+"Button");
+        sizeButton.setId(size.getLabel() + "Button");
         // Show size on hover of the button if the label is to big and shows...
         sizeButton.setTextOverrun(OverrunStyle.ELLIPSIS);
         Tooltip tooltip = new Tooltip(size.getLabel());
@@ -368,6 +392,11 @@ public class ProductModifyWindowController implements Initializable {
         return sizeButton;
     }
 
+    /**
+     * Handles the selection of a product size, updating stock and sales chart.
+     *
+     * @param size the size selected
+     */
     private void selectSize(Size size) {
         LOGGER.log(Level.INFO, "**ProductModifyWindow** Selecting size: {0}", size.getLabel());
         this.selectedSize = size;
@@ -384,6 +413,11 @@ public class ProductModifyWindowController implements Initializable {
         LOGGER.info("**ProductModifyWindow** Size selected successfully");
     }
 
+    /**
+     * Handles the selection of a product, loading its sizes and sales data.
+     *
+     * @param product the product selected
+     */
     private void selectProduct(Product product) {
         LOGGER.log(Level.INFO, "**ProductModifyWindow** Selecting product: {0}", product.getName());
         resetData();
@@ -435,6 +469,9 @@ public class ProductModifyWindowController implements Initializable {
         LOGGER.info("**ProductModifyWindow** Product selected successfully");
     }
 
+    /**
+     * Resets the product and size data in the UI.
+     */
     private void resetData() {
         LOGGER.info("**ProductModifyWindow** Resetting data...");
         linechart.getData().clear();
@@ -444,6 +481,11 @@ public class ProductModifyWindowController implements Initializable {
         LOGGER.info("**ProductModifyWindow** Data reset complete");
     }
 
+    /**
+     * Logs out the user and returns to the login window.
+     *
+     * @param event the action event triggered by the Logout button
+     */
     @FXML
     private void logout(ActionEvent event) {
         LOGGER.info("**ProductModifyWindow** Switching to login window");
@@ -466,6 +508,13 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
 
+    /**
+     * Generates chart data from a list of purchases for display in the line
+     * chart.
+     *
+     * @param purchases the list of purchases
+     * @return observable chart data for display
+     */
     private ObservableList<XYChart.Series<Number, Number>> getPurchasesData(List<Purchase> purchases) {
         LOGGER.log(Level.INFO, "**ProductModifyWindow** Loading chart data for {0} purchases", purchases.size());
 
@@ -507,6 +556,11 @@ public class ProductModifyWindowController implements Initializable {
         return data;
     }
 
+    /**
+     * Updates or creates a product size with the values from the UI.
+     *
+     * @param event the action event triggered by the Save Size button
+     */
     @FXML
     private void updateCreateSize(ActionEvent event) {
         LOGGER.info("**ProductModifyWindow** Updating or creating size...");
@@ -578,6 +632,11 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
 
+    /**
+     * Deletes the currently selected product.
+     *
+     * @param event the action event triggered by the Delete Product button
+     */
     @FXML
     private void deleteProduct(ActionEvent event) {
         LOGGER.info("**ProductModifyWindow** Deleting product...");
@@ -607,6 +666,11 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
 
+    /**
+     * Opens the product creation window and closes the current window.
+     *
+     * @param event the action event triggered by the Create Item button
+     */
     @FXML
     private void createItem(ActionEvent event) {
         LOGGER.info("**ProductModifyWindow** Switching to create item window");
@@ -632,6 +696,11 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
 
+    /**
+     * Deletes the currently selected size.
+     *
+     * @param event the action event triggered by the Delete Size button
+     */
     @FXML
     private void deleteSize(ActionEvent event) {
         LOGGER.info("**ProductModifyWindow** Deleting size...");
@@ -660,6 +729,12 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
 
+    /**
+     * Updates the price of a product and shows confirmation alerts.
+     *
+     * @param product the product to update
+     * @param newPrice the new price
+     */
     private void editProductPrice(Product product, double newPrice) {
         LOGGER.log(Level.INFO, "**ProductModifyWindow** Editing price for product: {0} new price={1}",
                 new Object[]{product.getName(), newPrice});
@@ -687,6 +762,12 @@ public class ProductModifyWindowController implements Initializable {
         }
     }
 
+    /**
+     * Loads a product image from a path or resource.
+     *
+     * @param path the path to the image file
+     * @return an Image object
+     */
     public static Image loadProductImage(String path) {
         LOGGER.log(Level.INFO, "**ProductModifyWindow** Loading product image: {0}", path);
 
@@ -706,6 +787,11 @@ public class ProductModifyWindowController implements Initializable {
         return new Image(filePath.toUri().toString());
     }
 
+    /**
+     * Opens the user manual PDF file.
+     *
+     * @param event the action event triggered from the Help menu
+     */
     @FXML
     private void openUserManual(ActionEvent event) {
         LOGGER.info("**ProductModifyWindow** Opening user manual");
@@ -733,7 +819,7 @@ public class ProductModifyWindowController implements Initializable {
         contextMenu.show(mainGridPane, event.getScreenX(), event.getScreenY());
         event.consume();
     }
-    
+
     /**
      * Generates a report with all companies in the system.
      */

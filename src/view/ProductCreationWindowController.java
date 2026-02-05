@@ -41,14 +41,14 @@ import model.Product;
 import model.Profile;
 
 /**
- * FXML Controller class
+ * FXML Controller class for the product and size creation form window
  *
  * @author Mosi
  */
 public class ProductCreationWindowController implements Initializable {
 
-    private static final Logger LOGGER =
-            Logger.getLogger(ProductCreationWindowController.class.getName());
+    private static final Logger LOGGER
+            = Logger.getLogger(ProductCreationWindowController.class.getName());
 
     private Controller cont = new Controller(new DBImplementation());
     private String selectedFilePath = null;
@@ -81,13 +81,25 @@ public class ProductCreationWindowController implements Initializable {
     private Button backButton;
 
     /**
-     * Initializes the controller class.
+     * Initializes the controller class. Sets up logger and prepares the window
+     * for use.
+     *
+     * @param url the location used to resolve relative paths
+     * @param rb the resource bundle used for localization
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LOGGER.info("**ProductCreationWindow** Initializing Product Creation Window Controller");
     }
 
+    /**
+     * Initializes the controller with the current user profile and main
+     * application controller. Loads all companies into the combo box and sets
+     * up the stock and price spinners.
+     *
+     * @param profile the profile of the logged-in user
+     * @param cont the main application controller
+     */
     public void initData(Profile profile, Controller cont) {
         LOGGER.info("**ProductCreationWindow** initData called");
         this.profile = profile;
@@ -100,17 +112,22 @@ public class ProductCreationWindowController implements Initializable {
         }
         LOGGER.log(Level.INFO, "**ProductCreationWindow** Loaded {0} companies into combo box", companies.size());
 
-        SpinnerValueFactory<Double> valueFactory =
-                new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1000.0, 19.99, 1);
+        SpinnerValueFactory<Double> valueFactory
+                = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1000.0, 19.99, 1);
         priceSpinner.setValueFactory(valueFactory);
 
-        SpinnerValueFactory<Integer> factory =
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 1);
+        SpinnerValueFactory<Integer> factory
+                = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 1);
         stockSpinner.setValueFactory(factory);
 
         LOGGER.info("**ProductCreationWindow** Finished initializing spinners");
     }
 
+    /**
+     * Opens the Companies window and closes the current window.
+     *
+     * @param event the action event triggered by the back or navigation button
+     */
     @FXML
     private void goToCompanies(ActionEvent event) {
         LOGGER.info("**ProductCreationWindow** Switching to company window");
@@ -135,6 +152,11 @@ public class ProductCreationWindowController implements Initializable {
         }
     }
 
+    /**
+     * Opens the Users window and closes the current window.
+     *
+     * @param event the action event triggered by the navigation button
+     */
     @FXML
     private void goToUsers(ActionEvent event) {
         LOGGER.info("**ProductCreationWindow** Switching to users window");
@@ -159,6 +181,11 @@ public class ProductCreationWindowController implements Initializable {
         }
     }
 
+    /**
+     * Opens the Product Modification window and closes the current window.
+     *
+     * @param event the action event triggered by the navigation button
+     */
     @FXML
     private void goToProducts(ActionEvent event) {
         LOGGER.info("**ProductCreationWindow** Switching to products window");
@@ -183,6 +210,11 @@ public class ProductCreationWindowController implements Initializable {
         }
     }
 
+    /**
+     * Logs out the current user and opens the login window.
+     *
+     * @param event the action event triggered by the logout button
+     */
     @FXML
     private void logout(ActionEvent event) {
         LOGGER.info("**ProductCreationWindow** Logging out, switching to login window");
@@ -204,7 +236,12 @@ public class ProductCreationWindowController implements Initializable {
         }
     }
 
-    // Open a file selection screen to choose the image
+    /**
+     * Opens a file chooser to select an image for the product. Sets a preview
+     * of the selected image on the insert image button.
+     *
+     * @param event the action event triggered by the insert image button
+     */
     @FXML
     private void insertImage(ActionEvent event) {
         LOGGER.info("**ProductCreationWindow** insertImage called");
@@ -243,6 +280,15 @@ public class ProductCreationWindowController implements Initializable {
         LOGGER.info("**ProductCreationWindow** Image preview set on button");
     }
 
+    /**
+     * Creates a new product with the information entered by the user. Validates
+     * all required fields including name, category, description, company,
+     * sizes, stock, and price. Sets a default image if none is selected. Saves
+     * the product and its sizes to the database and navigates to the products
+     * window.
+     *
+     * @param event the action event triggered by the create product button
+     */
     @FXML
     private void createProduct(ActionEvent event) {
         LOGGER.info("**ProductCreationWindow** createProduct called");
@@ -311,6 +357,13 @@ public class ProductCreationWindowController implements Initializable {
         goToProducts(event);
     }
 
+    /**
+     * Adds a new size to the product being created. Validates that the size is
+     * not empty or duplicate, adds it to the sizes list, and creates a visual
+     * button for it in the FlowPane.
+     *
+     * @param event the action event triggered by the create size button
+     */
     @FXML
     private void addSize(ActionEvent event) {
         LOGGER.info("**ProductCreationWindow** addSize called");
@@ -334,6 +387,14 @@ public class ProductCreationWindowController implements Initializable {
         }
     }
 
+    /**
+     * Creates a button to visually represent a product size in the UI. The
+     * button has a fixed size, rounded corners, green border, and centered
+     * label.
+     *
+     * @param size the size label for the button
+     * @return a Button configured to represent the product size
+     */
     private Button createSizeButton(String size) {
         LOGGER.log(Level.INFO, "**ProductCreationWindow** Creating size button for size: {0}", size);
 
@@ -341,10 +402,10 @@ public class ProductCreationWindowController implements Initializable {
 
         sizeButton.setStyle(
                 "-fx-background-color: white;"
-                        + "-fx-background-radius: 100%;"
-                        + "-fx-border-radius: 100%;"
-                        + "-fx-border-color: green;"
-                        + "-fx-border-width: 1;"
+                + "-fx-background-radius: 100%;"
+                + "-fx-border-radius: 100%;"
+                + "-fx-border-color: green;"
+                + "-fx-border-width: 1;"
         );
 
         sizeButton.setMinHeight(100);
