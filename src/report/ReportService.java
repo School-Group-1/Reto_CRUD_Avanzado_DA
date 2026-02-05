@@ -1,9 +1,13 @@
 package report;
 
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import model.CartItem;
 
 import model.Company;
 import model.Product;
@@ -123,7 +127,45 @@ public class ReportService {
             e.printStackTrace();
         }
     }
-
+    public void generateCartReport(List<CartItem> cartItems) {
+        try {
+            LOGGER.info("**ReportService** Generating cart report for " + cartItems.size() + " items");
+            
+            // Cargar el archivo JRXML (asegúrate de que está en /report/)
+            InputStream reportStream = getClass()
+                    .getResourceAsStream("/report/reporte_carrito_compras.jrxml");
+            
+            if (reportStream == null) {
+                throw new IOException("No se encontró el archivo JRXML: /report/reporte_carrito_compras.jrxml");
+            }
+            
+            // Compilar el reporte
+            JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+            
+            // Parámetros (pueden estar vacíos como en generateCompanyProductsReport)
+            HashMap<String, Object> parameters = new HashMap<>();
+            
+            // Data source con los items del carrito
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(cartItems);
+            
+            // Generar el reporte
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    parameters,
+                    dataSource
+            );
+            
+            // Mostrar el reporte
+            JasperViewer.viewReport(jasperPrint, false);
+            
+            LOGGER.info("**ReportService** Cart report generated successfully");
+            
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "**ReportService** Error generating cart report", e);
+            e.printStackTrace();
+            throw new RuntimeException("Error al generar el reporte del carrito: " + e.getMessage(), e);
+        }
+    }
     public void generateCompleteReport(List<Company> companies) {
         try {
             // Cargar reporte principal

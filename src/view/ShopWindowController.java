@@ -91,7 +91,7 @@ public class ShopWindowController implements Initializable {
     private ArrayList<Product> Items;
 
     public ArrayList Cart;
-
+    private ContextMenu contextMenu;
     @FXML
     private Button btnCompanies;
     public ObservableList<CartItem> carrito;
@@ -114,10 +114,11 @@ public class ShopWindowController implements Initializable {
      * Initializes the controller class.
      */
     private Profile profile;
-
+    private static final Logger LOGGER = Logger.getLogger(ShopWindowController.class.getName());
     private Controller cont;
     @FXML
     private TextField sear;
+    private MenuItem reportItem;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -126,6 +127,7 @@ public class ShopWindowController implements Initializable {
 
     public void initData(Profile profile, Controller cont) throws IOException {
         //Hacer que Items muestre Productos de la base de datos en la vista
+        LOGGER.info("**ShopWindow** Initializing controller");
         this.profile = profile;
         this.cont = cont;
         ObjectInputStream ois = null;
@@ -172,17 +174,40 @@ public class ShopWindowController implements Initializable {
             Node card = createProductCard(prod);
             productcardList.getChildren().add(card);
         }
-        /*
         contextMenu = new ContextMenu();
-        reportItem = new MenuItem("Report");
-        reportItem.setOnAction(e -> handleImprimirAction());
+        reportItem = new MenuItem("Generar Reporte Carrito");
+        reportItem.setOnAction(e -> handleGenerarReporteAction());
         contextMenu.getItems().add(reportItem);
-        sear.setOnContextMenuRequested(this::showContextMenu);*/
+        sear.setOnContextMenuRequested(this::showContextMenu);
+        LOGGER.info("**ShopWindow** Data initialized successfully");
+    }
+
+    private void showContextMenu(ContextMenuEvent event) {
+        LOGGER.info("**ShopWindow** Context menu opened");
+        contextMenu.show(sear, event.getScreenX(), event.getScreenY());
+        event.consume();
     }
 
     @FXML
     private void emptyList(ActionEvent event) {
         clearC();
+    }
+
+    private void handleGenerarReporteAction() {
+        LOGGER.info("**ShopWindow** Generating cart report");
+
+        if (talis == null || talis.isEmpty()) {
+            LOGGER.warning("**ShopWindow** Cart is empty, cannot generate report");
+            return;
+        }
+
+        try {
+           ReportService reportService = new ReportService();
+            reportService.generateCartReport(talis);
+            LOGGER.info("**ShopWindow** Cart report generated successfully");
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "**ShopWindow** Error generating cart report", e);
+        }
     }
 
     private void clearC() {
@@ -417,42 +442,19 @@ public class ShopWindowController implements Initializable {
     }
 
     @FXML
-    private void manual_open(ActionEvent event) {
-        //LOGGER.info("**ShopWindow** Opening user manual");
-
+     private void manual_open(ActionEvent event) {
+        LOGGER.info("**ShopWindow** Opening user manual");
+        
         try {
             File pdf = new File("pdfs/User_Manual.pdf");
             if (!pdf.exists()) {
-                //   LOGGER.info("**ShopWindow** User manual file not found: pdfs/User_Manual.pdf");
+                LOGGER.warning("**ShopWindow** User manual not found: pdfs/User_Manual.pdf");
                 return;
             }
-
             Desktop.getDesktop().open(pdf);
-            //  LOGGER.info("**ShopWindow** User manual opened successfully");
+            LOGGER.info("**ShopWindow** User manual opened successfully");
         } catch (IOException ex) {
-            //   LOGGER.log(Level.SEVERE, "**ShopWindow** error opening user manual", ex);
+            LOGGER.log(Level.SEVERE, "**ShopWindow** Error opening user manual", ex);
         }
-    }/*
-    private void showContextMenu(ContextMenuEvent event) {
-        LOGGER.fine("**CompanyProducts** Showing context menu");
-        contextMenu.show(productContainer, event.getScreenX(), event.getScreenY());
-        event.consume();
     }
-
-    private void handleImprimirAction() {
-        LOGGER.info("**CompanyProducts** Generating company products report");
-        if (company != null && products != null && !products.isEmpty()) {
-            LOGGER.log(Level.INFO, "**CompanyProducts** Generating report for {0} products", products.size());
-            ReportService reportService = new ReportService();
-            reportService.generateCompanyProductsReport(company, products);
-            LOGGER.info("**CompanyProducts** Report generated successfully");
-        } else {
-            LOGGER.warning("**CompanyProducts** No products available to generate report");
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("No Data");
-            alert.setHeaderText(null);
-            alert.setContentText("No products available to generate report.");
-            alert.showAndWait();
-        }
-    }*/
 }
