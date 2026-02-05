@@ -1838,3 +1838,115 @@ feb 05, 2026 9:29:58 AM view.CompanyWindowController openCompanyProductsWindow
 INFORMACIÓN: **CompanyWindow** Opening products for company: Company 1
 feb 05, 2026 9:29:58 AM javafx.fxml.FXMLLoader$ValueElement processValue
 ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 10:35:48 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 10:47:54 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 10:48:00 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 10:48:00 PM view.ProductModifyWindowController initialize
+INFORMACIÓN: **ProductModifyWindow** Initializing Product Modify Window Controller
+feb 05, 2026 10:48:00 PM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Loaded 3 companies
+feb 05, 2026 10:48:00 PM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Finished loading window data
+feb 05, 2026 10:48:03 PM view.ProductModifyWindowController handleImprimirAction
+INFORMACIÓN: **CompanyWindow** Generating companies, products, and sizes report
+feb 05, 2026 10:48:03 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:48:03 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 05, 2026 10:48:03 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:48:03 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:48:03 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 05, 2026 10:53:22 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 10:53:27 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 10:53:27 PM view.ProductModifyWindowController initialize
+INFORMACIÓN: **ProductModifyWindow** Initializing Product Modify Window Controller
+feb 05, 2026 10:53:27 PM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Loaded 3 companies
+feb 05, 2026 10:53:27 PM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Finished loading window data
+feb 05, 2026 10:53:30 PM view.ProductModifyWindowController handleImprimirAction
+INFORMACIÓN: **CompanyWindow** Generating companies, products, and sizes report
+feb 05, 2026 10:53:30 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:53:30 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 05, 2026 10:53:30 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:53:30 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:53:30 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 05, 2026 10:55:43 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 10:55:50 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 10:55:50 PM view.ProductModifyWindowController initialize
+INFORMACIÓN: **ProductModifyWindow** Initializing Product Modify Window Controller
+feb 05, 2026 10:55:50 PM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Loaded 3 companies
+feb 05, 2026 10:55:50 PM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Finished loading window data
+feb 05, 2026 10:55:52 PM view.ProductModifyWindowController handleImprimirAction
+INFORMACIÓN: **CompanyWindow** Generating companies, products, and sizes report
+feb 05, 2026 10:55:52 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:55:52 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 05, 2026 10:55:52 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:55:52 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:55:52 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 05, 2026 10:56:50 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 10:57:13 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 10:57:13 PM view.ProductModifyWindowController initialize
+INFORMACIÓN: **ProductModifyWindow** Initializing Product Modify Window Controller
+feb 05, 2026 10:57:13 PM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Loaded 3 companies
+feb 05, 2026 10:57:13 PM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Finished loading window data
+feb 05, 2026 10:57:15 PM view.ProductModifyWindowController handleImprimirAction
+INFORMACIÓN: **CompanyWindow** Generating companies, products, and sizes report
+feb 05, 2026 10:57:15 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:57:15 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 05, 2026 10:57:15 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:57:15 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 10:57:15 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 05, 2026 11:04:40 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 11:04:45 PM javafx.fxml.FXMLLoader$ValueElement processValue
+ADVERTENCIA: Loading FXML document with JavaFX API of version 24.0.1 by JavaFX runtime of version 8.0.261
+feb 05, 2026 11:04:45 PM view.ProductModifyWindowController initialize
+INFORMACIÓN: **ProductModifyWindow** Initializing Product Modify Window Controller
+feb 05, 2026 11:04:45 PM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Loaded 3 companies
+feb 05, 2026 11:04:45 PM view.ProductModifyWindowController initData
+INFORMACIÓN: **ProductModifyWindow** Finished loading window data
+feb 05, 2026 11:04:48 PM view.ProductModifyWindowController handleImprimirAction
+INFORMACIÓN: **CompanyWindow** Generating companies, products, and sizes report
+feb 05, 2026 11:04:48 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 11:04:48 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
+feb 05, 2026 11:04:48 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 11:04:48 PM net.sf.jasperreports.engine.component.ComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/components
+feb 05, 2026 11:04:48 PM net.sf.jasperreports.engine.part.PartComponentsEnvironment findBundles
+ADVERTENCIA: Found two components for namespace http://jasperreports.sourceforge.net/jasperreports/parts
