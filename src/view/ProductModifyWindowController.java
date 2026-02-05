@@ -41,7 +41,9 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -49,6 +51,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -60,6 +63,7 @@ import model.Product;
 import model.Profile;
 import model.Purchase;
 import model.Size;
+import report.ReportService;
 
 /**
  * FXML Controller class
@@ -74,6 +78,8 @@ public class ProductModifyWindowController implements Initializable {
     private List<Size> selectedProductSizes = new ArrayList<>();
     private Size selectedSize = null;
     private Profile profile;
+    private ContextMenu contextMenu;
+    private MenuItem reportItem;
 
     private static final Logger LOGGER = Logger.getLogger(ProductModifyWindowController.class.getName());
 
@@ -99,6 +105,14 @@ public class ProductModifyWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        contextMenu = new ContextMenu();
+
+        reportItem = new MenuItem("Report");
+        reportItem.setOnAction(e -> handleImprimirAction());
+
+        contextMenu.getItems().add(reportItem);
+        companyCombobox.setOnContextMenuRequested(this::showContextMenu);
+
         LOGGER.info("**ProductModifyWindow** Initializing Product Modify Window Controller");
     }
 
@@ -677,6 +691,30 @@ public class ProductModifyWindowController implements Initializable {
             LOGGER.info("**ProductModifyWindow** User manual opened successfully");
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "**ProductModifyWindow** error opening user manual", ex);
+        }
+    }
+
+    /**
+     * Shows the context menu on right click.
+     *
+     * @param event the context menu event
+     */
+    @FXML
+    private void showContextMenu(ContextMenuEvent event) {
+        contextMenu.show(companyCombobox, event.getScreenX(), event.getScreenY());
+        event.consume();
+    }
+    
+    /**
+     * Generates a report with all companies in the system.
+     */
+    private void handleImprimirAction() {
+        LOGGER.info("**CompanyWindow** Generating companies report");
+        try {
+            List<Company> companies = cont.findAllCompanies();
+            new ReportService().generateCompleteReport(companies);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "**CompanyWindow** Error generating companies report", e);
         }
     }
 }
