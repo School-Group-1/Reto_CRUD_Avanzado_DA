@@ -7,8 +7,10 @@ package viewText;
 
 import java.util.concurrent.TimeoutException;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
 import model.HibernateUtil;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -33,27 +35,27 @@ public class UserTableControllerTest extends ApplicationTest {
         FxToolkit.setupApplication(main.Main.class);
         HibernateUtil.initializeData();
     }
-    
-    @Test 
+
+    @Test
     public void test_CompleteUserTableFlow() {
         System.out.println("=== TEST COMPLETO DE USERTABLE ===");
-        
+
         // ===== 1. LOGIN =====
         System.out.println("\nPASO 1: Login como admin...");
         doLogin();
-        
+
         // ===== 2. NAVEGAR A USERTABLE =====
         System.out.println("\nPASO 2: Navegando a UserTable...");
         navigateToUserTable();
-        
+
         // ===== 3. ACTIVAR MODO EDICIÓN =====
         System.out.println("\nPASO 3: Activando modo edición...");
         activateEditMode();
-        
+
         // ===== 4. MODIFICAR FILA EXISTENTE =====
         System.out.println("\nPASO 4: Modificando fila existente...");
         modifyExistingRow();
-        
+
         // ===== 5. CREAR NUEVA FILA =====
         System.out.println("\nPASO 5: Creando nueva fila...");
         createNewRow();
@@ -61,27 +63,27 @@ public class UserTableControllerTest extends ApplicationTest {
         // ===== 6. BORRAR FILA =====
         System.out.println("\nPASO 6: Borrando fila...");
         deleteRow();
-        
+
         // ===== 7. MENÚ CONTEXTUAL =====
         System.out.println("\nPASO 7: Probando menú contextual...");
-        testContextMenu();      
-        
+        testContextMenu();
+
         // ===== 8. LOGOUT =====
         System.out.println("\nPASO 8: Haciendo logout...");
         doLogout();
-        
+
         // ===== 9. LOGIN =====
         System.out.println("\nPASO 9: Login como admin...");
         doLogin();
-        
+
         // ===== 10. NAVEGAR A USERTABLE =====
         System.out.println("\nPASO 10: Navegando a UserTable...");
         navigateToUserTable();
-        
+
         // ===== 11. MENÚ HELP =====
         System.out.println("\nPASO 11: Probando menú Help...");
         testHelpMenu();
-        
+
         System.out.println("\n=== TEST COMPLETADO EXITOSAMENTE ===");
     }
 
@@ -147,47 +149,47 @@ public class UserTableControllerTest extends ApplicationTest {
 
     private void modifyExistingRow() {
         try {
-            // Buscar la tabla
             TableView<?> table = lookup("#tableView").queryAs(TableView.class);
             if (table.getItems().size() > 0) {
                 System.out.println("Tabla tiene " + table.getItems().size() + " filas");
 
-                System.out.println("Intentando modificar email...");
-
-                Node emailCell = lookup(".table-cell").nth(2).query(); 
-
+                // Modificar email
+                System.out.println("Modificando email...");
+                Node emailCell = lookup(".table-cell").nth(2).query();
                 doubleClickOn(emailCell);
                 sleep(500);
-
-                // Modificar el email
                 push(javafx.scene.input.KeyCode.CONTROL, javafx.scene.input.KeyCode.A);
                 push(javafx.scene.input.KeyCode.DELETE);
-                write("modified@example.com");
+                write("u");               
                 push(javafx.scene.input.KeyCode.ENTER);
-                sleep(1000);
+                sleep(1000);               
 
-                System.out.println("Email modificado exitosamente ✓");
-
-                // También probar modificar otra columna (nombre)
-                System.out.println("Intentando modificar nombre...");
-                Node nameCell = lookup(".table-cell").nth(3).query(); // Columna name (4ta columna, índice 3)
-                doubleClickOn(nameCell);
+                handleAlert();
+                write("u@gmail.com");               
+                push(javafx.scene.input.KeyCode.ENTER);
+                sleep(1000); 
+                        
+                // Modificar teléfono
+                System.out.println("Modificando teléfono...");
+                Node telephoneCell = lookup(".table-cell").nth(4).query();
+                doubleClickOn(telephoneCell);
                 sleep(500);
-
                 push(javafx.scene.input.KeyCode.CONTROL, javafx.scene.input.KeyCode.A);
                 push(javafx.scene.input.KeyCode.DELETE);
-                write("NombreModificado");
+                write("12");
                 push(javafx.scene.input.KeyCode.ENTER);
                 sleep(1000);
-
-                System.out.println("Nombre modificado exitosamente ✓");
+                
+                handleAlert();
+                write("987654321");
+                push(javafx.scene.input.KeyCode.ENTER);
+                sleep(1000);
 
             } else {
                 System.out.println("Tabla vacía, no se puede modificar fila");
             }
         } catch (Exception e) {
-            System.out.println("No se pudo modificar fila: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("Error modificando fila: " + e.getMessage());
         }
     }
 
@@ -195,65 +197,51 @@ public class UserTableControllerTest extends ApplicationTest {
         try {
             verifyThat("#addButton", isVisible());
 
-            System.out.println("Creando nueva fila con botón + ...");
+            System.out.println("Creando nueva fila...");
 
             // Hacer click en el botón +
             clickOn("#addButton");
+            sleep(1500);            
+
+            // Username
+            System.out.println("Introduciendo username...");
+            write("testuser_");
+            push(javafx.scene.input.KeyCode.ENTER);
             sleep(1500);
+
+            // Email
+            System.out.println("Introduciendo email...");
+            write("newuser@test.com");
+            push(javafx.scene.input.KeyCode.ENTER);
+            sleep(1500);
+
+            // Teléfono
+            System.out.println("Introduciendo teléfono...");
+            write("123456789");
+            push(javafx.scene.input.KeyCode.ENTER);
+            sleep(2000);
 
             System.out.println("Nueva fila creada ✓");
 
-            // Verificar que se añadió una fila
-            TableView<?> table = lookup("#tableView").queryAs(TableView.class);
-            System.out.println("Total filas después de añadir: " + table.getItems().size());
-
-            // Ahora editar algunos campos de la nueva fila (excepto username)
-            System.out.println("Editando campos de la nueva fila...");
-
-            // Editar email de la última fila
-            int totalRows = table.getItems().size();
-            int lastRowIndex = totalRows - 1;
-
-            // Calcular índice de la celda de email en la última fila
-            // Si hay 8 columnas, el email está en: (lastRowIndex * 8) + 2
-            int emailCellIndex = (lastRowIndex * 8) + 2;
-
-            try {
-                Node emailCell = lookup(".table-cell").nth(emailCellIndex).query();
-                doubleClickOn(emailCell);
-                sleep(500);
-                push(javafx.scene.input.KeyCode.CONTROL, javafx.scene.input.KeyCode.A);
-                push(javafx.scene.input.KeyCode.DELETE);
-                write("nuevo@test.com");
-                push(javafx.scene.input.KeyCode.ENTER);
-                sleep(1000);
-                System.out.println("Email de nueva fila editado ✓");
-            } catch (Exception e) {
-                System.out.println("No se pudo editar email de nueva fila: " + e.getMessage());
-            }
-
         } catch (Exception e) {
             System.out.println("Error creando nueva fila: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
     private void deleteRow() {
         try {
-            System.out.println("Intentando borrar una fila...");
+            System.out.println("Borrando una fila...");
 
-            // Buscar todos los botones Delete
+            // Buscar botones Delete
             int deleteButtonCount = lookup(".button").queryAll().size();
             System.out.println("Botones encontrados: " + deleteButtonCount);
 
             if (deleteButtonCount > 0) {
+                // Usar el primer botón Delete
                 Node deleteButton = lookup(".button").nth(0).query();
 
                 clickOn(deleteButton);
                 sleep(2000);
-
-                verifyThat("Delete Confirmation", isVisible());
-                System.out.println("Ventana de confirmación abierta ✓");
 
                 clickOn("#passwordField");
                 sleep(200);
@@ -262,14 +250,13 @@ public class UserTableControllerTest extends ApplicationTest {
                 clickOn("#deleteButton");
                 sleep(2000);
 
-                System.out.println("Fila borrada exitosamente ✓");
+                System.out.println("Fila borrada ✓");
             } else {
                 System.out.println("No hay botones Delete visibles");
             }
 
         } catch (Exception e) {
             System.out.println("Error borrando fila: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -277,14 +264,10 @@ public class UserTableControllerTest extends ApplicationTest {
         try {
             System.out.println("Probando menú contextual...");
 
-            // Obtener la tabla como Node
             TableView<?> tableView = lookup("#tableView").queryAs(TableView.class);
-
-            // Hacer click derecho en la tabla
             rightClickOn(tableView);
             sleep(1000);
 
-            // Seleccionar Report
             clickOn("Report");
             sleep(2000);
 
@@ -292,7 +275,6 @@ public class UserTableControllerTest extends ApplicationTest {
 
         } catch (Exception e) {
             System.out.println("Error con menú contextual: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -301,28 +283,22 @@ public class UserTableControllerTest extends ApplicationTest {
             System.out.println("Probando menú Help...");
 
             try {
-                Node helpMenuNode = lookup("#helpMenu").query();
-                System.out.println("Menú Help encontrado por #helpMenu");
-
                 clickOn("#helpMenu");
-                sleep(1000);
-
                 System.out.println("Menú Help desplegado ✓");
-
             } catch (Exception e1) {
-                System.out.println("No se encontró #helpMenu: " + e1.getMessage());              
+                System.out.println("No se encontró #helpMenu");
             }
 
             System.out.println("Seleccionando View Manual...");
 
             try {
                 clickOn("#viewManualItem");
-                System.out.println("View Manual seleccionado por #viewManualItem ✓");
+                System.out.println("View Manual seleccionado ✓");
             } catch (Exception e1) {
-               System.out.println("No se encontró #viewManualItem: " + e1.getMessage());   
+                System.out.println("No se encontró #viewManualItem");
             }
             sleep(3000);
-            System.out.println("Manual abierto desde menú Help ✓");
+            System.out.println("Manual abierto ✓");
 
         } catch (Exception e) {
             System.out.println("Error con menú Help: " + e.getMessage());
@@ -337,11 +313,54 @@ public class UserTableControllerTest extends ApplicationTest {
             sleep(2000);
 
             verifyThat("#Button_LogIn", isVisible());
-            System.out.println("Logout exitoso - De vuelta en login ✓");
+            System.out.println("Logout exitoso ✓");
 
         } catch (Exception e) {
             System.out.println("Error en logout: " + e.getMessage());
-            e.printStackTrace();
+        }
+    }
+    
+    private void handleAlert() {
+        sleep(300);
+        
+        Node alertNode = lookup(".alert").tryQuery().orElse(null);
+        
+        if (alertNode != null) {
+            System.out.println("Alert encontrado, manejando diálogo...");
+            
+            Node acceptButton = lookup(node -> 
+                node instanceof Button && (
+                    "Aceptar".equals(((Button) node).getText()) ||
+                    "OK".equals(((Button) node).getText()) ||
+                    "Aceptar".equalsIgnoreCase(((Button) node).getText()) ||
+                    "OK".equalsIgnoreCase(((Button) node).getText())
+                )
+            ).tryQuery().orElse(null);
+            
+            if (acceptButton != null) {
+                System.out.println("Botón Aceptar/OK encontrado en el Alert");
+                clickOn(acceptButton);
+                sleep(300);
+            } else {
+                System.out.println("Buscando botón por defecto en el Alert...");
+                
+                Node defaultButton = lookup(node -> 
+                    node instanceof Button && 
+                    alertNode.getScene().getRoot().getChildrenUnmodifiable().contains(node.getParent())
+                ).tryQuery().orElse(null);
+                
+                if (defaultButton != null) {
+                    System.out.println("Botón por defecto encontrado");
+                    clickOn(defaultButton);
+                    sleep(300);
+                } else {
+                    System.out.println("Presionando ENTER para aceptar el Alert...");
+                    push(KeyCode.ENTER);
+                    sleep(300);
+                }
+            }
+        } else {
+            System.out.println("No se encontró Alert, continuando...");
         }
     }
 

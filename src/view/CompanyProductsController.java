@@ -45,9 +45,14 @@ import model.Profile;
 import model.Size;
 import report.ReportService;
 
+/**
+ * FXML Controller class for displaying products of a specific company.
+ * Shows product cards with details, allows size selection and adding to cart.
+ * 
+ * @author acer
+ */
 public class CompanyProductsController implements Initializable {
 
-    // Componentes FXML
     @FXML
     private VBox productContainer;
     @FXML
@@ -60,6 +65,8 @@ public class CompanyProductsController implements Initializable {
     private Button selectedSize;
     @FXML
     private Button profileButton;
+    @FXML
+    private Button goBackButton;
 
     private static final Logger LOGGER = Logger.getLogger(CompanyProductsController.class.getName());
 
@@ -68,13 +75,15 @@ public class CompanyProductsController implements Initializable {
     private List<Product> products;
     private Profile profile;
     private Controller cont;
-
     private boolean isDataInitialized = false;
     private boolean isSizeSelected = false;
     private String selectedSizeLabel = "";
     private ContextMenu contextMenu;
     private MenuItem reportItem;
 
+    /**
+     * Initializes the controller with company and product data.
+     */
     public void initData(Company company, List<Product> products, Profile profile, Controller cont) {
         this.company = company;
         this.products = products;
@@ -86,10 +95,8 @@ public class CompanyProductsController implements Initializable {
                 new Object[]{company != null ? company.getName() : "null", products != null ? products.size() : 0});
 
         contextMenu = new ContextMenu();
-
         reportItem = new MenuItem("Report");
         reportItem.setOnAction(e -> handleImprimirAction());
-
         contextMenu.getItems().add(reportItem);
         productContainer.setOnContextMenuRequested(this::showContextMenu);
 
@@ -115,49 +122,42 @@ public class CompanyProductsController implements Initializable {
     }
 
     private boolean areEssentialComponentsValid() {
-        boolean areComponentsValid = true;
-
         if (titleLabel == null) {
             LOGGER.warning("**CompanyProducts** ERROR: titleLabel es null");
-            areComponentsValid = false;
+            return false;
         }
-
         if (productContainer == null) {
             LOGGER.warning("**CompanyProducts** ERROR: productContainer es null");
-            areComponentsValid = false;
+            return false;
         }
-
         if (company == null) {
             LOGGER.warning("**CompanyProducts** ERROR: company es null");
-            areComponentsValid = false;
+            return false;
         }
-
-        return areComponentsValid;
+        return true;
     }
 
     private void loadProducts() {
         clearProductContainer();
 
-        if (hasNoProducts()) {
+        if (products == null || products.isEmpty()) {
             displayNoProductsMessage();
+            LOGGER.info("**CompanyProducts** No products available");
             return;
         }
 
-        displayProducts();
+        for (Product product : products) {
+            HBox productCard = createProductCard(product);
+            VBox.setMargin(productCard, new Insets(0, 0, 10, 0));
+            productContainer.getChildren().add(productCard);
+        }
+        
         LOGGER.log(Level.INFO, "**CompanyProducts** Loaded {0} products", products.size());
     }
 
     private void clearProductContainer() {
         LOGGER.fine("**CompanyProducts** Clearing product container");
         productContainer.getChildren().clear();
-    }
-
-    private boolean hasNoProducts() {
-        boolean noProducts = products == null || products.isEmpty();
-        if (noProducts) {
-            LOGGER.info("**CompanyProducts** No products available");
-        }
-        return noProducts;
     }
 
     private void displayNoProductsMessage() {
@@ -167,118 +167,50 @@ public class CompanyProductsController implements Initializable {
         productContainer.getChildren().add(emptyLabel);
     }
 
-    private void displayProducts() {
-        LOGGER.log(Level.FINE, "**CompanyProducts** Displaying {0} products", products.size());
-        for (Product product : products) {
-            HBox productCard = createProductCard(product);
-            VBox.setMargin(productCard, new Insets(0, 0, 10, 0));
-            productContainer.getChildren().add(productCard);
-        }
-    }
-
     private HBox createProductCard(Product product) {
         LOGGER.log(Level.FINE, "**CompanyProducts** Creating card for product: {0}", product.getName());
-        HBox card = createCardBase();
-
-        ImageView productImage = createProductImageView(product);
-        VBox infoBox = createProductInfoBox(product);
-
-        card.getChildren().addAll(productImage, infoBox);
-        return card;
-    }
-
-    private HBox createCardBase() {
-        return new HBox(15);
-    }
-
-    private ImageView createProductImageView(Product product) {
+        HBox card = new HBox(15);
+        
         ImageView productImage = new ImageView(loadProductImage(product.getImage()));
         productImage.setFitWidth(120);
         productImage.setFitHeight(120);
         productImage.setPreserveRatio(true);
-        return productImage;
-    }
-
-    private Image loadDefaultImage() {
-        try {
-            return new Image(getClass().getResourceAsStream("/images/default-product.png"));
-        } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "**CompanyProducts** Could not load default image", e);
-            return null;
-        }
-    }
-
-    private VBox createProductInfoBox(Product product) {
+        
         VBox infoBox = new VBox(10);
         infoBox.setPrefWidth(200);
 
-        Label nameLabel = createProductNameLabel(product);
-        Label descriptionLabel = createProductDescriptionLabel(product);
-        HBox bottomBox = createProductBottomBox(product);
-
-        infoBox.getChildren().addAll(nameLabel, descriptionLabel, bottomBox);
-        return infoBox;
-    }
-
-    private Label createProductNameLabel(Product product) {
         Label nameLabel = new Label(product.getName());
         nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
         nameLabel.setWrapText(true);
         nameLabel.setMaxWidth(180);
-        return nameLabel;
-    }
-
-    private Label createProductDescriptionLabel(Product product) {
-        String description = formatProductDescription(product.getDescription());
+        
+        String description = product.getDescription();
+        if (description == null) description = "Sin descripción";
+        if (description.length() > 80) description = description.substring(0, 77) + "...";
+        
         Label descriptionLabel = new Label(description);
         descriptionLabel.setStyle("-fx-text-fill: #666; -fx-font-size: 12px;");
         descriptionLabel.setWrapText(true);
         descriptionLabel.setMaxWidth(180);
-        return descriptionLabel;
-    }
-
-    private String formatProductDescription(String description) {
-        if (description == null) {
-            return "Sin descripción";
-        }
-        if (description.length() > 80) {
-            return description.substring(0, 77) + "...";
-        }
-        return description;
-    }
-
-    private HBox createProductBottomBox(Product product) {
+        
         HBox bottomBox = new HBox();
         bottomBox.setSpacing(20);
         bottomBox.setAlignment(Pos.CENTER_LEFT);
 
-        Label priceLabel = createPriceLabel(product);
-        Button viewButton = createViewButton(product);
-
-        bottomBox.getChildren().addAll(priceLabel, viewButton);
-        return bottomBox;
-    }
-
-    private Label createPriceLabel(Product product) {
         Label priceLabel = new Label(String.format("€%.2f", product.getPrice()));
         priceLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0f954a;");
-        return priceLabel;
-    }
-
-    private Button createViewButton(Product product) {
+        
         Button viewButton = new Button("View");
-        viewButton.setStyle(
-                "-fx-background-color: #0f954a;"
-                + "-fx-text-fill: white;"
-                + "-fx-font-weight: bold;"
-                + "-fx-background-radius: 5;"
-                + "-fx-padding: 8 15 8 15;"
-        );
+        viewButton.setStyle("-fx-background-color: #0f954a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 15 8 15;");
         viewButton.setOnAction(e -> showProductDetail(product));
-        return viewButton;
+
+        bottomBox.getChildren().addAll(priceLabel, viewButton);
+        infoBox.getChildren().addAll(nameLabel, descriptionLabel, bottomBox);
+        card.getChildren().addAll(productImage, infoBox);
+        
+        return card;
     }
 
-    // ==================== DETALLES DEL PRODUCTO ====================
     private void showProductDetail(Product product) {
         LOGGER.log(Level.INFO, "**CompanyProducts** Showing details for product: {0}", product.getName());
         this.selectedProduct = product;
@@ -313,14 +245,22 @@ public class CompanyProductsController implements Initializable {
         }
     }
 
-    // ==================== GESTIÓN DE TALLAS ====================
+    private Image loadDefaultImage() {
+        try {
+            return new Image(getClass().getResourceAsStream("/images/default-product.png"));
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "**CompanyProducts** Could not load default image", e);
+            return null;
+        }
+    }
+
     private void loadSizes(Product product) {
         if (sizesContainer == null) {
             LOGGER.warning("**CompanyProducts** sizesContainer is null!");
             return;
         }
 
-        clearSizesContainer();
+        sizesContainer.getChildren().clear();
         List<Size> sizes = product.getSizes();
 
         if (sizes == null || sizes.isEmpty()) {
@@ -328,42 +268,27 @@ public class CompanyProductsController implements Initializable {
             return;
         }
 
-        displaySizes(sizes);
-        LOGGER.log(Level.INFO, "**CompanyProducts** Loaded {0} sizes for product: {1}",
-                new Object[]{sizes.size(), product.getName()});
-    }
-
-    private void clearSizesContainer() {
-        LOGGER.fine("**CompanyProducts** Clearing sizes container");
-        sizesContainer.getChildren().clear();
-    }
-
-    private void displaySizes(List<Size> sizes) {
         for (Size size : sizes) {
-            Button sizeButton = createSizeButton(size);
+            Button sizeButton = new Button(size.getLabel());
+            applySizeButtonStyle(sizeButton, false);
+            sizeButton.setTooltip(new Tooltip("Stock disponible: " + size.getStock()));
+            sizeButton.setOnAction(e -> handleSizeSelection(sizeButton, size));
             sizesContainer.getChildren().add(sizeButton);
         }
-    }
-
-    private Button createSizeButton(Size size) {
-        LOGGER.log(Level.FINE, "**CompanyProducts** Creating button for size: {0}", size.getLabel());
-        Button sizeButton = new Button(size.getLabel());
-        applySizeButtonStyle(sizeButton, false);
-        sizeButton.setTooltip(createSizeTooltip(size));
-        sizeButton.setOnAction(e -> handleSizeSelection(sizeButton, size));
-        return sizeButton;
-    }
-
-    private Tooltip createSizeTooltip(Size size) {
-        return new Tooltip("Stock disponible: " + size.getStock());
+        
+        LOGGER.log(Level.INFO, "**CompanyProducts** Loaded {0} sizes for product: {1}",
+                new Object[]{sizes.size(), product.getName()});
     }
 
     private void handleSizeSelection(Button selectedButton, Size size) {
         LOGGER.log(Level.INFO, "**CompanyProducts** Size selected: {0}", size.getLabel());
         resetAllSizeButtons();
-        selectSizeButton(selectedButton);
-        updateSizeSelection(size);
+        applySizeButtonStyle(selectedButton, true);
+        isSizeSelected = true;
+        selectedSizeLabel = size.getLabel();
         enableAddToCartButton();
+        LOGGER.log(Level.INFO, "**CompanyProducts** Size selected: {0} - Stock: {1}",
+                new Object[]{size.getLabel(), size.getStock()});
     }
 
     private void resetAllSizeButtons() {
@@ -375,47 +300,18 @@ public class CompanyProductsController implements Initializable {
         }
     }
 
-    private void selectSizeButton(Button button) {
-        applySizeButtonStyle(button, true);
-    }
-
     private void applySizeButtonStyle(Button button, boolean isSelected) {
         if (isSelected) {
-            button.setStyle(
-                    "-fx-background-color: #0f954a;"
-                    + "-fx-border-color: #0f954a;"
-                    + "-fx-border-radius: 5;"
-                    + "-fx-text-fill: white;"
-                    + "-fx-font-weight: bold;"
-                    + "-fx-padding: 8 15 8 15;"
-            );
+            button.setStyle("-fx-background-color: #0f954a; -fx-border-color: #0f954a; -fx-border-radius: 5; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15 8 15;");
         } else {
-            button.setStyle(
-                    "-fx-background-color: white;"
-                    + "-fx-border-color: #0f954a;"
-                    + "-fx-border-radius: 5;"
-                    + "-fx-text-fill: #0f954a;"
-                    + "-fx-font-weight: bold;"
-                    + "-fx-padding: 8 15 8 15;"
-            );
+            button.setStyle("-fx-background-color: white; -fx-border-color: #0f954a; -fx-border-radius: 5; -fx-text-fill: #0f954a; -fx-font-weight: bold; -fx-padding: 8 15 8 15;");
         }
     }
 
-    private void updateSizeSelection(Size size) {
-        isSizeSelected = true;
-        selectedSizeLabel = size.getLabel();
-        LOGGER.log(Level.INFO, "**CompanyProducts** Size selected: {0} - Stock: {1}",
-                new Object[]{size.getLabel(), size.getStock()});
-    }
-
-    // ==================== GESTIÓN DEL BOTÓN ADD TO CART ====================
     private void disableAddToCartButton() {
         if (selectedSize != null) {
             selectedSize.setDisable(true);
-            selectedSize.setStyle(
-                    "-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; "
-                    + "-fx-text-fill: #0f954a; -fx-font-weight: bold;"
-            );
+            selectedSize.setStyle("-fx-border-color: #0f954a; -fx-background-color: #FFFFFF; -fx-text-fill: #0f954a; -fx-font-weight: bold;");
             LOGGER.fine("**CompanyProducts** Add to cart button disabled");
         }
     }
@@ -423,28 +319,20 @@ public class CompanyProductsController implements Initializable {
     private void enableAddToCartButton() {
         if (selectedSize != null) {
             selectedSize.setDisable(false);
-            selectedSize.setStyle(
-                    "-fx-background-color: #0f954a; -fx-text-fill: white; "
-                    + "-fx-font-weight: bold; -fx-background-radius: 5;"
-            );
+            selectedSize.setStyle("-fx-background-color: #0f954a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;");
             LOGGER.fine("**CompanyProducts** Add to cart button enabled");
         }
     }
 
+    /**
+     * Adds the selected product to the shopping cart.
+     */
     @FXML
     private void addToCart() {
         LOGGER.info("**CompanyProducts** Adding product to cart");
-
-        addProductToCart();
-        showConfirmationMessage();
-    }
-
-    private void addProductToCart() {
         LOGGER.log(Level.INFO, "**CompanyProducts** === ADDING TO CART === Product: {0}, Size: {1}, Price: €{2}",
                 new Object[]{selectedProduct.getName(), selectedSizeLabel, selectedProduct.getPrice()});
-
-        // Aquí implementar la lógica para añadir al carrito
-        // Ejemplo: cont.addToCart(selectedProduct, selectedSizeLabel);
+        showConfirmationMessage();
     }
 
     private void showConfirmationMessage() {
@@ -452,14 +340,13 @@ public class CompanyProductsController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Producto añadido");
         alert.setHeaderText(null);
-        alert.setContentText(
-                selectedProduct.getName()
-                + " (Talla: " + selectedSizeLabel
-                + ") añadido al carrito"
-        );
+        alert.setContentText(selectedProduct.getName() + " (Talla: " + selectedSizeLabel + ") añadido al carrito");
         alert.showAndWait();
     }
 
+    /**
+     * Navigates back to the companies window.
+     */
     @FXML
     private void goBackToCompanies(ActionEvent event) {
         LOGGER.info("**CompanyProducts** Switching back to companies window");
@@ -478,7 +365,6 @@ public class CompanyProductsController implements Initializable {
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
-
             LOGGER.info("**CompanyProducts** Successfully switched to companies window");
 
         } catch (IOException e) {
@@ -486,6 +372,9 @@ public class CompanyProductsController implements Initializable {
         }
     }
 
+    /**
+     * Navigates to the store window.
+     */
     @FXML
     private void goToStore(ActionEvent event) {
         LOGGER.info("**CompanyProducts** Switching to store window");
@@ -504,7 +393,6 @@ public class CompanyProductsController implements Initializable {
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
-
             LOGGER.info("**CompanyProducts** Successfully switched to store window");
 
         } catch (IOException e) {
@@ -512,6 +400,9 @@ public class CompanyProductsController implements Initializable {
         }
     }
 
+    /**
+     * Navigates to the user profile window.
+     */
     @FXML
     private void goToProfile(ActionEvent event) {
         LOGGER.info("**CompanyProducts** Switching to profile window");
@@ -530,7 +421,6 @@ public class CompanyProductsController implements Initializable {
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
-
             LOGGER.info("**CompanyProducts** Successfully switched to profile window");
 
         } catch (IOException e) {
@@ -538,11 +428,16 @@ public class CompanyProductsController implements Initializable {
         }
     }
 
-
+    /**
+     * Loads a product image from the specified path.
+     * 
+     * @param path The path to the image file
+     * @return Image object loaded from the path
+     * @throws IllegalArgumentException if the image cannot be found
+     */
     public static Image loadProductImage(String path) {
         LOGGER.log(Level.INFO, "**CompanyProducts** Loading product image from: {0}", path);
 
-        // 1) Classpath resource (starts with /)
         if (path.startsWith("/")) {
             InputStream is = Product.class.getResourceAsStream(path);
             if (is == null) {
@@ -552,9 +447,7 @@ public class CompanyProductsController implements Initializable {
             return new Image(is);
         }
 
-        // 2) File system path (relative or absolute)
         Path filePath = Paths.get(path);
-
         if (!Files.exists(filePath)) {
             LOGGER.log(Level.SEVERE, "**CompanyProducts** File image not found: {0}", path);
             throw new IllegalArgumentException("File image not found: " + path);
@@ -588,6 +481,9 @@ public class CompanyProductsController implements Initializable {
         }
     }
 
+    /**
+     * Opens the user manual PDF file.
+     */
     @FXML
     private void openUserManual(ActionEvent event) {
         LOGGER.info("**CompanyProducts** Opening user manual");

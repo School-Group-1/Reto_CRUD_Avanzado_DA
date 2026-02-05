@@ -34,9 +34,14 @@ import model.Profile;
 import model.User;
 import report.ReportService;
 
+/**
+ * Controller for modifying the logged-in user's profile information.
+ * Allows users to update their name, surname, telephone, and password.
+ * 
+ * @author acer
+ */
 public class ModifyUserAdminController implements Initializable {
 
-    // Campos FXML
     @FXML
     private GridPane gridpane;
     @FXML
@@ -59,10 +64,6 @@ public class ModifyUserAdminController implements Initializable {
     private Button companiesButton;
     @FXML
     private Button profileButton;
-
-    private Profile profile;
-    private Controller cont;
-
     @FXML
     private Label errorLabel;
     @FXML
@@ -70,13 +71,13 @@ public class ModifyUserAdminController implements Initializable {
     @FXML
     private MenuItem viewManualItem;
 
-    // Datos originales para comparar cambios
+    private Profile profile;
+    private Controller cont;
     private String originalName;
     private String originalSurname;
     private String originalTelephone;
     private ContextMenu contextMenu;
     private MenuItem reportItem;
-    
     private static final Logger LOGGER = Logger.getLogger(ModifyUserAdminController.class.getName());
 
     @Override
@@ -88,16 +89,15 @@ public class ModifyUserAdminController implements Initializable {
         this.originalTelephone = "";
         
         contextMenu = new ContextMenu();
-
         reportItem = new MenuItem("Report");
         reportItem.setOnAction(e -> handleImprimirAction());
-
         contextMenu.getItems().add(reportItem);
         gridpane.setOnContextMenuRequested(this::showContextMenu);
-        
-        LOGGER.info("**ModifyUser** Controller initialized successfully");
     }
 
+    /**
+     * Initializes the controller with user data.
+     */
     public void initData(Profile profile, Controller cont) {
         this.profile = profile;
         this.cont = cont;
@@ -106,7 +106,6 @@ public class ModifyUserAdminController implements Initializable {
         LOGGER.log(Level.INFO, "**ModifyUser** Controller received: {0}", cont);
 
         loadUserData();
-        LOGGER.info("**ModifyUser** User data loaded successfully");
     }
 
     @FXML
@@ -122,17 +121,14 @@ public class ModifyUserAdminController implements Initializable {
             this.originalSurname = profile.getSurname();
             this.originalTelephone = profile.getTelephone();
 
-            // Limpiar campos de contraseña
             passwordText.clear();
             confirmText.clear();
-            
-            LOGGER.log(Level.INFO, "**ModifyUser** Loaded data for user: {0} {1}", 
-                    new Object[]{profile.getName(), profile.getSurname()});
-        } else {
-            LOGGER.warning("**ModifyUser** Profile is null, cannot load data");
         }
     }
 
+    /**
+     * Navigates to the shop window.
+     */
     @FXML
     private void goToShopWindow(ActionEvent event) {
         LOGGER.info("**ModifyUser** Switching to Shop window");
@@ -151,21 +147,19 @@ public class ModifyUserAdminController implements Initializable {
             
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Shop");
             stage.show();
 
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
-            
-            LOGGER.info("**ModifyUser** Successfully switched to Shop window");
 
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "**ModifyUser** Error switching to Shop window: ", e);
-            showAlert("Error", "Could not open Shop window", Alert.AlertType.ERROR);
         }
     }
 
+    /**
+     * Navigates to the companies window.
+     */
     @FXML
     private void goToCompanyWindow(ActionEvent event) {
         LOGGER.info("**ModifyUser** Switching to Company window");
@@ -184,21 +178,19 @@ public class ModifyUserAdminController implements Initializable {
             
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Companies");
             stage.show();
 
-            Node source = (Node) event.getSource();
-            Stage currentStage = (Stage) source.getScene().getWindow();
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
-            
-            LOGGER.info("**ModifyUser** Successfully switched to Company window");
 
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "**ModifyUser** Error switching to Company window: ", e);
-            showAlert("Error", "Could not open Companies window", Alert.AlertType.ERROR);
         }
     }
 
+    /**
+     * Navigates to the profile window.
+     */
     @FXML
     private void goToProfileWindow(ActionEvent event) {
         LOGGER.info("**ModifyUser** Switching to Profile window");
@@ -214,18 +206,14 @@ public class ModifyUserAdminController implements Initializable {
             
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Profile");
             stage.show();
 
             Node source = (Node) event.getSource();
             Stage currentStage = (Stage) source.getScene().getWindow();
             currentStage.close();
-            
-            LOGGER.info("**ModifyUser** Successfully switched to Profile window");
 
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "**ModifyUser** Error switching to Profile window: ", e);
-            showAlert("Error", "Could not open Profile window", Alert.AlertType.ERROR);
         }
     }
 
@@ -235,18 +223,9 @@ public class ModifyUserAdminController implements Initializable {
         openProfileWindow();
     }
 
-    @FXML
-    private boolean hasUnsavedChanges() {
-        boolean hasChanges = !nameText.getText().equals(originalName)
-                || !surnameText.getText().equals(originalSurname)
-                || !telephoneText.getText().equals(originalTelephone)
-                || !passwordText.getText().isEmpty()
-                || !confirmText.getText().isEmpty();
-        
-        LOGGER.log(Level.FINE, "**ModifyUser** Checking unsaved changes: {0}", hasChanges);
-        return hasChanges;
-    }
-
+    /**
+     * Saves the user profile changes.
+     */
     @FXML
     private void handleSaveChanges() {
         LOGGER.info("**ModifyUser** Save changes button clicked");
@@ -266,7 +245,6 @@ public class ModifyUserAdminController implements Initializable {
             if (!hasChanges) {
                 canProceed = false;
                 showError("You haven't made any changes to save.");
-                LOGGER.info("**ModifyUser** No real changes detected");
             }
         }
 
@@ -286,7 +264,6 @@ public class ModifyUserAdminController implements Initializable {
 
         if (updateSuccessful) {
             showError("Success. User modified successfully!");
-            LOGGER.info("**ModifyUser** Opening Profile window after successful update");
             openProfileWindow();
         }
     }
@@ -301,26 +278,22 @@ public class ModifyUserAdminController implements Initializable {
         if (!newPassword.isEmpty() || !confirmPassword.isEmpty()) {
             if (newPassword.isEmpty() && !confirmPassword.isEmpty()) {
                 showError("Please enter a new password");
-                LOGGER.warning("**ModifyUser** Validation error: New password empty but confirmation filled");
                 return !correct;
             }
 
             if (!newPassword.isEmpty() && confirmPassword.isEmpty()) {
                 showError("Please confirm your new password");
-                LOGGER.warning("**ModifyUser** Validation error: New password filled but confirmation empty");
                 return !correct;
             }
 
             if (!newPassword.isEmpty() && !confirmPassword.isEmpty()) {
                 if (!newPassword.equals(confirmPassword)) {
                     showError("Passwords do not match");
-                    LOGGER.warning("**ModifyUser** Validation error: Passwords don't match");
                     return !correct;
                 }
 
                 if (newPassword.equals(profile.getPassword())) {
                     showError("New password cannot be the same as current password");
-                    LOGGER.warning("**ModifyUser** Validation error: New password same as current");
                     return !correct;
                 }
             }
@@ -329,7 +302,6 @@ public class ModifyUserAdminController implements Initializable {
         String telephone = telephoneText.getText();
         if (!telephone.isEmpty() && !telephone.matches("\\d{9,15}")) {
             showError("Telephone must contain only numbers (9-15 digits)");
-            LOGGER.log(Level.WARNING, "**ModifyUser** Validation error: Invalid telephone format: {0}", telephone);
             return !correct;
         }
 
@@ -338,17 +310,14 @@ public class ModifyUserAdminController implements Initializable {
 
         if (name.isEmpty()) {
             showError("Name cannot be empty");
-            LOGGER.warning("**ModifyUser** Validation error: Name empty");
             return !correct;
         }
 
         if (surname.isEmpty()) {
             showError("Surname cannot be empty");
-            LOGGER.warning("**ModifyUser** Validation error: Surname empty");
             return !correct;
         }
 
-        LOGGER.fine("**ModifyUser** Input validation successful");
         return correct;
     }
 
@@ -361,8 +330,6 @@ public class ModifyUserAdminController implements Initializable {
         
         boolean hasRealChanges = nameChanged || surnameChanged || telephoneChanged || passwordChanged;
         
-        LOGGER.log(Level.FINE, "**ModifyUser** Real changes check - Name: {0}, Surname: {1}, Tel: {2}, Pass: {3}",
-                new Object[]{nameChanged, surnameChanged, telephoneChanged, passwordChanged});
         LOGGER.log(Level.FINE, "**ModifyUser** Has real changes: {0}", hasRealChanges);
         
         return hasRealChanges;
@@ -372,16 +339,11 @@ public class ModifyUserAdminController implements Initializable {
     private void updateUser() {
         LOGGER.info("**ModifyUser** Updating user in database");
         
-        String oldName = profile.getName();
-        String oldSurname = profile.getSurname();
-        String oldTelephone = profile.getTelephone();
-        
         profile.setName(nameText.getText());
         profile.setSurname(surnameText.getText());
         profile.setTelephone(telephoneText.getText());
 
         if (!passwordText.getText().isEmpty()) {
-            LOGGER.fine("**ModifyUser** Updating password");
             profile.setPassword(passwordText.getText().trim());
         }
 
@@ -390,10 +352,6 @@ public class ModifyUserAdminController implements Initializable {
         originalName = profile.getName();
         originalSurname = profile.getSurname();
         originalTelephone = profile.getTelephone();
-        
-        LOGGER.log(Level.INFO, "**ModifyUser** User updated - Old: {0} {1} {2}, New: {3} {4} {5}",
-                new Object[]{oldName, oldSurname, oldTelephone, 
-                            profile.getName(), profile.getSurname(), profile.getTelephone()});
     }
 
     @FXML
@@ -404,7 +362,6 @@ public class ModifyUserAdminController implements Initializable {
             errorLabel.setText(message);
             errorLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
         } else {
-            LOGGER.warning("**ModifyUser** errorLabel is null, showing alert instead");
             showAlert("Validation Error", message, Alert.AlertType.ERROR);
         }
     }
@@ -448,8 +405,6 @@ public class ModifyUserAdminController implements Initializable {
             stage.setTitle("Profile");
             stage.show();
             
-            currentStage.close();
-            
             LOGGER.info("**ModifyUser** Successfully opened Profile window");
 
         } catch (IOException e) {
@@ -458,30 +413,6 @@ public class ModifyUserAdminController implements Initializable {
         }
     }
 
-    @FXML
-    private void openWindow(String fxmlFile, String title) {
-        LOGGER.log(Level.INFO, "**ModifyUser** Opening window: {0}", title);
-        
-        try {
-            Stage currentStage = (Stage) cancelButton.getScene().getWindow();
-            currentStage.close();
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle(title);
-            stage.show();
-            
-            LOGGER.log(Level.INFO, "**ModifyUser** Successfully opened window: {0}", title);
-
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "**ModifyUser** Error opening window: ", e);
-            showAlert("Error", "Could not open " + title + " window", Alert.AlertType.ERROR);
-        }
-    }
-    
     @FXML
     private void showContextMenu(ContextMenuEvent event) {
         LOGGER.fine("**ModifyUser** Showing context menu");
@@ -495,18 +426,18 @@ public class ModifyUserAdminController implements Initializable {
 
     private void handleImprimirAction() {
         LOGGER.info("**ModifyUser** Generating user report");
-        Profile user = this.profile;
-
         ReportService reportService = new ReportService();
-        reportService.generateUserReport(user);
-
+        reportService.generateUserReport(this.profile);
         LOGGER.info("**ModifyUser** Report generated successfully");
     }
     
+    /**
+     * Opens the user manual PDF file.
+     */
     @FXML
     private void openUserManual(ActionEvent event) {
         LOGGER.info("**ModifyUser** Opening user manual");
-        
+
         try {
             File pdf = new File("pdfs/User_Manual.pdf");
             if (!pdf.exists()) {

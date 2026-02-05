@@ -163,5 +163,9 @@ public class Controller {
     public List<Purchase> findProductPurchases(Product product) {
         return dao.findProductPurchases(product);
     }
+    
+    public User findUserByUsername(String username) {
+        return dao.findUserByUsername(username);
+    }
 
 }

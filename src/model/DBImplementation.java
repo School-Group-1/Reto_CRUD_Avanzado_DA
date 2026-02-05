@@ -397,4 +397,25 @@ public class DBImplementation implements ClassDAO {
 
         return size_purchases;
     }
+
+    /**
+     * Finds a user by their username.
+     *
+     * @param username The username to search for
+     * @return User object if found, null otherwise
+     */
+    public User findUserByUsername(String username) {
+        try {
+            Query<User> query = session.createQuery(HQL_GET_USER_USERNAME, User.class);
+            query.setParameter("username", username);
+            List<User> result = query.list();
+
+            if (!result.isEmpty()) {
+                return result.get(0);
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

@@ -42,43 +42,84 @@ import model.Profile;
 import report.ReportService;
 
 /**
- * FXML Controller class
- *
+ * Controller class for managing the Companies Table view.
+ * This controller handles the display, editing, and management of company records
+ * in a table format with CRUD operations.
+ * 
  * @author acer
+ * @version 1.0
+ * @since 1.0
  */
 public class CompaniesTableController implements Initializable {
 
+    /** Checkbox to toggle edit mode for the table */
     @FXML
     private CheckBox editCheckBox;
+    
+    /** Table view displaying company records */
     @FXML
     private TableView<Company> tableView;
+    
+    /** Table column for company NIE (tax identification number) */
     @FXML
     private TableColumn<Company, String> nieCol;
+    
+    /** Table column for company name */
     @FXML
     private TableColumn<Company, String> nameCol;
+    
+    /** Table column for company location */
     @FXML
     private TableColumn<Company, String> locationCol;
+    
+    /** Table column for company website URL */
     @FXML
     private TableColumn<Company, String> urlCol;
+    
+    /** Table column containing delete buttons for each company */
     @FXML
     private TableColumn<Company, Void> deleteCol;
+    
+    /** Help menu in the application menu bar */
     @FXML
     private Menu helpMenu;
+    
+    /** Menu item to view the user manual */
     @FXML
     private MenuItem viewManualItem;
+    
+    /** Logout button */
     @FXML
     private Button logout;
     
+    /** Current user profile */
     private Profile profile;
+    
+    /** Application controller for business logic */
     private Controller cont;
     
+    /** Logger for this controller */
     private static final Logger LOGGER = Logger.getLogger(CompaniesTableController.class.getName());
     
+    /** Context menu for additional operations */
     private ContextMenu contextMenu;
+    
+    /** Report menu item in context menu */
     private MenuItem reportItem;
+    
+    /** Currently logged in admin user */
     private Admin loggedAdmin;
+    
+    /** Observable list of companies for the table */
     private ObservableList<Company> companyList = FXCollections.observableArrayList();
 
+    /**
+     * Initializes the controller class.
+     * Sets up the context menu and prepares the table for display.
+     * 
+     * @param url The location used to resolve relative paths for the root object
+     * @param rb The resources used to localize the root object
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LOGGER.info("**CompaniesTable** Initializing Companies Table Window Controller");
@@ -91,6 +132,13 @@ public class CompaniesTableController implements Initializable {
         tableView.setOnContextMenuRequested(this::showContextMenu);
     }
 
+    /**
+     * Initializes the controller with user data and business logic controller.
+     * Loads company data and sets up table columns and edit functionality.
+     * 
+     * @param profile The current user's profile
+     * @param cont The application controller for business logic
+     */
     public void initData(Profile profile, Controller cont) {
         this.profile = profile;
         this.cont = cont;
@@ -107,6 +155,11 @@ public class CompaniesTableController implements Initializable {
         LOGGER.log(Level.INFO, "**CompaniesTable** Finished loading window data. Companies loaded: {0}", companyList.size());
     }
 
+    /**
+     * Navigates to the products management window.
+     * 
+     * @param event The action event triggered by the navigation button
+     */
     @FXML
     private void goToProducts(ActionEvent event) {
         LOGGER.log(Level.INFO, "**CompaniesTable** Switching to products window");
@@ -130,6 +183,11 @@ public class CompaniesTableController implements Initializable {
         }
     }
 
+    /**
+     * Navigates to the users management window.
+     * 
+     * @param event The action event triggered by the navigation button
+     */
     @FXML
     private void goToUsers(ActionEvent event) {
         LOGGER.log(Level.INFO, "**CompaniesTable** Switching to users window");
@@ -153,6 +211,10 @@ public class CompaniesTableController implements Initializable {
         }
     }
 
+    /**
+     * Configures the edit checkbox functionality.
+     * When selected, enables editing of table cells; when deselected, disables editing.
+     */
     public void checkbox() {
         LOGGER.log(Level.INFO, "**CompaniesTable** Configuring edit checkbox. Initial state: {0}", editCheckBox.isSelected());
         
@@ -170,6 +232,11 @@ public class CompaniesTableController implements Initializable {
         });
     }
 
+    /**
+     * Updates the editability of table columns based on checkbox state.
+     * 
+     * @param isEditable {@code true} to make columns editable, {@code false} otherwise
+     */
     private void updateColumnEditability(boolean isEditable) {
         nameCol.setEditable(isEditable);
         nieCol.setEditable(isEditable);
@@ -178,11 +245,21 @@ public class CompaniesTableController implements Initializable {
         LOGGER.log(Level.FINE, "**CompaniesTable** Column editability updated to: {0}", isEditable);
     }
 
+    /**
+     * Sets the logged in admin user.
+     * 
+     * @param admin The currently logged in admin user
+     */
     public void setLoggedAdmin(Admin admin) {
         this.loggedAdmin = admin;
         LOGGER.log(Level.INFO, "**CompaniesTable** Logged admin set: {0}", admin);
     }
 
+    /**
+     * Sets up editable columns with cell factories and edit commit handlers.
+     * Configures text field cell factories for editable columns and defines
+     * behavior when cell editing is committed.
+     */
     private void setupEditableColumns() {
         LOGGER.info("**CompaniesTable** Setting up editable columns");
         
@@ -228,6 +305,10 @@ public class CompaniesTableController implements Initializable {
         LOGGER.info("**CompaniesTable** Editable columns setup completed");
     }
 
+    /**
+     * Sets up table columns with their respective cell value factories.
+     * Maps each column to a property of the Company class.
+     */
     private void setupColumns() {
         LOGGER.info("**CompaniesTable** Setting up table columns");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -237,6 +318,10 @@ public class CompaniesTableController implements Initializable {
         LOGGER.info("**CompaniesTable** Table columns setup completed");
     }
 
+    /**
+     * Adds a new empty company to the table and database.
+     * Creates a new Company object with empty fields and persists it.
+     */
     @FXML
     private void addUser() {
         LOGGER.info("**CompaniesTable** Adding new company");
@@ -247,6 +332,12 @@ public class CompaniesTableController implements Initializable {
         LOGGER.log(Level.INFO, "**CompaniesTable** New company added with ID: {0}", newComp.getNie());
     }
 
+    /**
+     * Shows a confirmation dialog for company deletion.
+     * If confirmed, deletes the company from the database and table.
+     * 
+     * @param company The company to be deleted
+     */
     private void confirmDelete(Company company) {
         LOGGER.log(Level.INFO, "**CompaniesTable** Confirming deletion of company: {0}", company.getName());
         
@@ -284,6 +375,10 @@ public class CompaniesTableController implements Initializable {
         }
     }
 
+    /**
+     * Sets up the delete column with delete buttons for each row.
+     * Creates a button in each row that triggers the delete confirmation process.
+     */
     private void setupDeleteColumn() {
         LOGGER.info("**CompaniesTable** Setting up delete column");
         deleteCol.setCellFactory(col -> new TableCell<Company, Void>() {
@@ -306,6 +401,11 @@ public class CompaniesTableController implements Initializable {
         LOGGER.info("**CompaniesTable** Delete column setup completed");
     }
 
+    /**
+     * Logs out the current user and navigates to the login window.
+     * 
+     * @param event The action event triggered by the logout button
+     */
     @FXML
     private void logout(ActionEvent event) {
         LOGGER.log(Level.INFO, "**CompaniesTable** Logging out, switching to login window");
@@ -328,6 +428,11 @@ public class CompaniesTableController implements Initializable {
         }
     }
     
+    /**
+     * Shows the context menu at the specified location.
+     * 
+     * @param event The context menu event containing screen coordinates
+     */
     @FXML
     private void showContextMenu(ContextMenuEvent event) {
         LOGGER.fine("**CompaniesTable** Showing context menu");
@@ -335,6 +440,10 @@ public class CompaniesTableController implements Initializable {
         event.consume();
     }
     
+    /**
+     * Handles the report generation action.
+     * Generates a PDF report of all companies in the system.
+     */
     private void handleImprimirAction() {
         LOGGER.info("**CompaniesTable** Generating companies report");
         List<Company> companies = cont.findAllCompanies();
@@ -346,6 +455,11 @@ public class CompaniesTableController implements Initializable {
         LOGGER.info("**CompaniesTable** Companies report generated successfully");
     }
     
+    /**
+     * Opens the user manual PDF file.
+     * 
+     * @param event The action event triggered by the view manual menu item
+     */
     @FXML
     private void openUserManual(ActionEvent event) {
         LOGGER.info("**CompaniesTable** Opening user manual");
@@ -364,6 +478,9 @@ public class CompaniesTableController implements Initializable {
         }
     }
 
+    /**
+     * Refreshes the table data by reloading companies from the database.
+     */
     private void refreshTable() {
         LOGGER.fine("**CompaniesTable** Refreshing table data");
         companyList.setAll(cont.findAllCompanies());
