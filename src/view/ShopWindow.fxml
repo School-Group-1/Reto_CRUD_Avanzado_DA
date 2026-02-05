@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ShopWindowController">
+<GridPane prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ShopWindowController">
    <columnConstraints>
       <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
       <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="230.0" />
@@ -37,7 +37,7 @@
             <Image url="@../images/LogoProjectoDin.png" />
          </image>
       </ImageView>
-      <TextField maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minWidth="100.0" onKeyTyped="#searcher" prefHeight="26.0" promptText="Search" style="-fx-background-color: e2e2e2; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
+      <TextField fx:id="sear" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minWidth="100.0" onKeyTyped="#searcher" prefHeight="26.0" promptText="Search" style="-fx-background-color: e2e2e2; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>

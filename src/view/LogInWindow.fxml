@@ -40,13 +40,13 @@
             <RowConstraints maxHeight="82.80000915527344" minHeight="10.0" prefHeight="58.99998779296874" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+            <TextField id="TextField_Username" fx:id="TextField_Username" alignment="CENTER" promptText="Username" style="-fx-background-radius: 15; -fx-border-color: #000000; -fx-border-radius: 15;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <PasswordField id="PasswordField_Password" fx:id="PasswordField_Password" alignment="CENTER" promptText="Password" style="-fx-background-radius: 15; -fx-border-color: #000000; -fx-border-radius: 15;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
                   <Image url="@../images/mail_34dp_5084C1_FILL0_wght400_GRAD0_opsz40.png" />
                </image>
             </ImageView>
-            <TextField id="TextField_Username" fx:id="TextField_Username" alignment="CENTER" promptText="Username" style="-fx-background-radius: 15; -fx-border-color: #000000; -fx-border-radius: 15;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <image>
                   <Image url="@../images/lock_40dp_5084C1_FILL0_wght400_GRAD0_opsz40.png" />

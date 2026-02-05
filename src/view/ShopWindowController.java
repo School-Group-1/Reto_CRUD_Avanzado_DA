@@ -6,6 +6,7 @@
 package view;
 
 // import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import controller.Controller;
 import java.awt.Desktop;
 import java.io.EOFException;
@@ -46,12 +47,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -64,6 +68,7 @@ import model.DBImplementation;
 import model.Product;
 import model.Profile;
 import model.Size;
+import report.ReportService;
 import utilidades.MyObjectOutputStream;
 import utilidades.Utilidades;
 
@@ -111,6 +116,8 @@ public class ShopWindowController implements Initializable {
     private Profile profile;
 
     private Controller cont;
+    @FXML
+    private TextField sear;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -165,6 +172,12 @@ public class ShopWindowController implements Initializable {
             Node card = createProductCard(prod);
             productcardList.getChildren().add(card);
         }
+        /*
+        contextMenu = new ContextMenu();
+        reportItem = new MenuItem("Report");
+        reportItem.setOnAction(e -> handleImprimirAction());
+        contextMenu.getItems().add(reportItem);
+        sear.setOnContextMenuRequested(this::showContextMenu);*/
     }
 
     @FXML
@@ -419,6 +432,27 @@ public class ShopWindowController implements Initializable {
         } catch (IOException ex) {
             //   LOGGER.log(Level.SEVERE, "**ShopWindow** error opening user manual", ex);
         }
+    }/*
+    private void showContextMenu(ContextMenuEvent event) {
+        LOGGER.fine("**CompanyProducts** Showing context menu");
+        contextMenu.show(productContainer, event.getScreenX(), event.getScreenY());
+        event.consume();
     }
 
+    private void handleImprimirAction() {
+        LOGGER.info("**CompanyProducts** Generating company products report");
+        if (company != null && products != null && !products.isEmpty()) {
+            LOGGER.log(Level.INFO, "**CompanyProducts** Generating report for {0} products", products.size());
+            ReportService reportService = new ReportService();
+            reportService.generateCompanyProductsReport(company, products);
+            LOGGER.info("**CompanyProducts** Report generated successfully");
+        } else {
+            LOGGER.warning("**CompanyProducts** No products available to generate report");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Data");
+            alert.setHeaderText(null);
+            alert.setContentText("No products available to generate report.");
+            alert.showAndWait();
+        }
+    }*/
 }

@@ -22,16 +22,14 @@ public class ReportService {
                     .getResourceAsStream("/report/companies_report.jrxml");
 
             // 2. Compilar el reporte
-            JasperReport jasperReport
-                    = JasperCompileManager.compileReport(reportStream);
+            JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
 
             // 3. Pasar los datos
             JRBeanCollectionDataSource dataSource
                     = new JRBeanCollectionDataSource(companies);
 
             // 4. Rellenar el reporte
-            JasperPrint jasperPrint
-                    = JasperFillManager.fillReport(
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
                             jasperReport,
                             new HashMap<>(),
                             dataSource
