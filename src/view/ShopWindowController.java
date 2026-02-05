@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package view;
 
-// import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+
 import controller.Controller;
 import java.awt.Desktop;
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import static java.lang.String.valueOf;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,9 +31,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javafx.application.Application.launch;
 import javafx.collections.ObservableList;
-import javafx.collections.ListChangeListener;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -57,77 +53,189 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.CartItem;
 import model.Company;
-import model.DBImplementation;
 import model.Product;
 import model.Profile;
 import model.Size;
 import report.ReportService;
 import utilidades.MyObjectOutputStream;
-import utilidades.Utilidades;
 
 /**
- * FXML Controller class
- *
+ * Controller for the main shop window (ShopWindow).
+ * 
+ * This class manages the user interface of the shop, including product display,
+ * shopping cart management, and interactions with user profile and companies.
+ * Implements the JavaFX Initializable interface for component initialization.
+ * 
  * @author 2dami
+ * @version 1.0
+ * @see Initializable
+ * @see Controller
+ * @see Profile
+ * @see Product
+ * @see CartItem
+ * @see Company
  */
+
+
+
+
 public class ShopWindowController implements Initializable {
 
+    
+    
+    /**
+     * List of items in the shopping cart.
+     */
     private ArrayList<CartItem> talis;
+    
+    /**
+     * Table to display cart items.
+     */
     @FXML
     private TableView<CartItem> CartTable;
+    
+    /**
+     * Button to empty the cart.
+     */
     @FXML
     private Button btnEmptyCart;
+    
+    /**
+     * Button to purchase cart items.
+     */
     @FXML
     private Button btnBuy;
 
+    /**
+     * File storing the user's cart.
+     */
     private File fichC;
+    
+    /**
+     * List of available products.
+     */
     private ArrayList<Product> Items;
 
+    /**
+     * Shopping cart.
+     */
     public ArrayList Cart;
+    
+    /**
+     * Context menu for the search field.
+     */
     private ContextMenu contextMenu;
+    
+    /**
+     * Button to access the companies window.
+     */
     @FXML
     private Button btnCompanies;
+    
+    /**
+     * Observable list for the cart.
+     */
     public ObservableList<CartItem> carrito;
+    
+    /**
+     * Button to access user profile.
+     */
     @FXML
     private Button btnUser;
+    
+    /**
+     * Button to access the store.
+     */
     @FXML
     private Button btnStore;
+    
+    /**
+     * Vertical container for product cards.
+     */
     @FXML
     private VBox productcardList;
 
+    /**
+     * Table column for item quantity.
+     */
     @FXML
     private TableColumn<CartItem, Integer> tcAmout;
+    
+    /**
+     * Table column for product name.
+     */
     @FXML
     private TableColumn<CartItem, String> tcItem;
+    
+    /**
+     * Table column for price.
+     */
     @FXML
     private TableColumn<CartItem, String> tcPrice;
 
-    private String uname;
     /**
-     * Initializes the controller class.
+     * Username.
+     */
+    private String uname;
+    
+    /**
+     * Current user's profile.
      */
     private Profile profile;
+    
+    /**
+     * Logger for recording events and errors.
+     */
     private static final Logger LOGGER = Logger.getLogger(ShopWindowController.class.getName());
+    
+    /**
+     * Main application controller.
+     */
     private Controller cont;
+    
+    /**
+     * Text field for search.
+     */
     @FXML
     private TextField sear;
+    
+    /**
+     * Menu item for generating reports.
+     */
     private MenuItem reportItem;
 
+    /**
+     * Initializes the controller class.
+     * 
+     * @param url Relative location of the FXML file
+     * @param rb Resources to locate objects
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 
+    /**
+     * Initializes controller data.
+     * 
+     * This method configures user data, loads products from the database,
+     * retrieves the user's saved cart, and sets up the graphical interface.
+     * 
+     * @param profile Current user's profile
+     * @param cont Main application controller
+     * @throws IOException If an error occurs reading the cart file
+     */
     public void initData(Profile profile, Controller cont) throws IOException {
         //Hacer que Items muestre Productos de la base de datos en la vista
+        
         LOGGER.info("**ShopWindow** Initializing controller");
+        
         this.profile = profile;
         this.cont = cont;
         ObjectInputStream ois = null;
@@ -182,17 +290,33 @@ public class ShopWindowController implements Initializable {
         LOGGER.info("**ShopWindow** Data initialized successfully");
     }
 
+    /**
+     * Shows the context menu on the search field.
+     * 
+     * @param event Context menu event
+     */
     private void showContextMenu(ContextMenuEvent event) {
         LOGGER.info("**ShopWindow** Context menu opened");
         contextMenu.show(sear, event.getScreenX(), event.getScreenY());
         event.consume();
     }
 
+    /**
+     * Handles the event to empty the cart list.
+     * 
+     * @param event Button action event
+     */
     @FXML
     private void emptyList(ActionEvent event) {
         clearC();
     }
 
+    /**
+     * Handles the action to generate a cart report.
+     * 
+     * This method uses ReportService to generate a report of the current cart.
+     * If the cart is empty, shows a warning message.
+     */
     private void handleGenerarReporteAction() {
         LOGGER.info("**ShopWindow** Generating cart report");
 
@@ -210,6 +334,11 @@ public class ShopWindowController implements Initializable {
         }
     }
 
+    /**
+     * Clears the shopping cart.
+     * 
+     * This method deletes the cart file and clears local lists.
+     */
     private void clearC() {
         //File fichAux = new File("Carrito"+uname+"aux.dat");
         // fichAux.renameTo(fichC);
@@ -220,6 +349,14 @@ public class ShopWindowController implements Initializable {
 
     }
 
+    /**
+     * Handles purchasing the current cart.
+     * 
+     * Shows a confirmation dialog and, if the user confirms, reduces the stock
+     * of purchased products and clears the cart.
+     * 
+     * @param event Button action event
+     */
     @FXML
     private void buyCart(ActionEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -231,9 +368,9 @@ public class ShopWindowController implements Initializable {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 System.out.println("Usuario confirmó");
-                // Tu lógica aquí
+
                 for (CartItem ci : talis) {
-                    //TODO borrar stock correspondiente
+                
                     cont.lowerStock(ci);
                 }
                 clearC();
@@ -248,6 +385,11 @@ public class ShopWindowController implements Initializable {
         });
     }
 
+    /**
+     * Navigates to the companies window.
+     * 
+     * @param event Button action event
+     */
     @FXML
     private void goToCompanies(ActionEvent event
     ) {
@@ -271,6 +413,11 @@ public class ShopWindowController implements Initializable {
         }
     }
 
+    /**
+     * Navigates to the user profile window.
+     * 
+     * @param event Button action event
+     */
     @FXML
     private void goToProfile(ActionEvent event) {
         try {
@@ -293,6 +440,15 @@ public class ShopWindowController implements Initializable {
         }
     }
 
+    /**
+     * Creates a visual card for a product.
+     * 
+     * Generates a graphical component displaying the image, name, description
+     * and price of the product, along with a button to add it to the cart.
+     * 
+     * @param product Product to display
+     * @return JavaFX Node representing the product card
+     */
     private Node createProductCard(Product product) {
         HBox card = new HBox(15);
         card.setPadding(new Insets(15));
@@ -351,6 +507,14 @@ public class ShopWindowController implements Initializable {
         return card;
     }
 
+    /**
+     * Adds a product to the shopping cart.
+     * 
+     * Shows a dialog to select the product size and then adds
+     * the item to the cart, updating both the in-memory list and the file.
+     * 
+     * @param product Product to add to the cart
+     */
     private void addToCart(Product product) {
         Size sz = null;
 
@@ -370,7 +534,6 @@ public class ShopWindowController implements Initializable {
         String selectedLabel = dialog.showAndWait().orElse(null);
 
         if (selectedLabel != null) {
-            // Buscar el objeto Size correspondiente
             for (Size s : product.getSizes()) {
                 if (s.getLabel().equals(selectedLabel)) {
                     sz = s;
@@ -414,10 +577,20 @@ public class ShopWindowController implements Initializable {
 
     }
 
+    /**
+     * Loads an image from different sources.
+     * 
+     * Can load images from classpath (if path starts with "/")
+     * or from the file system.
+     * 
+     * @param path Path of the image to load
+     * @return Loaded Image object
+     * @throws IllegalArgumentException If the image is not found at the specified path
+     */
     public static Image
             loadImage(String path) {
 
-        // 1) Classpath resource (starts with /)
+        
         if (path.startsWith("/")) {
             InputStream is = Product.class
                     .getResourceAsStream(path);
@@ -427,7 +600,7 @@ public class ShopWindowController implements Initializable {
             return new Image(is);
         }
 
-        // 2) File system path (relative or absolute)
+  
         Path filePath = Paths.get(path);
 
         if (!Files.exists(filePath)) {
@@ -437,10 +610,20 @@ public class ShopWindowController implements Initializable {
         return new Image(filePath.toUri().toString());
     }
 
+    /**
+     * Handles the search event in the text field.
+     * 
+     * @param event Keyboard event
+     */
     @FXML
     private void searcher(KeyEvent event) {
     }
 
+    /**
+     * Opens the user manual in PDF format.
+     * 
+     * @param event Button action event
+     */
     @FXML
      private void manual_open(ActionEvent event) {
         LOGGER.info("**ShopWindow** Opening user manual");
