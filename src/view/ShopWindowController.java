@@ -5,13 +5,18 @@
  */
 package view;
 
+// import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import controller.Controller;
+import java.awt.Desktop;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import static java.lang.String.valueOf;
 import java.net.URL;
 import java.nio.file.Files;
@@ -37,20 +42,30 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.CartItem;
 import model.Company;
 import model.DBImplementation;
 import model.Product;
 import model.Profile;
+import model.Size;
+import utilidades.MyObjectOutputStream;
+import utilidades.Utilidades;
 
 /**
  * FXML Controller class
@@ -59,96 +74,149 @@ import model.Profile;
  */
 public class ShopWindowController implements Initializable {
 
+    private ArrayList<CartItem> talis;
     @FXML
-    private TableView<Product> CartTable;
+    private TableView<CartItem> CartTable;
     @FXML
     private Button btnEmptyCart;
     @FXML
     private Button btnBuy;
-    @FXML
-    private Button btnaddToCart;
-    
-    private File fichE;
+
+    private File fichC;
     private ArrayList<Product> Items;
-    
+
     public ArrayList Cart;
-    
+
     @FXML
     private Button btnCompanies;
-    public ObservableList<Product> carrito;
+    public ObservableList<CartItem> carrito;
     @FXML
     private Button btnUser;
     @FXML
     private Button btnStore;
     @FXML
     private VBox productcardList;
-  
+
     @FXML
-    private TableColumn<?, ?> tcAmout;
+    private TableColumn<CartItem, Integer> tcAmout;
     @FXML
-    private TableColumn<?, ?> tcItem;
+    private TableColumn<CartItem, String> tcItem;
     @FXML
-    private TableColumn<?, ?> tcPrice;
+    private TableColumn<CartItem, String> tcPrice;
 
     private String uname;
     /**
      * Initializes the controller class.
      */
     private Profile profile;
-    
+
     private Controller cont;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         
+
     }
-    
-    public void initData(Profile profile, Controller cont) {
+
+    public void initData(Profile profile, Controller cont) throws IOException {
         //Hacer que Items muestre Productos de la base de datos en la vista
         this.profile = profile;
         this.cont = cont;
-
+        ObjectInputStream ois = null;
+        boolean filend = false;
         System.out.println("Perfil: " + profile);
         System.out.println("Controller: " + cont);
-
+        talis = new ArrayList<CartItem>();
         //Hacer que Items muestre Productos de la base de datos en la vista 
         // System.out.println(cont);
-        uname = "Example User Name";
+        uname = profile.getName();
+        fichC = new File("Carrito" + uname + ".dat");
+
+        System.out.println(uname);
         List<Product> products = cont.findAllProducts();
-        /*if(fichE.exists()){
-            if (fichE.getName().contains(uname)){
-            
-            carrito=FXCollections.observableList(products);
-            tcAmout.setCellValueFactory(new PropertyValueFactory<>("atributoClase"));
-            tcItem.setCellValueFactory(new PropertyValueFactory<>("atributoClase"));
-            tcPrice.setCellValueFactory(new PropertyValueFactory<>("atributoClase"));
-            
-            CartTable.setItems(carrito);
+        if (fichC.exists()) {
+            if (fichC.getName().contains(uname)) {
+                try {
+
+                    ois = new ObjectInputStream(new FileInputStream(fichC));
+                    while (!filend) {
+                        CartItem ci = (CartItem) ois.readObject();
+                        talis.add(ci);
+                    }
+
+                    ois.close();
+                } catch (FileNotFoundException e) { //Excepcion no se ha encontrado el Fichero
+                    e.printStackTrace();
+                } catch (IOException e) { // Excepcion error al acceder al fichero
+                    e.printStackTrace();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
-        }else{
-            fichE=new File("Carrito"+uname+".dat");
-        }*/
+        }
+
+        tcAmout.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        tcItem.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        tcPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        carrito = FXCollections.observableList(talis);
+        CartTable.setItems(carrito);
+
         for (Product prod : products) {
             Node card = createProductCard(prod);
             productcardList.getChildren().add(card);
         }
     }
-  
+
     @FXML
     private void emptyList(ActionEvent event) {
+        clearC();
+    }
+
+    private void clearC() {
+        //File fichAux = new File("Carrito"+uname+"aux.dat");
+        // fichAux.renameTo(fichC);
+        fichC.delete();
+        talis.clear();
+        carrito = FXCollections.observableArrayList(talis);
+        CartTable.setItems(carrito);
+
     }
 
     @FXML
     private void buyCart(ActionEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("¿Do you really want to buy this?");
+
+        // Opcional: Personalizar botones
+        // alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                System.out.println("Usuario confirmó");
+                // Tu lógica aquí
+                for (CartItem ci : talis) {
+                    //TODO borrar stock correspondiente
+                    cont.lowerStock(ci);
+                }
+                clearC();
+                alert.close();
+            }
+        });
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.CANCEL) {
+                System.out.println("Usuario confirmó");
+                alert.close();
+            }
+        });
     }
 
-
     @FXML
-    private void goToCompanies(ActionEvent event) {
+    private void goToCompanies(ActionEvent event
+    ) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CompanyWindow.fxml"));
             Parent root = loader.load();
-            
+
             view.CompanyWindowController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -170,7 +238,7 @@ public class ShopWindowController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfileWindow.fxml"));
             Parent root = loader.load();
-            
+
             view.ProfileWindowController viewController = loader.getController();
             viewController.initData(profile, cont);
 
@@ -185,7 +253,7 @@ public class ShopWindowController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }    
+    }
 
     private Node createProductCard(Product product) {
         HBox card = new HBox(15);
@@ -235,9 +303,9 @@ public class ShopWindowController implements Initializable {
                 + "-fx-text-fill: green;"
                 + "-fx-border-radius: 6;"
         );
-        addCButton.setOnMouseClicked(e->addToCart(product));
+        addCButton.setOnMouseClicked(e -> addToCart(product));
         rightBox.getChildren().addAll(priceLabel, addCButton);
-        
+
         HBox.setHgrow(textBox, Priority.ALWAYS);
 
         card.getChildren().addAll(imageView, textBox, rightBox);
@@ -245,21 +313,76 @@ public class ShopWindowController implements Initializable {
         return card;
     }
 
-    private void addToCart( Product product) {
-        try {
-            ObjectInputStream ois=new ObjectInputStream(new FileInputStream(fichE));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
+    private void addToCart(Product product) {
+        Size sz = null;
+
+// Crear lista de opciones (strings)
+        List<String> sizeLabels = new ArrayList<>();
+        for (Size s : product.getSizes()) {
+            sizeLabels.add(s.getLabel());
         }
+
+// Crear ChoiceDialog
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(sizeLabels.get(0), sizeLabels);
+        dialog.setTitle("Choose Size");
+        dialog.setHeaderText("What size do you want?");
+        dialog.setContentText("Select a size:");
+
+// Mostrar y obtener resultado
+        String selectedLabel = dialog.showAndWait().orElse(null);
+
+        if (selectedLabel != null) {
+            // Buscar el objeto Size correspondiente
+            for (Size s : product.getSizes()) {
+                if (s.getLabel().equals(selectedLabel)) {
+                    sz = s;
+                    System.out.println(s.getLabel());
+                    break;
+                }
+            }
+        }
+
+        System.out.println("añadiendo a carrito");
+        CartItem nuevoItem = new CartItem(product, sz);
+
+        talis.add(nuevoItem);
+        if (fichC.exists()) {
+            try {
+                MyObjectOutputStream moos = new MyObjectOutputStream(new FileOutputStream(fichC, true));
+                moos.writeObject(nuevoItem);
+                moos.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichC));
+                oos.writeObject(nuevoItem);
+                oos.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ShopWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        carrito = FXCollections.observableArrayList(talis);
+
+        CartTable.setItems(carrito);
+
+        System.out.println(
+                "añadido a carrito\n " + carrito);
+
     }
-    
-    public static Image loadImage(String path) {
+
+    public static Image
+            loadImage(String path) {
 
         // 1) Classpath resource (starts with /)
         if (path.startsWith("/")) {
-            InputStream is = Product.class.getResourceAsStream(path);
+            InputStream is = Product.class
+                    .getResourceAsStream(path);
             if (is == null) {
                 throw new IllegalArgumentException("Classpath image not found: " + path);
             }
@@ -275,4 +398,27 @@ public class ShopWindowController implements Initializable {
 
         return new Image(filePath.toUri().toString());
     }
+
+    @FXML
+    private void searcher(KeyEvent event) {
+    }
+
+    @FXML
+    private void manual_open(ActionEvent event) {
+        //LOGGER.info("**ShopWindow** Opening user manual");
+
+        try {
+            File pdf = new File("pdfs/User_Manual.pdf");
+            if (!pdf.exists()) {
+                //   LOGGER.info("**ShopWindow** User manual file not found: pdfs/User_Manual.pdf");
+                return;
+            }
+
+            Desktop.getDesktop().open(pdf);
+            //  LOGGER.info("**ShopWindow** User manual opened successfully");
+        } catch (IOException ex) {
+            //   LOGGER.log(Level.SEVERE, "**ShopWindow** error opening user manual", ex);
+        }
+    }
+
 }

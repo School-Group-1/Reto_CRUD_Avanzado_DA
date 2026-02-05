@@ -49,4 +49,6 @@ public interface ClassDAO {
     List<Purchase> findSizePurchases(Size size);
     List<Purchase> findProductPurchases(Product product);
     User findUserByUsername(String username);
+
+    public void lowerStock(CartItem ci);
 }

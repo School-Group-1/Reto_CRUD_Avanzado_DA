@@ -7,6 +7,7 @@ package controller;
 
 import java.util.List;
 import javafx.collections.ObservableList;
+import model.CartItem;
 import model.ClassDAO;
 import model.Company;
 import model.Product;
@@ -314,6 +315,10 @@ public class Controller {
     
     public User findUserByUsername(String username) {
         return dao.findUserByUsername(username);
+    }
+
+    public void lowerStock(CartItem ci) {
+        dao.lowerStock(ci);
     }
 
 }
