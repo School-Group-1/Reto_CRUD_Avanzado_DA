@@ -71,7 +71,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToCompanies" prefHeight="40.0" prefWidth="239.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies" VBox.vgrow="ALWAYS">
+            <Button fx:id="companies" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goToCompanies" prefHeight="40.0" prefWidth="239.0" style="-fx-background-color: transparent; -fx-text-fill: #0f954a; -fx-font-weight: bold;" text="Companies" VBox.vgrow="ALWAYS">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                      <image>
